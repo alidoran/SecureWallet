@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">SecureWallet</string>
+    <string name="user_name">user name</string>
+    <string name="password">Password</string>
+    <string name="enter">Enter</string>
+    <string name="save_username">Save UserName</string>
+    <string name="sign_up">SignUp</string>
+    <string name="enter_finger_print">Enter by fingerprint</string>
+    <string name="title_activity_login2">LoginActivity2</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="view_tag">view_tag</string>
+    <string name="error_read_data">خطا در دریافت اطلاعات</string>
+    <string name="no_connect_server">اتصال با سرور برقرار نشد</string>
+    <string name="retry">تلاش مجدد</string>
+    <string name="not_found_item">موردی یافت نشد!</string>
+    <string name="field_error">وارد کردن این فیلد اجباریست</string>
+    <string name="same_pass_error_message">Two Password field must same together</string>
+</resources>

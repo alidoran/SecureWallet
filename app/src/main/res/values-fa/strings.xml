@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">کیف امن</string>
+    <string name="user_name">نام کاربری</string>
+    <string name="password">کلمه عبور</string>
+    <string name="enter">ورود</string>
+    <string name="save_username">ذخیره نام کاربری</string>
+    <string name="sign_up">ثبت نام</string>
+    <string name="enter_finger_print">ورود با اثر انگشت</string>
+
+</resources>

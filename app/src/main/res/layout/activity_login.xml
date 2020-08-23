@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+>
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center"
+android:orientation="vertical"
+tools:context="views.LoginActivity">
+
+<com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/login_user_name_lay"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/normal_margin"
+    android:layout_marginEnd="@dimen/normal_margin"
+    android:hint="@string/user_name">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/login_user_name_edt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</com.google.android.material.textfield.TextInputLayout>
+
+<com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/login_password_layout"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/normal_margin"
+    android:layout_marginTop="@dimen/normal_margin"
+    android:layout_marginEnd="@dimen/normal_margin"
+    android:hint="@string/password">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/login_password_edt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</com.google.android.material.textfield.TextInputLayout>
+
+<CheckBox
+    android:id="@+id/login_remember_chk"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    android:layout_marginStart="@dimen/normal_margin"
+    android:layout_marginTop="@dimen/low_margin"
+    android:text="@string/save_username" />
+
+<androidx.appcompat.widget.AppCompatTextView
+    android:id="@+id/login_finger_print_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="@dimen/normal_margin"
+    android:text="@string/enter_finger_print"
+    android:textColor="@color/md_blue_700" />
+
+<androidx.appcompat.widget.AppCompatTextView
+    android:id="@+id/login_sign_up_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="@dimen/normal_margin"
+    android:text="@string/sign_up"
+    android:textColor="@color/md_blue_700" />
+
+<com.google.android.material.button.MaterialButton
+    android:id="@+id/login_ok_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/extra_margin"
+    android:text="@string/enter" />
+
+</LinearLayout></ScrollView>
