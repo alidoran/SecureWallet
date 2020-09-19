@@ -50,6 +50,7 @@ public class LoginActivity extends BaseActivity {
     private void initEvent() {
         btnOk.setOnClickListener(v -> {
             setUserNamePref();
+            startActivity(new Intent(this , MainActivity.class));
         });
         viewSignUp.setOnClickListener(v->{
             startActivity(new Intent(this, SignupActivity.class));
