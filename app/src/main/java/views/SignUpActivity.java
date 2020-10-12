@@ -15,7 +15,7 @@ import java.util.List;
 
 import base.BaseActivity;
 
-public class SignupActivity extends BaseActivity {
+public class SignUpActivity extends BaseActivity {
 
     private TextInputLayout layName;
     private TextInputEditText edtName;

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="views.SignupActivity">
+    tools:context="views.SignUpActivity">
 
     <ScrollView
         android:id="@+id/sign_up_main_scroll"

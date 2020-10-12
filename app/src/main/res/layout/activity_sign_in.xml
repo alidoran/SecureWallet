@@ -11,10 +11,10 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:gravity="center"
 android:orientation="vertical"
-tools:context="views.LoginActivity">
+tools:context="views.SignInActivity">
 
 <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/login_user_name_lay"
+    android:id="@+id/sign_in_user_name_lay"
     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,29 +23,29 @@ tools:context="views.LoginActivity">
     android:hint="@string/user_name">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/login_user_name_edt"
+        android:id="@+id/sign_in_user_name_edt"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </com.google.android.material.textfield.TextInputLayout>
 
-<com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/login_password_layout"
-    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/normal_margin"
-    android:layout_marginTop="@dimen/normal_margin"
-    android:layout_marginEnd="@dimen/normal_margin"
-    android:hint="@string/password">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_in_password_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:hint="@string/password">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/login_password_edt"
+        android:id="@+id/sign_in_password_edt"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </com.google.android.material.textfield.TextInputLayout>
 
 <CheckBox
-    android:id="@+id/login_remember_chk"
+    android:id="@+id/sign_in_remember_chk"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="start"
@@ -54,7 +54,7 @@ tools:context="views.LoginActivity">
     android:text="@string/save_username" />
 
 <androidx.appcompat.widget.AppCompatTextView
-    android:id="@+id/login_finger_print_view"
+    android:id="@+id/sign_in_finger_print_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
@@ -63,7 +63,7 @@ tools:context="views.LoginActivity">
     android:textColor="@color/md_blue_700" />
 
 <androidx.appcompat.widget.AppCompatTextView
-    android:id="@+id/login_sign_up_view"
+    android:id="@+id/sign_in_sign_up_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
@@ -72,7 +72,7 @@ tools:context="views.LoginActivity">
     android:textColor="@color/md_blue_700" />
 
 <com.google.android.material.button.MaterialButton
-    android:id="@+id/login_ok_btn"
+    android:id="@+id/sign_in_ok_btn"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/extra_margin"

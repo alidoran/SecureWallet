@@ -10,6 +10,14 @@ import base.BaseApplication;
 public class PrefManager {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
+    private static  PrefManager prefManager;
+
+    public static PrefManager getInstance(){
+        if (prefManager == null)
+            prefManager = new PrefManager();
+        return prefManager;
+    }
+
 
     public PrefManager() {
         pref = BaseApplication.getContext().getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -23,6 +31,7 @@ public class PrefManager {
     private String PREF_NAME = "androidhive-settings";
     private String fingerprintEnabled = "FingerprintEnabled";
     private String userName = "UserName";
+    private String accountList = "AccountList";
 
     public boolean getFingerprintEnabled() {
         return pref.getBoolean(this.fingerprintEnabled, false);
@@ -42,9 +51,12 @@ public class PrefManager {
         editor.commit();
     }
 
+    public String getAccountList() {
+        return pref.getString(this.accountList , "");
+    }
 
-
-
-
-
+    public void setAccountList(String accountList) {
+        editor.putString(this.accountList , accountList);
+        editor.commit();
+    }
 }

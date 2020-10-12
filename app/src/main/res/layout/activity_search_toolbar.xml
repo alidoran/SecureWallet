@@ -1,0 +1,82 @@
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="@dimen/elevation_appbar"
+    android:gravity="start"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/search_toolbar_main_toolbar_rel"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimary">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/search_toolbar_back_img"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/normal_margin" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/search_toolbar_title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/search_toolbar_back_img"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/md_white_1000"
+            android:textSize="@dimen/large_font"
+            android:layout_marginStart="@dimen/extra_margin"/>
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/search_toolbar_search_img"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/search"
+            app:tint="@color/md_white_1000"
+            android:layout_marginEnd="@dimen/normal_margin"
+             />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/search_toolbar_search_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:startIconDrawable="@drawable/arrow_back"
+            android:tint="@color/md_grey_700"
+            app:endIconMode="clear_text"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_toolbar_search_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/normal_font"
+                android:background="@color/md_white_1000"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/search_toolbar_full_rel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_toolbar_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

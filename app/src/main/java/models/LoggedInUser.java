@@ -1,4 +1,4 @@
-package views.data.model;
+package models;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

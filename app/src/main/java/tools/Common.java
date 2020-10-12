@@ -1,7 +1,10 @@
 package tools;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -128,4 +131,67 @@ public class Common {
         biometricPrompt.authenticate(promptInfo);
         return fingerResult;
     }
+
+    public <T> List listModelMapper(List list, Class<T> class1) {
+        ArrayList destList = new ArrayList();
+        try {
+            for (int i = 0; i < list.size(); i++)
+                destList.add(modelMapper(list.get(i), class1));
+        } catch (Exception e) {
+        }
+        return destList;
+    }
+
+    private <T> T modelMapper(Object source, Class<T> destClass) {
+        Field[] srcFields = source.getClass().getDeclaredFields();
+        Field[] destFields = destClass.getDeclaredFields();
+        T newInstance = null;
+        try {
+            newInstance = destClass.newInstance();
+        } catch (Exception e) {
+        }
+        for (Field srcField : srcFields) {
+            for (Field destField : destFields) {
+                try {
+                    if (srcField.getName().equals(destField.getName())) {
+                        destField.setAccessible(true);
+                        srcField.setAccessible(true);
+                        destField.set(newInstance, srcField.get(source));
+                    }
+                } catch (Exception e) {
+                    Log.d(TAG, "ModelMapper: " + e);
+                }
+            }
+        }
+        return newInstance;
+    }
+
+    public static String toNumberLatin(String text) {
+        char[][] nums = new char[][]{"۰۱۲۳۴۵۶۷۸۹".toCharArray(), "0123456789".toCharArray()};
+        for (int x = 0; x <= 9; x++) {
+            text = text.replace(nums[0][x], nums[1][x]);
+        }
+        return text.replace("٬", ",");
+    }
+
+    public static SpannableString getCustomTitle(String title) {
+        return getCustomTitle(title, 0);
+    }
+
+    public static SpannableString getCustomTitle(String title, int size) {
+        return getCustomTitle(title, size, 0);
+    }
+
+    public static SpannableString getCustomTitle(String title, int size, int color) {
+        CustomSpan span = new CustomSpan(size, color);
+        SpannableString spannableString = new SpannableString(title);
+        spannableString.setSpan(span, 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+    public static int dpToPx(int dp) {
+        float scale = Resources.getSystem().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
+
 }

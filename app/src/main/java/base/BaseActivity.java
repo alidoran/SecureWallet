@@ -1,6 +1,8 @@
 package base;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -9,6 +11,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,10 +27,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.duolingo.open.rtlviewpager.RtlViewPager;
 import com.example.SecureWallet.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -42,11 +50,19 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import adapter.AdapterTwoLineSimple;
 import interfaces.OnClickListenerNoObject;
+import interfaces.OnObjectClickListener;
+import interfaces.OnPopUpClickListener;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import models.ItemListModel;
 import models.ModelViewModel;
+import tools.Common;
 import tools.EnumManager;
 import tools.MySettings;
+import tools.SearchToolbar;
+
+import static tools.Common.getCustomTitle;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -76,8 +92,6 @@ public class BaseActivity extends AppCompatActivity {
                 }
             }, delay, period);
     }
-
-
 
     public static <T> List<T> mapperListModel(String outputJson, Class<T> tClass) {
         try {
@@ -170,6 +184,7 @@ public class BaseActivity extends AppCompatActivity {
         if (layout != null) {
             relativeLayout.removeView(layout);
             layout = null;
+
         }
     }
 
@@ -426,5 +441,133 @@ public class BaseActivity extends AppCompatActivity {
         return result;
     }
     //endregion
+
+    //region OpenDialog
+    private void fullModuleList(String title, List codeNameModels, Drawable defaultIcon, View clickedView,
+                                List<String> moreStringList, OnPopUpClickListener onPopUpClickListener, OnObjectClickListener mainObjectClickListener) {
+        LinearLayoutCompat linearLayoutCompat = new LinearLayoutCompat(this);
+        SearchToolbar searchToolbar = new SearchToolbar(this);
+        RecyclerView recyclerView = new RecyclerView(this);
+        LinearLayoutCompat.LayoutParams linearParam = new LinearLayoutCompat.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams searchParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        RecyclerView.LayoutParams recyclerParam = new RecyclerView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        linearLayoutCompat.setOrientation(LinearLayoutCompat.VERTICAL);
+        linearLayoutCompat.setBackgroundColor(Color.WHITE);
+        linearLayoutCompat.addView(searchToolbar, searchParam);
+        linearLayoutCompat.addView(recyclerView, recyclerParam);
+        this.addContentView(linearLayoutCompat, linearParam);
+        searchToolbar.initSearchToolbar(codeNameModels, moreStringList, recyclerView, title, true, defaultIcon, true, onPopUpClickListener, object -> {
+            ((ViewGroup) linearLayoutCompat.getParent()).removeView(linearLayoutCompat);
+            if (clickedView != null) {
+                if (clickedView instanceof TextView) {
+                    ItemListModel itemListModel = ((ItemListModel) object);
+                    ((TextView) clickedView).setText(itemListModel.getName());
+                    clickedView.setTag(itemListModel.getCode());
+                }
+            }
+            if (mainObjectClickListener != null)
+                mainObjectClickListener.onClick(object);
+        });
+
+    }
+
+    public void openDialog(String title, List itemListModelList, View clickedView) {
+        openDialog(title, itemListModelList, null, clickedView, null, null, null);
+    }
+
+    public void openDialog(String title, List itemListModelList, View clickedView, OnObjectClickListener mainObjectClickListener) {
+        openDialog(title, itemListModelList, null, clickedView, null, null, mainObjectClickListener);
+    }
+
+    public void openDialog(String title, List itemListModelList, Drawable defaultIcon, View clickedView, List<String> moreStringList,
+                           OnPopUpClickListener onPopUpClickListener, OnObjectClickListener mainObjectClickListener) {
+        if (itemListModelList.size() == 0) {
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.error)
+                    .setMessage(R.string.no_item_available)
+                    .show();
+        } else if (itemListModelList.size() > 10)
+            fullModuleList(title, itemListModelList, defaultIcon, clickedView, moreStringList, onPopUpClickListener, mainObjectClickListener);
+        else
+            openSelectDialog(itemListModelList, clickedView, title, mainObjectClickListener);
+    }
+    //endregion
+
+    //region OpenSelectDialog
+    public void openSelectDialog(List dialogList, EditText editText, String title) {
+        openSelectDialog(dialogList, editText, title, null);
+    }
+
+    public void openSelectDialog(List dialogList, View textView, String title, OnObjectClickListener onObjectClickListener) {
+        List<ItemListModel> itemListModelList;
+        if (!dialogList.isEmpty()) {
+            itemListModelList = Common.getInstance().listModelMapper(dialogList, ItemListModel.class);
+            if (!itemListModelList.isEmpty() &&
+                    (textView == null || textView instanceof MaterialTextView || textView instanceof TextInputEditText)) {
+                int listSize = itemListModelList.size();
+                CharSequence[] list = new String[listSize];
+                for (Integer i = 0; i < listSize; i++)
+                    list[i] = itemListModelList.get(i).getName();
+
+                new MaterialAlertDialogBuilder(this)
+                        .setTitle(title)
+                        .setItems(list, (dialog, which) -> {
+                            if (textView != null) {
+                                if (textView instanceof MaterialTextView)
+                                    ((MaterialTextView) textView).setText(itemListModelList.get(which).getName());
+                                if (textView instanceof TextInputEditText)
+                                    ((TextInputEditText) textView).setText(itemListModelList.get(which).getName());
+                                Object tag = null;
+                                if (itemListModelList.get(which).getCode() == null) {
+                                    if (itemListModelList.get(which).getId() != null)
+                                        tag = itemListModelList.get(which).getId();
+                                } else
+                                    tag = itemListModelList.get(which).getCode();
+                                textView.setTag(tag);
+                            }
+                            if (onObjectClickListener != null)
+                                onObjectClickListener.onClick(dialogList.get(which));
+                        }).show();
+            }
+        }
+    }
+    //endregion
+
+    public void createTwoLineListRecycler(List itemListModelList, RecyclerView recyclerView, boolean clickable) {
+        createTwoLineListRecycler(itemListModelList, null, recyclerView, clickable, null, null, null);
+    }
+
+    public void createTwoLineListRecycler(List itemListModelList, List<String> moreStringList, RecyclerView recyclerView, boolean clickable, Drawable defaultIcon,
+                                          OnPopUpClickListener onPopUpClickListener, OnObjectClickListener objectMainClickListener) {
+        Common.getInstance().listModelMapper(itemListModelList, ItemListModel.class);
+        AdapterTwoLineSimple twoLineListAdapter = new AdapterTwoLineSimple(itemListModelList, moreStringList, defaultIcon, clickable, onPopUpClickListener, objectMainClickListener);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        recyclerView.setNestedScrollingEnabled(true);
+        recyclerView.setAdapter(twoLineListAdapter);
+        twoLineListAdapter.notifyDataSetChanged();
+    }
+    public void popUpItemCreate(View view, List<String> stringList, OnObjectClickListener onObjectClickListener) {
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.setOnMenuItemClickListener(item -> {
+            onObjectClickListener.onClick(item.getItemId());
+            return true;
+        });
+
+        for (int i = 0; i < stringList.size(); i++) {
+            popup.getMenu().add(1, i, i, getCustomTitle(stringList.get(i)));
+        }
+        popup.show();
+    }
+
+    public Activity getActivity() {
+        return this;
+    }
+
+    public void focusView(TextInputEditText editText) {
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+    }
 
 }
