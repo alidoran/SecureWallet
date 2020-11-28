@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <color name="green_gheyas">#027d92</color>
+    <color name="md_teal_700">#00796B</color>
+    <color name="mdtp_accent_color">#009688</color>
+    <color name="mdtp_accent_color_focused">#76ffffff</color>
+    <color name="mdtp_ampm_text_color">@color/mdtp_numbers_text_color</color>
+    <color name="mdtp_background_color">@color/mdtp_white</color>
+    <color name="mdtp_button_color">@color/mdtp_accent_color</color>
+    <color name="mdtp_circle_background">@color/mdtp_background_color</color>
+    <color name="mdtp_circle_background_dark_theme">#525252</color>
+    <color name="mdtp_date_picker_text_normal">#ff212121</color>
+    <color name="mdtp_date_picker_view_animator">@android:color/white</color>
+    <color name="mdtp_date_picker_view_animator_dark_theme">@color/mdtp_light_gray</color>
+    <color name="mdtp_done_text_color_dark_disabled">#888888</color>
+    <color name="mdtp_done_text_color_dark_normal">#ffffff</color>
+    <color name="mdtp_done_text_color_disabled">#cccccc</color>
+    <color name="mdtp_done_text_color_normal">#ff212121</color>
+    <color name="mdtp_light_gray">#424242</color>
+    <color name="mdtp_numbers_text_color">#ff212121</color>
+    <color name="mdtp_red">@color/mdtp_accent_color</color>
+    <color name="mdtp_transparent_black">#7f000000</color>
+    <color name="mdtp_white">#ffffff</color>
+    <color name="red_normal">#ffe74c3c</color>
+    <color name="white">#fff</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="bb_height">56dp</dimen>
+    <dimen name="mdtp_ampm_label_size">16sp</dimen>
+    <dimen name="mdtp_ampm_left_padding">6dip</dimen>
+    <dimen name="mdtp_date_picker_component_width">270dp</dimen>
+    <dimen name="mdtp_date_picker_header_height">30dp</dimen>
+    <dimen name="mdtp_date_picker_header_text_size">12dp</dimen>
+    <dimen name="mdtp_date_picker_view_animator_height">252dp</dimen>
+    <dimen name="mdtp_day_number_select_circle_radius">16dp</dimen>
+    <dimen name="mdtp_day_number_size">12sp</dimen>
+    <dimen name="mdtp_done_button_height">42dp</dimen>
+    <dimen name="mdtp_done_label_size">14sp</dimen>
+    <dimen name="mdtp_extra_time_label_margin">-30dp</dimen>
+    <dimen name="mdtp_footer_height">48dip</dimen>
+    <dimen name="mdtp_header_height">96dip</dimen>
+    <dimen name="mdtp_material_button_height">48dp</dimen>
+    <dimen name="mdtp_material_button_minwidth">64dp</dimen>
+    <dimen name="mdtp_material_button_textpadding_horizontal">8dp</dimen>
+    <dimen name="mdtp_material_button_textsize">14sp</dimen>
+    <dimen name="mdtp_minimum_margin_sides">48dip</dimen>
+    <dimen name="mdtp_minimum_margin_top_bottom">24dip</dimen>
+    <dimen name="mdtp_month_day_label_text_size">12sp</dimen>
+    <dimen name="mdtp_month_label_size">14sp</dimen>
+    <dimen name="mdtp_month_list_item_header_height">56dp</dimen>
+    <dimen name="mdtp_month_select_circle_radius">45dp</dimen>
+    <dimen name="mdtp_picker_dimen">270dip</dimen>
+    <dimen name="mdtp_selected_calendar_layout_height">155dp</dimen>
+    <dimen name="mdtp_selected_date_day_size">70dp</dimen>
+    <dimen name="mdtp_selected_date_height">190dp</dimen>
+    <dimen name="mdtp_selected_date_month_size">25dp</dimen>
+    <dimen name="mdtp_selected_date_year_size">25dp</dimen>
+    <dimen name="mdtp_separator_padding">4dip</dimen>
+    <dimen name="mdtp_time_label_size">60sp</dimen>
+    <dimen name="mdtp_time_picker_header_text_size">12sp</dimen>
+    <dimen name="mdtp_time_picker_height">300dip</dimen>
+    <dimen name="mdtp_year_label_height">64dp</dimen>
+    <dimen name="mdtp_year_label_text_size">22dp</dimen>
+    <string name="app_name">PersianDatePicker</string>
+    <item format="float" name="mdtp_ampm_circle_radius_multiplier" type="string">0.22</item>
+    <item format="float" name="mdtp_circle_radius_multiplier" type="string">0.82</item>
+    <item format="float" name="mdtp_circle_radius_multiplier_24HourMode" type="string">0.85</item>
+    <string msgid="6908431551612331381" name="mdtp_deleted_key">"<ns1:g id="KEY">%1$s</ns1:g> حذف شد"</string>
+    <string msgid="2674929164900463786" name="mdtp_item_is_selected">"<ns1:g id="ITEM">%1$s</ns1:g> انتخاب شد"</string>
+    <item format="float" name="mdtp_numbers_radius_multiplier_inner" type="string">0.60</item>
+    <item format="float" name="mdtp_numbers_radius_multiplier_normal" type="string">0.81</item>
+    <item format="float" name="mdtp_numbers_radius_multiplier_outer" type="string">0.83</item>
+    <item format="float" name="mdtp_selection_radius_multiplier" type="string">0.16</item>
+    <item format="float" name="mdtp_text_size_multiplier_inner" type="string">0.11</item>
+    <item format="float" name="mdtp_text_size_multiplier_normal" type="string">0.12</item>
+    <item format="float" name="mdtp_text_size_multiplier_outer" type="string">0.08</item>
+    <style name="AppBaseTheme">
+
+    </style>
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#004854</item>
+        <item name="colorPrimaryDark">#004854</item>
+        <item name="colorAccent">@color/green_gheyas</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.ButtonGreen" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/green_gheyas</item>
+        <item name="android:colorButtonNormal" ns2:ignore="NewApi">@color/green_gheyas</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.TextErrorAppearance" parent="TextAppearance.Design.Error">
+
+        <!-- Error message appearance here -->
+        <item name="android:textColor">@color/red_normal</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="AppThemeOfSlider" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="BB_BottomBarBadge_Text" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="BB_BottomBarItem">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:layout_width">wrap_content</item>
+        <!--
+        layout_height is ignored since the height is set programmatically in BottomBar
+        .updateItems()
+        -->
+        <item name="android:layout_height">@dimen/bb_height</item>
+    </style>
+    <style name="BB_BottomBarItem_Fixed.TitleAppearance" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="BB_BottomBarItem_Shifting.TitleAppearance" parent="BB_BottomBarItem_Fixed.TitleAppearance">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="BB_BottomBarItem_Tablet">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="BB_BottomBarItem_TitleStyle">
+
+        <!-- Material spec: "Avoid long text labels as these labels do not truncate or wrap." -->
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+    <style name="GenericProgressBackground" parent="android:Theme">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">#DD111111</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="GenericProgressIndicator" parent="@android:style/Widget.ProgressBar.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+    <style name="PickerEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="SeekBar" parent="@style/Widget.AppCompat.SeekBar">
+        <item name="colorAccent">#ffffff</item>
+    </style>
+    <style name="TextAppearance.Design.Error" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@xml/design_error</item>
+    </style>
+    <style name="fab_labels_style">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <style name="mdtp_ActionButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/mdtp_material_button_height</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:focusable">true</item>
+    </style>
+    <style name="mdtp_ActionButton.Text" ns2:ignore="NewApi">
+        <item name="android:textSize">@dimen/mdtp_material_button_textsize</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">@dimen/mdtp_material_button_minwidth</item>
+        <item name="android:paddingLeft">@dimen/mdtp_material_button_textpadding_horizontal</item>
+        <item name="android:paddingRight">@dimen/mdtp_material_button_textpadding_horizontal</item>
+        <item name="android:textColor">@color/mdtp_button_color</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="mdtp_ampm_label">
+        <item name="android:textSize">@dimen/mdtp_ampm_label_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/mdtp_ampm_text_color</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="mdtp_day_of_week_label_condensed"/>
+    <style name="mdtp_time_label">
+        <item name="android:textSize">@dimen/mdtp_time_label_size</item>
+        <item name="android:textColor">@color/mdtp_numbers_text_color</item>
+    </style>
+    <declare-styleable name="BottomBar">
+        <attr format="reference" name="bb_tabXmlResource"/>
+        <attr format="boolean" name="bb_tabletMode"/>
+        <attr name="bb_behavior">
+            <flag name="shifting" value="1"/>
+            <flag name="shy" value="2"/>
+            <flag name="underNavbar" value="4"/>
+            <flag name="iconsOnly" value="8"/>
+        </attr>
+        <attr format="boolean" name="bb_longPressHintsEnabled"/>
+        <attr format="float" name="bb_inActiveTabAlpha"/>
+        <attr format="float" name="bb_activeTabAlpha"/>
+        <attr format="color" name="bb_inActiveTabColor"/>
+        <attr format="color" name="bb_activeTabColor"/>
+        <attr format="color" name="bb_badgeBackgroundColor"/>
+        <attr format="boolean" name="bb_badgesHideWhenActive"/>
+        <attr format="reference" name="bb_titleTextAppearance"/>
+        <attr format="string" name="bb_titleTypeFace"/>
+        <attr format="boolean" name="bb_showShadow"/>
+    </declare-styleable>
+    <declare-styleable name="CalendarWeekView">
+        <attr format="boolean" name="daysVisible"/>
+    </declare-styleable>
+    <declare-styleable name="CircleProgressBar">
+        <attr format="integer" name="min"/>
+        <attr format="integer" name="max"/>
+        <attr format="integer" name="progress"/>
+        <attr format="color" name="progressbarColor"/>
+        <attr format="dimension" name="progressBarThickness"/>
+    </declare-styleable>
+    <declare-styleable name="CircularImageView">
+        <attr format="boolean" name="civ_border"/>
+        <attr format="dimension" name="civ_border_width"/>
+        <attr format="color" name="civ_border_color"/>
+        <attr format="boolean" name="civ_shadow"/>
+        <attr format="color" name="civ_shadow_color"/>
+        <attr format="float" name="civ_shadow_radius"/>
+    </declare-styleable>
+    <declare-styleable name="ClearEditText">
+        <attr format="boolean" name="is_number_field"/>
+    </declare-styleable>
+    <declare-styleable name="ColorPickerPreference">
+        <attr format="boolean" name="alphaSlider"/>
+        <attr format="boolean" name="lightnessSlider"/>
+        <attr format="integer" name="density"/>
+        <attr format="integer" name="initialColor"/>
+        <attr format="enum" name="wheelType">
+            <enum name="FLOWER" value="0"/>
+            <enum name="CIRCLE" value="1"/>
+        </attr>
+        <attr format="reference" name="lightnessSliderView"/>
+        <attr format="reference" name="alphaSliderView"/>
+        <attr format="integer" name="pickerColorEditTextColor"/>
+        <attr format="reference|string" name="pickerTitle"/>
+        <attr format="reference|string" name="pickerButtonOk"/>
+        <attr format="reference|string" name="pickerButtonCancel"/>
+    </declare-styleable>
+    <declare-styleable name="FloatingActionButton">
+        <attr format="color" name="fab_colorPressed"/>
+        <attr format="color" name="fab_colorNormal"/>
+        <attr format="color" name="fab_colorRipple"/>
+        <attr format="color" name="fab_colorDisabled"/>
+        <attr format="boolean" name="fab_shadow"/>
+        <attr format="enum" name="fab_type">
+            <enum name="normal" value="0"/>
+            <enum name="mini" value="1"/>
+        </attr>
+        <attr format="reference" name="fab_normal_icon"/>
+        <attr format="reference" name="fab_toggle_icon"/>
+        <attr format="reference" name="fab_labelStyle"/>
+        <attr format="string" name="fab_labelText"/>
+        <attr format="reference" name="fab_fadingBackground"/>
+        <attr format="color" name="fab_fadingColor"/>
+        <attr format="boolean" name="fab_defaultPressedColor"/>
+    </declare-styleable>
+    <declare-styleable name="GheyasDropDown">
+        <attr format="boolean" name="notShowDelete"/>
+        <attr format="boolean" name="notShowUnderline"/>
+
+    </declare-styleable>
+    <declare-styleable name="GheyasInput">
+        <attr format="string" name="text"/>
+        <attr format="color" name="text_color"/>
+        <attr format="integer" name="text_size"/>
+        <attr format="reference|color" name="icon_right"/>
+        <attr format="reference|color" name="icon_left"/>
+        <attr format="boolean" name="dropdown_mode"/>
+        <attr format="boolean" name="isNumber"/>
+        <attr format="boolean" name="one_line"/>
+        <attr format="boolean" name="req_field"/>
+        <attr format="boolean" name="cancel_remove"/>
+        <attr format="boolean" name="isCurrency"/>
+        <attr format="boolean" name="is_ltr"/>
+        <attr format="boolean" name="drop_enable_edit"/>
+        <attr format="string" name="drop_text"/>
+        <attr format="enum" name="style_mode">
+            <enum name="outline_dense" value="0"/>
+            <enum name="outline_normal" value="1"/>
+            <enum name="filled_dense" value="2"/>
+            <enum name="filled_normal" value="3"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="GheyasText">
+        <attr format="boolean" name="is_number"/>
+        <attr format="boolean" name="remove_cancel"/>
+    </declare-styleable>
+    <declare-styleable name="PersianCalendarView">
+        <attr format="string" name="pcv_typefacePath"/>
+        <attr format="string" name="pcv_headersTypefacePath"/>
+        <attr format="color" name="pcv_colorBackground"/>
+        <attr format="color" name="pcv_colorHoliday"/>
+        <attr format="color" name="pcv_colorHolidaySelected"/>
+        <attr format="color" name="pcv_colorNormalDaySelected"/>
+        <attr format="color" name="pcv_colorNormalDay"/>
+        <attr format="color" name="pcv_colorDayName"/>
+        <attr format="color" name="pcv_eventUnderlineColor"/>
+        <attr format="color" name="pcv_noteUnderlineColor"/>
+        <attr format="reference" name="pcv_todayBackground"/>
+        <attr format="reference" name="pcv_selectedDayBackground"/>
+        <attr format="dimension" name="pcv_fontSize"/>
+        <attr format="dimension" name="pcv_headersFontSize"/>
+    </declare-styleable>
+    <declare-styleable name="PersianDatePicker">
+        <attr format="integer" name="minYear"/>
+        <attr format="integer" name="maxYear"/>
+        <attr format="integer" name="selectedYear"/>
+        <attr format="integer" name="selectedMonth"/>
+        <attr format="integer" name="selectedDay"/>
+        <attr format="boolean" name="displayMonthNames"/>
+        <attr format="integer" name="yearRange"/>
+        <attr format="boolean" name="displayDescription"/>
+    </declare-styleable>
+</resources>

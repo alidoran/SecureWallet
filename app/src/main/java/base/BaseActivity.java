@@ -1,7 +1,9 @@
 package base;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -30,11 +32,12 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duolingo.open.rtlviewpager.RtlViewPager;
-import com.example.SecureWallet.R;
+import ir.doran_program.SecureWallet.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -484,7 +487,7 @@ public class BaseActivity extends AppCompatActivity {
         if (itemListModelList.size() == 0) {
             new MaterialAlertDialogBuilder(this)
                     .setTitle(R.string.error)
-                    .setMessage(R.string.no_item_available)
+                    .setMessage(R.string.not_found_item)
                     .show();
         } else if (itemListModelList.size() > 10)
             fullModuleList(title, itemListModelList, defaultIcon, clickedView, moreStringList, onPopUpClickListener, mainObjectClickListener);
@@ -570,4 +573,25 @@ public class BaseActivity extends AppCompatActivity {
         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
     }
 
+    public void verifyStoragePermissions(Activity activity) {
+
+        final int REQUEST_EXTERNAL_STORAGE = 1;
+        String[] PERMISSIONS_STORAGE = {
+
+                //Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+
+        int permission = ActivityCompat.checkSelfPermission(
+                activity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+    }
 }

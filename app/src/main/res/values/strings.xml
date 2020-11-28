@@ -7,19 +7,21 @@
     <string name="sign_up">SignUp</string>
     <string name="enter_finger_print">Enter by fingerprint</string>
     <string name="view_tag">view_tag</string>
-    <string name="error_read_data">خطا در دریافت اطلاعات</string>
-    <string name="no_connect_server">اتصال با سرور برقرار نشد</string>
-    <string name="retry">تلاش مجدد</string>
-    <string name="not_found_item">موردی یافت نشد!</string>
-    <string name="field_error">وارد کردن این فیلد اجباریست</string>
+    <string name="error_read_data">error to read data</string>
+    <string name="no_connect_server">can not connect to server</string>
+    <string name="retry">try again</string>
+    <string name="not_found_item">cant find any item</string>
+    <string name="field_error">this field must fill</string>
     <string name="same_pass_error_message">Two Password field must same together</string>
     <string name="show_account">Show Account</string>
     <string name="define_account">Define Account</string>
-    <string name="error">خطا</string>
-    <string name="no_item_available">هیچ موردی برای نمایش وجود ندارد</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
+    <string name="error">error</string>
     <string name="hello_world">Hello Square World!</string>
+    <string name="help">help</string>
+    <string name="sign_help">for use this application you must have google email address.</string>
+    <string name="accept">accept</string>
+    <string name="exit">exit</string>
+    <string name="close_without_save">are you sure to want exit without save data?</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
 </resources>

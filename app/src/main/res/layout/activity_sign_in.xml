@@ -71,6 +71,11 @@ tools:context="views.SignInActivity">
     android:text="@string/sign_up"
     android:textColor="@color/md_blue_700" />
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_google_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 <com.google.android.material.button.MaterialButton
     android:id="@+id/sign_in_ok_btn"
     android:layout_width="wrap_content"

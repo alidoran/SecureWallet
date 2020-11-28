@@ -6,5 +6,22 @@
     <string name="save_username">ذخیره نام کاربری</string>
     <string name="sign_up">ثبت نام</string>
     <string name="enter_finger_print">ورود با اثر انگشت</string>
-
+    <string name="view_tag">view_tag</string>
+    <string name="error_read_data">خطا در دریافت اطلاعات</string>
+    <string name="no_connect_server">اتصال با سرور برقرار نشد</string>
+    <string name="retry">تلاش مجدد</string>
+    <string name="not_found_item">موردی یافت نشد!</string>
+    <string name="field_error">وارد کردن این فیلد اجباریست</string>
+    <string name="error">خطا</string>
+    <string name="hello_world">Hello Square World!</string>
+    <string name="help">راهنما</string>
+    <string name="same_pass_error_message">مقادیر فیلدهای پسورد باید یکسان باشد</string>
+    <string name="show_account">نمایش حساب ها</string>
+    <string name="define_account">تعریف حساب</string>
+    <string name="sign_help">برای استفاده از این برنامه داشتن آدرس جیمیل ضروری است. همچنین استفاده از یکی ابزارهای تشخیص هویت الزامی است.</string>
+    <string name="accept">تایید</string>
+    <string name="exit">خروج</string>
+    <string name="close_without_save">آیا از خروج بدون ذخیره سازی اطلاعات اطمینان دارید؟</string>
+    <string name="no">خیر</string>
+    <string name="yes">بله</string>
 </resources>

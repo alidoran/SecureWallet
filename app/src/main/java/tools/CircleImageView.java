@@ -42,7 +42,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.RequiresApi;
 
-import com.example.SecureWallet.R;
+import ir.doran_program.SecureWallet.R;
 
 public class CircleImageView extends androidx.appcompat.widget.AppCompatImageView {
 

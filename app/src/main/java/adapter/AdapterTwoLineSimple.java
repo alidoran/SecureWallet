@@ -12,7 +12,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.SecureWallet.R;
+import ir.doran_program.SecureWallet.R;
 import com.google.android.material.textview.MaterialTextView;
 import com.squareup.picasso.Picasso;
 

@@ -31,7 +31,7 @@ public class PrefManager {
     private String PREF_NAME = "androidhive-settings";
     private String fingerprintEnabled = "FingerprintEnabled";
     private String userName = "UserName";
-    private String accountList = "AccountList";
+    private String logInUser = "AccountList";
 
     public boolean getFingerprintEnabled() {
         return pref.getBoolean(this.fingerprintEnabled, false);
@@ -51,12 +51,12 @@ public class PrefManager {
         editor.commit();
     }
 
-    public String getAccountList() {
-        return pref.getString(this.accountList , "");
-    }
-
-    public void setAccountList(String accountList) {
-        editor.putString(this.accountList , accountList);
-        editor.commit();
-    }
+//    public String getLogInUser() {
+//        return pref.getString(this.accountList , "");
+//    }
+//
+//    public void setAccountList(String accountList) {
+//        editor.putString(this.accountList , accountList);
+//        editor.commit();
+//    }
 }

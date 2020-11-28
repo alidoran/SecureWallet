@@ -1,2 +1,4 @@
+include ':FullModuleList'
+include ':PersianDatePicker'
 rootProject.name='SecureWallet'
 include ':app'

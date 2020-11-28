@@ -1,12 +1,12 @@
 package views;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ScrollView;
 
-import com.example.SecureWallet.R;
+import ir.doran_program.SecureWallet.R;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.BaseActivity;
+
+
+import static constants.IntentKeys.USER_NAME;
 
 public class SignUpActivity extends BaseActivity {
 
@@ -38,7 +41,21 @@ public class SignUpActivity extends BaseActivity {
 
         initView();
         initEvent();
+        readIntent();
         seTag();
+        showHelp();
+    }
+
+    private void showHelp() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.help)
+                .setMessage(R.string.sign_help)
+                .show();
+    }
+
+    private void readIntent() {
+        String userName = getIntent().getExtras().getString(USER_NAME , "");
+        edtUserName.setText(userName);
     }
 
     private void initView() {
@@ -58,7 +75,11 @@ public class SignUpActivity extends BaseActivity {
     }
 
     private void initEvent() {
-
+//        if (checkField()){
+//            LogInUser logInUser = (LogInUser) setViewToModel(LogInUser.class);
+//            AppDatabase.getInstance(this).logInUserDao().insertAll(logInUser);
+//            AppDatabase.getInstance(this).logInUserDao().getAll();
+//        }
     }
 
     private void seTag() {
@@ -86,4 +107,6 @@ public class SignUpActivity extends BaseActivity {
         }
         return chk;
     }
+
+
 }

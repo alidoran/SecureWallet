@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "631681028702",
+    "firebase_url": "https://wallet-5040d.firebaseio.com",
+    "project_id": "wallet-5040d",
+    "storage_bucket": "wallet-5040d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631681028702:android:b5c7dd3d3a21bc4e3b1acf",
+        "android_client_info": {
+          "package_name": "ir.doran_program.SecureWallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "631681028702-9b6vcshl6h7uf2bcg2nf7goervdvhefq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBNmrl0V58wBuBeIF1Da0aat3bXORjYrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "631681028702-9b6vcshl6h7uf2bcg2nf7goervdvhefq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

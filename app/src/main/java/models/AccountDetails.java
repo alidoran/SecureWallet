@@ -2,14 +2,17 @@ package models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
 @Entity
-public class AccountDetail implements Serializable {
+public class AccountDetails implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    public long Code;
+    private long Code;
     @ColumnInfo(name = "Name")
     public String Name;
     @ColumnInfo(name = "Number")

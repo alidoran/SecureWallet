@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/md_grey_200">
+
+
 
     <RelativeLayout
+        android:id="@+id/register_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar"
         android:orientation="horizontal">
@@ -34,156 +37,176 @@
             android:textColor="@color/md_black_1000"
             android:textSize="@dimen/large_font" />
 
-        <ImageView
-            android:layout_width="@dimen/icon_large"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:padding="@dimen/icon_padding"
-            android:src="@drawable/close"
-            app:tint="@color/md_white_1000" />
-            
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/register_main_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_toolbar">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_margin="@dimen/low_margin">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/normal_margin"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/register_account_name_edt"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Account Name" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginEnd="@dimen/normal_margin"
+                    app:endIconMode="clear_text">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/normal_margin"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_account_name_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Account Name" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/register_account_number_edt"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Account Number" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginEnd="@dimen/normal_margin"
+                    app:endIconMode="clear_text">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/normal_margin"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_account_number_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Account Number"
+                        android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/register_account_password_edt"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Account Password" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginEnd="@dimen/normal_margin"
+                    app:endIconMode="password_toggle">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/normal_margin"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_account_password_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Account Password"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/register_account_cvv2_edt"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="CVV2" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginEnd="@dimen/normal_margin"
+                    app:endIconMode="clear_text">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/normal_margin"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_account_cvv2_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="CVV2"
+                        android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/register_account_date_edt"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Date" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginEnd="@dimen/normal_margin"
+                    app:endIconDrawable="@drawable/arrow_drop_down"
+                    app:endIconMode="custom">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/normal_margin"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_account_date_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="Date"
+                        android:singleLine="true" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/register_bank_name_edt"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Bank Name" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginEnd="@dimen/normal_margin"
+                    app:endIconMode="clear_text">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/normal_margin"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_bank_name_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bank Name" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/register_card_number_edt"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Card Number" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginEnd="@dimen/normal_margin"
+                    app:endIconMode="clear_text">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/normal_margin"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_card_number_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Card Number" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/register_summery_edt"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Summery" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginEnd="@dimen/normal_margin"
+                    android:layout_marginBottom="@dimen/normal_margin"
+                    app:endIconMode="clear_text">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/register_account_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/high_margin"
-                android:layout_marginBottom="@dimen/high_margin"
-                android:text="register_account" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_summery_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Summery" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </ScrollView>
-</androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/register_account_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/toolbar"
+        android:layout_margin="@dimen/low_margin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:text="register_account" />
+</RelativeLayout>

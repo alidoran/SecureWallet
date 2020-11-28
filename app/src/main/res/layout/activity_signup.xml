@@ -6,18 +6,23 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="views.SignUpActivity">
+    tools:context="views.SignUpActivity"
+    android:background="@color/md_grey_300">
 
     <ScrollView
         android:id="@+id/sign_up_main_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/low_margin">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/signup_firs_name_lay"
@@ -26,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/normal_margin"
-
+android:layout_marginTop="@dimen/normal_margin"
                 android:hint="First Name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -107,7 +112,8 @@
                 android:layout_marginStart="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/normal_margin"
                 android:layout_marginTop="16dp"
-                android:hint="Password">
+                android:hint="Password"
+                android:layout_marginBottom="@dimen/normal_margin">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sign_up_two_password_edt"
@@ -116,6 +122,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </ScrollView>
 

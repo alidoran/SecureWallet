@@ -8,4 +8,9 @@ public class EnumManager {
         NotConnect
     }
 
+    public enum AppLanguage {
+        English,
+        Persian
+    }
+
 }

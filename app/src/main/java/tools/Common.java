@@ -21,7 +21,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
-import com.example.SecureWallet.R;
+import ir.doran_program.SecureWallet.R;
 
 import java.lang.reflect.Field;
 import java.math.BigInteger;

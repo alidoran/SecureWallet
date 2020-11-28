@@ -1,25 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="views.ShowAccountsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="views.ShowAccountsActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/show_account_recycler"
+    <RelativeLayout
+        android:id="@+id/register_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/toolbar_title_text"
+            android:gravity="center_vertical"
+            android:text="Defenition Account"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/large_font" />
+
+        <ImageView
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/icon_padding"
+            android:src="@drawable/close"
+            app:tint="@color/md_white_1000" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/show_account_list_rel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_above="@+id/show_account_define_btn"
+        android:layout_below="@+id/register_toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/show_account_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/show_account_define_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/define_account"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_height="@dimen/toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/low_margin"
+        android:text="@string/define_account" />
 
+</RelativeLayout>
 
-
-</LinearLayout>

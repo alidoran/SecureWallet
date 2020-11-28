@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/full_module_main_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/full_module_rel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/full_module_main_toolbar_rel"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:background="#286A91">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/full_module_back_img"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/full_module_arrow_back" />
+
+            <TextView
+                android:id="@+id/full_module_title_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_toEndOf="@+id/full_module_back_img"
+                android:gravity="center_vertical"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                tools:text="تایتل" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/full_module_search_img"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/full_module_search"
+                android:tint="#FFFFFF" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/full_module_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/full_module_main_toolbar_rel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/full_module_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:scaleType="center"
+            android:src="@drawable/full_module_add"
+            app:backgroundTint="#286A91"
+            app:maxImageSize="24dp"
+            app:tint="#FFFFFF" />
+
+    </RelativeLayout>
+
+
+</FrameLayout>
