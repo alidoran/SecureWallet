@@ -56,13 +56,7 @@ public class SignInActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-//        ViewPump.init(ViewPump.builder()
-//                .addInterceptor(new CalligraphyInterceptor(
-//                        new CalligraphyConfig.Builder()
-//                                .setDefaultFontPath(MySettings.fontFamily)
-//                                .setFontAttrId(R.attr.fontPath)
-//                                .build()))
-//                .build());
+
 
         googleSignIn();
         initView();

@@ -143,7 +143,7 @@ public class SignUpActivity extends BaseActivity {
         if (!edtEmail.getText().toString().endsWith("@gmail.com")) {
             chk = false;
             layEmail.setErrorEnabled(true);
-            layEmail.setError("You need gmail account for use this program");
+            layEmail.setError(getString(R.string.need_gmail));
         }
         return chk;
     }
@@ -175,7 +175,7 @@ public class SignUpActivity extends BaseActivity {
             linSectionTwo.setVisibility(VISIBLE);
             edtEmail.setText(signInAccount.getEmail());
             ((TextInputLayout) edtEmail.getParent().getParent()).setEnabled(false);
-            String title = "Hi " + signInAccount.getDisplayName() + " please fill all Field";
+            String title = getString(R.string.hi)  + getString(R.string.space)+ signInAccount.getDisplayName() +getString(R.string.space) +  getString(R.string.fill_field);
             txtSectionTwoTitle.setText(title);
         }
     }
@@ -225,9 +225,9 @@ public class SignUpActivity extends BaseActivity {
 
         });
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric login for SecureWallet")
-                .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
+                .setTitle(getString(R.string.bio_secure_login))
+                .setSubtitle(getString(R.string.log_in_biometric))
+                .setNegativeButtonText(getString(R.string.cancel))
                 .build();
     }
 

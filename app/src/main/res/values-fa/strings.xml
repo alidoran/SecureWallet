@@ -23,6 +23,8 @@
     <string name="define_account">تعریف حساب</string>
     <string name="sign_help">برای استفاده از این برنامه داشتن آدرس جیمیل ضروری است. همچنین استفاده از یکی ابزارهای تشخیص هویت الزامی است.</string>
     <string name="accept">تایید</string>
+    <string name="accept_fa">تایید</string>
+    <string name="accept_en">accept</string>
     <string name="exit">خروج</string>
     <string name="close_without_save">آیا از خروج بدون ذخیره سازی اطلاعات اطمینان دارید؟</string>
     <string name="no">خیر</string>
@@ -47,6 +49,14 @@
     <string name="sign_with_google">ابتدا اکانت گوگل خود را تایید نمایید</string>
     <string name="fill_field">لطفا فیلدها را تکمیل نمایید</string>
     <string name="active_biometric">فعال سازی بیومتریک</string>
+    <string name="english">english</string>
+    <string name="persian">فارسی</string>
+    <string name="hi">سلام</string>
+    <string name="space">\" \"</string>
+    <string name="cancel">انصراف</string>
+    <string name="log_in_biometric">ورود بیومتریک</string>
+    <string name="bio_secure_login">اتصال بیومتریک کیف پول امن</string>
+    <string name="need_gmail">جهت استفاده برنامه به جیمیل نیاز دارید</string>
 
 
 </resources>

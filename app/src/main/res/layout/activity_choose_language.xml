@@ -20,7 +20,7 @@
             android:id="@+id/choose_language_english_btn"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/button_width_min"
-            android:text="english" />
+            android:text="@string/english" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/choose_language_persian_btn"
@@ -28,7 +28,7 @@
             android:layout_height="@dimen/button_width_min"
             android:layout_marginEnd="@dimen/high_margin"
             android:layout_toStartOf="@+id/choose_language_english_btn"
-            android:text="فارسی" />
+            android:text="@string/persian" />
 
     </RelativeLayout>
 

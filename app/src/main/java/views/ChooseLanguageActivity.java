@@ -1,16 +1,20 @@
 package views;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.button.MaterialButton;
 
+import base.BaseActivity;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
 import ir.doran_program.SecureWallet.R;
 import tools.LangSet;
+import tools.MySettings;
 import tools.PrefManager;
 
-public class ChooseLanguageActivity extends AppCompatActivity {
+public class ChooseLanguageActivity extends BaseActivity {
 
     private MaterialButton btnEnglish;
     private MaterialButton btnPersian;
@@ -24,6 +28,7 @@ public class ChooseLanguageActivity extends AppCompatActivity {
 
         initView();
         initEvent();
+        PrefManager.getInstance().setFirstBoot(true);
         if (!PrefManager.getInstance().isFirstBoot())
             intentToSignInActivity();
     }
@@ -37,28 +42,35 @@ public class ChooseLanguageActivity extends AppCompatActivity {
     }
 
     private void initEvent() {
-        btnEnglish.setOnClickListener(v->{
-            btnEnglish.setBackgroundColor(getColor(R.color.colorPrimary));
-            btnPersian.setBackgroundColor(getColor(R.color.material_on_primary_disabled));
-            PrefManager.getInstance().setPersianLanguage(false);
+        btnEnglish.setOnClickListener(v-> setLanguage(false));
+        btnPersian.setOnClickListener(v-> setLanguage(true));
+        btnAccept.setOnClickListener(v-> {
+            intentToSignInActivity();
         });
-
-        btnPersian.setOnClickListener(v->{
-            btnPersian.setBackgroundColor(getColor(R.color.colorPrimary));
-            btnEnglish.setBackgroundColor(getColor(R.color.material_on_primary_disabled));
-            PrefManager.getInstance().setPersianLanguage(true);
-        });
-        btnAccept.setOnClickListener(v-> acceptClicked());
     }
 
-    private void acceptClicked() {
-        PrefManager.getInstance().setFirstBoot(false);
-    }
 
     private void intentToSignInActivity(){
+        MySettings.fontFamily = PrefManager.getInstance().isPersianLanguage() ? MySettings.persianFont : MySettings.englishFont;
+                ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath(MySettings.fontFamily)
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
         new LangSet(this);
-
+        Intent intent = new Intent(this , SignInActivity.class);
+        startActivity(intent);
     }
 
+    private void setLanguage(boolean isPersian){
+        btnPersian.setBackgroundColor(getColor(isPersian ? R.color.colorPrimary : R.color.material_on_primary_disabled));
+        btnEnglish.setBackgroundColor(getColor(isPersian ? R.color.material_on_primary_disabled : R.color.colorPrimary));
+        btnEnglish.setTextColor(getColor(isPersian ? R.color.md_black_1000 : R.color.md_white_1000));
+        btnPersian.setTextColor(getColor(isPersian ? R.color.md_white_1000 : R.color.md_black_1000));
+        btnAccept.setText(getString(isPersian ? R.string.accept_fa : R.string.accept_en));
+        PrefManager.getInstance().setPersianLanguage(isPersian);
+    }
 
 }

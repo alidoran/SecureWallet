@@ -23,6 +23,8 @@
     <string name="help">help</string>
     <string name="sign_help">for use this application you must have google email address.</string>
     <string name="accept">accept</string>
+    <string name="accept_fa">تایید</string>
+    <string name="accept_en">accept</string>
     <string name="exit">exit</string>
     <string name="close_without_save">are you sure to want exit without save data?</string>
     <string name="no">no</string>
@@ -45,6 +47,14 @@
     <string name="sign_with_google">First you must Sign in with google Account</string>
     <string name="fill_field">Please fill all field</string>
     <string name="active_biometric">Active Biometric</string>
+    <string name="english">english</string>
+    <string name="persian">فارسی</string>
+    <string name="hi">Hi</string>
+    <string name="space">\" \"</string>
+    <string name="cancel">cancel</string>
+    <string name="log_in_biometric">Log in using your biometric credential</string>
+    <string name="bio_secure_login">Biometric login for SecureWallet</string>
+    <string name="need_gmail">You need gmail account for use this program</string>
 
 
     //endregion
