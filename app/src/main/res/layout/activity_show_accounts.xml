@@ -25,12 +25,13 @@
             android:textSize="@dimen/large_font" />
 
         <ImageView
+            android:id="@+id/show_account_sync_img"
             android:layout_width="@dimen/icon_large"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/icon_padding"
-            android:src="@drawable/close"
-            app:tint="@color/md_white_1000" />
+            android:src="@drawable/baseline_sync_alt_black_24dp"
+            app:tint="@color/md_black_1000" />
 
     </RelativeLayout>
 

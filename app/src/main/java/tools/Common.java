@@ -21,6 +21,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import base.BaseApplication;
 import ir.doran_program.SecureWallet.R;
 
 import java.lang.reflect.Field;
@@ -42,6 +43,7 @@ import models.EncryptCipherModel;
 import models.ModelViewModel;
 
 import static android.content.ContentValues.TAG;
+import static tools.EnumManager.BiometricError.*;
 
 public class Common {
 
@@ -194,4 +196,31 @@ public class Common {
         return (int) (dp * scale + 0.5f);
     }
 
+    public String BiometricHandleError(int code) {
+        Resources resource = BaseApplication.getContext().getResources();
+        String result;
+        if (code == Disabled.getValue())
+            result = resource.getString(R.string.biometric_disable);
+        else if (code == Negative.getValue())
+            result = resource.getString(R.string.biometric_negative);
+        else if (code == NoBiometric.getValue())
+            result = resource.getString(R.string.biometric_no_biometric);
+        else if (code == NoDeviceCredential.getValue())
+            result = resource.getString(R.string.biometric_no_device_credential);
+        else if (code == NoSpace.getValue())
+            result = resource.getString(R.string.biometric_no_space);
+        else if (code == SecurityUpdateRequired.getValue())
+            result = resource.getString(R.string.biometric_security_update_required);
+        else if (code == TimeOut.getValue())
+            result = resource.getString(R.string.biometric_time_out);
+        else if (code == UnableToProcess.getValue())
+            result = resource.getString(R.string.biometric_unable_process);
+        else if (code == UserCanceled.getValue())
+            result = resource.getString(R.string.biometric_user_canceled);
+        else if (code == ErrorVendor.getValue())
+            result = resource.getString(R.string.biometric_error_vendor);
+        else
+            result = resource.getString(R.string.biometric_not_found);
+        return result;
+    }
 }

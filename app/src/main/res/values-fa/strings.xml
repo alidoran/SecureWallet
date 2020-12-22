@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">کیف امن</string>
     <string name="user_name">نام کاربری</string>
+    <string name="first_name">نام</string>
+    <string name="last_name">نام خانوادگی</string>
     <string name="password">کلمه عبور</string>
+    <string name="email">ایمیل</string>
     <string name="enter">ورود</string>
     <string name="save_username">ذخیره نام کاربری</string>
     <string name="sign_up">ثبت نام</string>
@@ -24,4 +27,26 @@
     <string name="close_without_save">آیا از خروج بدون ذخیره سازی اطلاعات اطمینان دارید؟</string>
     <string name="no">خیر</string>
     <string name="yes">بله</string>
+    <string name="success">عملیات با موفقیت انجام شد.</string>
+
+    //region BiometricErrorHandle
+    <string name="biometric_disable">سنسور بیومتریک شما غیر فعال است</string>
+    <string name="biometric_negative">شما جواب منفی را انتخاب نموده اید</string>
+    <string name="biometric_no_biometric">دستگاه شما سنسور بیومتریک ندارد</string>
+    <string name="biometric_no_device_credential">سنسور بیومتریک شما خاموش است</string>
+    <string name="biometric_no_space">شما فضای کافی جهت انجام این عملیات را ندارد</string>
+    <string name="biometric_security_update_required">شما نیاز به به روز کردن اطلاعات بیومتریک خود دارید</string>
+    <string name="biometric_time_out">حداکثر زمان لازم برای انجام این کار به پایان رسید</string>
+    <string name="biometric_unable_process">انجام این عملیات ممکن نگردید</string>
+    <string name="biometric_user_canceled">این عملیات توسط کاربر لغو گردید</string>
+    <string name="biometric_error_vendor">خطای سخت افزار را از فروشنده پیگیری فرمایید</string>
+    <string name="biometric_not_found">خطای نامشخص</string>
+    <string name="biometric_authentication_failed">خطای شناسایی</string>
+    //endregion
+
+    <string name="sign_with_google">ابتدا اکانت گوگل خود را تایید نمایید</string>
+    <string name="fill_field">لطفا فیلدها را تکمیل نمایید</string>
+    <string name="active_biometric">فعال سازی بیومتریک</string>
+
+
 </resources>

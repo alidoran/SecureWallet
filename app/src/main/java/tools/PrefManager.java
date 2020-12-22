@@ -1,18 +1,15 @@
 package tools;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.SharedPreferences;
 
-import base.BaseActivity;
 import base.BaseApplication;
 
 public class PrefManager {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-    private static  PrefManager prefManager;
+    private static PrefManager prefManager;
 
-    public static PrefManager getInstance(){
+    public static PrefManager getInstance() {
         if (prefManager == null)
             prefManager = new PrefManager();
         return prefManager;
@@ -28,35 +25,48 @@ public class PrefManager {
     private int PRIVATE_MODE = 0;
 
     // Shared preferences file name
-    private String PREF_NAME = "androidhive-settings";
-    private String fingerprintEnabled = "FingerprintEnabled";
-    private String userName = "UserName";
-    private String logInUser = "AccountList";
+    private String PREF_NAME = "Androidhive-settings";
+    private String googleId = "googleId";
+    private String persianLanguage = "PersianLanguage";
+    private String firstBoot = "FirstBoot";
+    private String signDetails = "signDetails";
 
-    public boolean getFingerprintEnabled() {
-        return pref.getBoolean(this.fingerprintEnabled, false);
+    public boolean isPersianLanguage() {
+        return pref.getBoolean(this.persianLanguage, false);
     }
 
-    public void setFingerprintEnabled(boolean fingerprintEnabled) {
-        editor.putBoolean(this.fingerprintEnabled, fingerprintEnabled);
+    public void setPersianLanguage(boolean persianLanguage) {
+        editor.putBoolean(this.persianLanguage, persianLanguage);
         editor.commit();
     }
 
-    public String getUserName() {
-        return pref.getString(this.userName , "");
+    public boolean isFirstBoot() {
+        return pref.getBoolean(this.firstBoot, true);
     }
 
-    public void setUserName(String userName) {
-        editor.putString(this.userName , userName);
+    public void setFirstBoot(boolean firstBoot) {
+        editor.putBoolean(this.firstBoot, firstBoot);
         editor.commit();
     }
 
-//    public String getLogInUser() {
-//        return pref.getString(this.accountList , "");
-//    }
-//
-//    public void setAccountList(String accountList) {
-//        editor.putString(this.accountList , accountList);
-//        editor.commit();
-//    }
+    public String getGoogleId() {
+        return pref.getString(this.googleId, "");
+    }
+
+    public void setGoogleId(String googleId) {
+        editor.putString(this.googleId, "");
+        editor.commit();
+    }
+
+    public String getSignDetails() {
+        return pref.getString(this.signDetails, "");
+    }
+
+    public void setSignDetails(String signDetails) {
+        editor.putString(this.signDetails, "");
+        editor.commit();
+    }
+
+
+
 }

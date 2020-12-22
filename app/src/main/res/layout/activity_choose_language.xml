@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="views.ChooseLanguage"
+    tools:context="views.ChooseLanguageActivity"
     android:orientation="vertical">
 
 
@@ -19,18 +19,15 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/choose_language_english_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="english"
-            />
+            android:layout_height="@dimen/button_width_min"
+            android:text="english" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/choose_language_persian_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/choose_language_english_btn"
-            android:layout_alignStart="@+id/choose_language_english_btn"
-            android:layout_alignEnd="@+id/choose_language_english_btn"
-            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_height="@dimen/button_width_min"
+            android:layout_marginEnd="@dimen/high_margin"
+            android:layout_toStartOf="@+id/choose_language_english_btn"
             android:text="فارسی" />
 
     </RelativeLayout>
@@ -39,11 +36,11 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/choose_lang_ok_btn"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/button_height"
+        android:layout_height="@dimen/button_width_min"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/low_margin"
+        android:layout_margin="@dimen/low_margin"
         android:text="@string/accept" />
 
 

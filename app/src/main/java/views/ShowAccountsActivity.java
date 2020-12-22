@@ -1,16 +1,21 @@
-package views;
+
+ package views;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import ir.doran_program.SecureWallet.R;
 
 import com.google.android.material.button.MaterialButton;
+import com.seyagh.persiandatepicker.utils.PersianCalendar;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,20 +24,27 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.spec.SecretKeySpec;
+
 import base.BaseActivity;
 import database.AppDatabase;
 import models.AccountDetails;
 import models.ItemListModel;
+import tools.Common;
 import tools.EnumManager;
 
 import static constants.IntentKeys.SELECTED_ACCOUNT;
 import static constants.SettingManager.DATABASE_NAME;
+import static constants.SettingManager.debugMode;
 
-public class ShowAccountsActivity extends BaseActivity {
+ public class ShowAccountsActivity extends BaseActivity {
 
     private RecyclerView recyclerAccount;
     private MaterialButton btnDefineAccount;
     private RelativeLayout relList;
+    private ImageView imgSync;
     private static final int REQ_ADD_ACCOUNT = 626;
 
     @Override
@@ -49,14 +61,17 @@ public class ShowAccountsActivity extends BaseActivity {
     private void initEvent() {
         btnDefineAccount.setOnClickListener(v -> {
             Intent intent = new Intent(this, RegisterAccountActivity.class);
-            startActivityForResult(intent , REQ_ADD_ACCOUNT);
+            startActivityForResult(intent, REQ_ADD_ACCOUNT);
+        });
+        imgSync.setOnClickListener(v->{
+
         });
     }
 
     private void readAccountList() {
         List<AccountDetails> accountDetailsList = AppDatabase.getInstance(this).accountDetailsDao().getAll();
         if (accountDetailsList.isEmpty()) {
-            showError(EnumManager.ErrorType.NoItem , relList , null);
+            showError(EnumManager.ErrorType.NoItem, relList, null);
         } else {
             hideError(relList);
             createTwoLineListRecycler(accountDetailsList, null, recyclerAccount, true, null, null, object -> {
@@ -65,7 +80,7 @@ public class ShowAccountsActivity extends BaseActivity {
                     if (accountDetails.getCode() == selectedItem.getCode()) {
                         Intent intent = new Intent(this, RegisterAccountActivity.class);
                         intent.putExtra(SELECTED_ACCOUNT, accountDetails);
-                        startActivityForResult(intent , REQ_ADD_ACCOUNT);
+                        startActivityForResult(intent, REQ_ADD_ACCOUNT);
                     }
                 }
             });
@@ -76,40 +91,92 @@ public class ShowAccountsActivity extends BaseActivity {
         recyclerAccount = findViewById(R.id.show_account_recycler);
         btnDefineAccount = findViewById(R.id.show_account_define_btn);
         relList = findViewById(R.id.show_account_list_rel);
+        imgSync = findViewById(R.id.show_account_sync_img);
     }
 
     private void saveData() {
-        File dbfile = this.getDatabasePath(DATABASE_NAME);
-        File sdir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "DBsaves");
-        String sfpath = sdir.getPath() + File.separator + "DBsave" + String.valueOf(System.currentTimeMillis());
-        if (!sdir.exists()) {
-            sdir.mkdirs();
+        File dbFile = this.getDatabasePath(DATABASE_NAME);
+        File sDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "SecureWalletDataBases");
+        String sfPath = sDir.getPath() + File.separator + "SecureWalletDataBase" + "DBFile.db";
+        if (!sDir.exists()) {
+            sDir.mkdirs();
         }
-        File savefile = new File(sfpath);
+        File saveFile = new File(sfPath);
         try {
-            savefile.createNewFile();
-            int buffersize = 8 * 1024;
-            byte[] buffer = new byte[buffersize];
-            int bytes_read = buffersize;
-            OutputStream savedb = new FileOutputStream(sfpath);
-            InputStream indb = new FileInputStream(dbfile);
-            while ((bytes_read = indb.read(buffer, 0, buffersize)) > 0) {
-                savedb.write(buffer, 0, bytes_read);
+            saveFile.createNewFile();
+            int bufferSize = 8 * 1024;
+            byte[] buffer = new byte[bufferSize];
+            int bytesRead = bufferSize;
+            OutputStream saveDb = new FileOutputStream(sfPath);
+            InputStream indb = new FileInputStream(dbFile);
+            while ((bytesRead = indb.read(buffer, 0, bufferSize)) > 0) {
+                saveDb.write(buffer, 0, bytesRead);
             }
-            savedb.flush();
+            saveDb.flush();
             indb.close();
-            savedb.close();
-        }catch (Exception e){
-
+            saveDb.close();
+            Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(ShowAccountsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void saveData2(){
+
+    }
+
+//    public boolean restoreBackup(String fileName, Bll bll, Context context) {
+//        File sDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "SecureWalletDataBases");
+//        String sfPath = sDir.getPath() + File.separator + "SecureWalletDataBase" ;
+//        File folder = new File(sfPath);
+//        if (!folder.exists())
+//            return false;
+//        try {
+//            InputStream myInput = new FileInputStream(sfPath + fileName);
+//            OutputStream myOutput = new FileOutputStream(Bll.DATABASE_PATH() + "DBFile.db");
+//            CipherInputStream cis = null;
+//            if (!debugMode) {
+//                SecretKeySpec sks = new SecretKeySpec(Settings.passwordFile.getBytes(), "AES");
+//                Cipher cipher = Cipher.getInstance("AES");
+//                cipher.init(Cipher.DECRYPT_MODE, sks);
+//                cis = new CipherInputStream(myInput, cipher);
+//            }
+//
+//
+//            byte[] buffer = new byte[1024];
+//            int length;
+//            if (debugMode) {
+//                while ((length = myInput.read(buffer)) != -1) {
+//                    myOutput.write(buffer, 0, length);
+//                }
+//            } else {
+//                while ((length = cis.read(buffer)) !=-1) {
+//                    myOutput.write(buffer, 0, length);
+//                }
+//            }
+//            if (debugMode) {
+//                myOutput.flush();
+//            } else {
+//                cis.close();
+//            }
+//            myOutput.close();
+//            myInput.close();
+//
+//            bll.updateDataBase(bll.getWritableDatabase(), 1, Events.getVersionCode(context));
+//            Bll.sInstance = null;
+//            return true;
+//        } catch (Exception e) {
+//            MessageBox.Show(context,"خطا",e.getMessage());
+//            return false;
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK)
-            switch (requestCode){
+            switch (requestCode) {
                 case REQ_ADD_ACCOUNT:
                     readAccountList();
             }

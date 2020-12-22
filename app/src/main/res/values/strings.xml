@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">SecureWallet</string>
     <string name="user_name">user name</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
     <string name="password">Password</string>
+    <string name="email">Email</string>
     <string name="enter">Enter</string>
     <string name="save_username">Save UserName</string>
     <string name="sign_up">SignUp</string>
@@ -24,4 +27,26 @@
     <string name="close_without_save">are you sure to want exit without save data?</string>
     <string name="no">no</string>
     <string name="yes">yes</string>
+    <string name="success">operation successfully down</string>
+
+    //region BiometricErrorHandle
+    <string name="biometric_disable">Your biometric sensor is disabled</string>
+    <string name="biometric_negative">You selected navigate</string>
+    <string name="biometric_no_biometric">Your device does not have biometric sensor</string>
+    <string name="biometric_no_device_credential">Your biometric sensor is disabled</string>
+    <string name="biometric_no_space">Your device does have free space for this operation</string>
+    <string name="biometric_security_update_required">You need to update your security biometric</string>
+    <string name="biometric_time_out">Timeout for this operation</string>
+    <string name="biometric_unable_process">Cant Process this operation</string>
+    <string name="biometric_user_canceled">You canceled this operation</string>
+    <string name="biometric_error_vendor">The operation failed due to a vendor-specific error</string>
+    <string name="biometric_not_found">Unknown error</string>
+    <string name="biometric_authentication_failed">authentication_failed</string>
+    <string name="sign_with_google">First you must Sign in with google Account</string>
+    <string name="fill_field">Please fill all field</string>
+    <string name="active_biometric">Active Biometric</string>
+
+
+    //endregion
+
 </resources>

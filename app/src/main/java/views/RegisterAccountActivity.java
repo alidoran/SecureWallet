@@ -94,7 +94,7 @@ public class RegisterAccountActivity extends BaseActivity {
             }
         });
         imgBack.setOnClickListener(v ->
-                new MaterialAlertDialogBuilder(this.getBaseContext())
+                new MaterialAlertDialogBuilder(this)
                         .setTitle(R.string.exit)
                         .setMessage(R.string.close_without_save)
                         .setNegativeButton(getString(R.string.no), null)

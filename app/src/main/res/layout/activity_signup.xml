@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,10 +18,56 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/low_margin">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/sign_up_section_one_lin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:layout_marginEnd="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/md_black_1000"
+                    android:text="@string/sign_with_google"/>
+
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/sign_up_google_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginBottom="@dimen/normal_margin"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/sign_up_section_two_lin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/sign_up_section_two_title_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:layout_marginEnd="@dimen/normal_margin"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:textColor="@color/md_black_1000"
+                android:text="@string/fill_field"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/signup_firs_name_lay"
@@ -30,9 +75,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/normal_margin"
+                android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/normal_margin"
-android:layout_marginTop="@dimen/normal_margin"
-                android:hint="First Name">
+                android:hint="@string/first_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/signup_firs_name_edt"
@@ -48,7 +93,7 @@ android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginStart="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/normal_margin"
                 android:layout_marginTop="16dp"
-                android:hint="Last Name">
+                android:hint="@string/last_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/signup_last_name_edt"
@@ -64,7 +109,7 @@ android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginStart="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/normal_margin"
                 android:layout_marginTop="16dp"
-                android:hint="Email">
+                android:hint="@string/email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/signup_email_edt"
@@ -80,7 +125,7 @@ android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginStart="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/normal_margin"
                 android:layout_marginTop="16dp"
-                android:hint="UserName">
+                android:hint="@string/user_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sign_up_user_name_edt"
@@ -96,7 +141,7 @@ android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginStart="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/normal_margin"
                 android:layout_marginTop="16dp"
-                android:hint="Password">
+                android:hint="@string/password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sign_up_password_edt"
@@ -112,7 +157,7 @@ android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginStart="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/normal_margin"
                 android:layout_marginTop="16dp"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:layout_marginBottom="@dimen/normal_margin">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -121,10 +166,29 @@ android:layout_marginTop="@dimen/normal_margin"
                     android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
-        </LinearLayout>
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/sign_up_finger_print_chk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/low_margin"
+                    android:text="@string/active_biometric"/>
+
+                <com.google.android.material.button.MaterialButton
+                android:id="@+id/sign_up_accept_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/normal_margin"
+                android:text="@string/accept"/>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         </com.google.android.material.card.MaterialCardView>
 
     </ScrollView>
 
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

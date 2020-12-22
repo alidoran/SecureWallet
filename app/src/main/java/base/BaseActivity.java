@@ -96,31 +96,6 @@ public class BaseActivity extends AppCompatActivity {
             }, delay, period);
     }
 
-    public static <T> List<T> mapperListModel(String outputJson, Class<T> tClass) {
-        try {
-            Type typeToken = TypeToken.getParameterized(List.class, Class.forName(tClass.getName())).getType();
-            List<T> castedList = new Gson().fromJson(outputJson, typeToken);
-
-            if (castedList != null && !castedList.isEmpty()) {
-                return castedList;
-            } else {
-                return null;
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static Object mapperModel(String outputJson, Class type) {
-        try {
-            return new Gson().fromJson(outputJson, type);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     //region SetView
     public void setViewModelText(View view, String modelViewName) {
         setViewModel(view, modelViewName, null);
@@ -142,7 +117,7 @@ public class BaseActivity extends AppCompatActivity {
         return modelViewModels;
     }
 
-    public <T> Object setViewToModel(Class<T> type) {
+    public <T> T setViewToModel(Class<T> type) {
         T model = null;
         try {
             model = type.newInstance();
@@ -318,15 +293,15 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void changeFont(View v) {
-        changeFont(v, MySettings.selectedFont, null);
+        changeFont(v, MySettings.fontFamily, null);
     }
 
     public void changeFont(View v, int size, boolean change) {
-        changeFont(v, MySettings.selectedFont, size, false);
+        changeFont(v, MySettings.fontFamily, size, false);
     }
 
     public void changeFont(View v, int size) {
-        changeFont(v,  MySettings.selectedFont ,size);
+        changeFont(v,  MySettings.fontFamily ,size);
     }
 
     public void changeFont(View v, String fontFamily) {

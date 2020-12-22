@@ -16,7 +16,7 @@ public class CustomSpan extends TypefaceSpan {
 
     public CustomSpan(int size, int color) {
         super("");
-        this.typeface = Typeface.createFromAsset(context.getAssets(), MySettings.selectedFont);
+        this.typeface = Typeface.createFromAsset(context.getAssets(), MySettings.fontFamily);
         if (size != 0)
             this.size = size;
         this.color = color;
