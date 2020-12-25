@@ -43,11 +43,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -181,22 +178,22 @@ public class BaseActivity extends AppCompatActivity {
             AppCompatImageView imageView = new AppCompatImageView(this);
 
             int errorDrawable = 0;
-            if (errorType.equals(EnumManager.ErrorType.FetchData))
-                errorDrawable = R.drawable.error_fetch_data;
-            if (errorType.equals(EnumManager.ErrorType.NoItem))
-                errorDrawable = R.drawable.not_found;
+            if (errorType.equals(EnumManager.ErrorType.DataError))
+                errorDrawable = R.drawable.error_outline;
+            if (errorType.equals(EnumManager.ErrorType.NotFound))
+                errorDrawable = R.drawable.search_off;
             if (errorType.equals(EnumManager.ErrorType.NotConnect))
-                errorDrawable = R.drawable.no_internet;
+                errorDrawable = R.drawable.signal_cellular_connected_no_internet;
             imageView.setImageDrawable(getResources().getDrawable(errorDrawable));
 
             TextView txtError = new TextView(this);
             txtError.setTextColor(getResources().getColor(R.color.md_black_1000));
             paramText.setMargins(0, (int) getResources().getDimension(R.dimen.normal_margin), 0, 0);
-            if (errorType == EnumManager.ErrorType.FetchData)
+            if (errorType == EnumManager.ErrorType.DataError)
                 txtError.setText(getResources().getString(R.string.error_read_data));
             else if (errorType == EnumManager.ErrorType.NotConnect)
                 txtError.setText(R.string.no_connect_server);
-            else if (errorType == EnumManager.ErrorType.NoItem)
+            else if (errorType == EnumManager.ErrorType.NotFound)
                 txtError.setText(R.string.not_found_item);
             changeFont(txtError);
 
@@ -216,7 +213,7 @@ public class BaseActivity extends AppCompatActivity {
             relativeLayout.addView(layout);
             layout.addView(imageView, paramsImage);
             layout.addView(txtError, paramText);
-            if (errorType == EnumManager.ErrorType.FetchData || errorType == EnumManager.ErrorType.NotConnect)
+            if (errorType == EnumManager.ErrorType.DataError || errorType == EnumManager.ErrorType.NotConnect)
                 layout.addView(button, paramButton);
 
             button.setOnClickListener(v -> {

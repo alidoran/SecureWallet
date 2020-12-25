@@ -3,8 +3,8 @@ package tools;
 public class EnumManager {
 
     public enum ErrorType {
-        FetchData,
-        NoItem,
+        DataError,
+        NotFound,
         NotConnect
     }
 

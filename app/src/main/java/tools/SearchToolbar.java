@@ -165,7 +165,7 @@ public class SearchToolbar extends LinearLayoutCompat {
         } else {
             recyclerView.setVisibility(VISIBLE);
             if (filteredItemListModels.isEmpty()) {
-                baseActivity.showError(EnumManager.ErrorType.NoItem, relFull, null);
+                baseActivity.showError(EnumManager.ErrorType.NotFound, relFull, null);
             } else {
                 baseActivity.hideError(relFull);
                 baseActivity.createTwoLineListRecycler(filteredItemListModels, moreStringList, recyclerView, true,

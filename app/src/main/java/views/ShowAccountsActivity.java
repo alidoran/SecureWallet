@@ -4,7 +4,6 @@
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 import ir.doran_program.SecureWallet.R;
 
 import com.google.android.material.button.MaterialButton;
-import com.seyagh.persiandatepicker.utils.PersianCalendar;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,20 +22,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-import javax.crypto.Cipher;
-import javax.crypto.CipherInputStream;
-import javax.crypto.spec.SecretKeySpec;
-
 import base.BaseActivity;
 import database.AppDatabase;
 import models.AccountDetails;
 import models.ItemListModel;
-import tools.Common;
 import tools.EnumManager;
 
 import static constants.IntentKeys.SELECTED_ACCOUNT;
 import static constants.SettingManager.DATABASE_NAME;
-import static constants.SettingManager.debugMode;
 
  public class ShowAccountsActivity extends BaseActivity {
 
@@ -71,7 +63,7 @@ import static constants.SettingManager.debugMode;
     private void readAccountList() {
         List<AccountDetails> accountDetailsList = AppDatabase.getInstance(this).accountDetailsDao().getAll();
         if (accountDetailsList.isEmpty()) {
-            showError(EnumManager.ErrorType.NoItem, relList, null);
+            showError(EnumManager.ErrorType.NotFound, relList, null);
         } else {
             hideError(relList);
             createTwoLineListRecycler(accountDetailsList, null, recyclerAccount, true, null, null, object -> {

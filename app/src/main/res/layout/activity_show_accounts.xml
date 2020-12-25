@@ -20,7 +20,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/toolbar_title_text"
             android:gravity="center_vertical"
-            android:text="Defenition Account"
+            android:text="@string/defenition_account"
             android:textColor="@color/md_black_1000"
             android:textSize="@dimen/large_font" />
 

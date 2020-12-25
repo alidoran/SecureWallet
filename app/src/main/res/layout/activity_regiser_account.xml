@@ -33,7 +33,7 @@
             android:layout_marginStart="@dimen/toolbar_title_text"
             android:layout_toEndOf="@+id/register_back_img"
             android:gravity="center_vertical"
-            android:text="Defenition Account"
+            android:text="@string/definition_account"
             android:textColor="@color/md_black_1000"
             android:textSize="@dimen/large_font" />
 
@@ -68,7 +68,7 @@
                         android:id="@+id/register_account_name_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Account Name" />
+                        android:hint="@string/account_name" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +84,7 @@
                         android:id="@+id/register_account_number_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Account Number"
+                        android:hint="@string/account_number"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,7 +101,7 @@
                         android:id="@+id/register_account_password_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Account Password"
+                        android:hint="@string/account_password"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,7 +118,7 @@
                         android:id="@+id/register_account_cvv2_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="CVV2"
+                        android:hint="@string/cvv2"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,7 +139,7 @@
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:hint="Date"
+                        android:hint="@string/date"
                         android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,7 +156,7 @@
                         android:id="@+id/register_bank_name_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Bank Name" />
+                        android:hint="@string/bank_name" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -172,7 +172,7 @@
                         android:id="@+id/register_card_number_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Card Number" />
+                        android:hint="@string/card_number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -189,7 +189,7 @@
                         android:id="@+id/register_summery_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Summery" />
+                        android:hint="@string/summery" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -208,5 +208,5 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
-        android:text="register_account" />
+        android:text="@string/register_account" />
 </RelativeLayout>

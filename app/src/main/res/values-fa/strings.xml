@@ -60,6 +60,16 @@
     <string name="select_correct_email">ایمیل ثبت شده در برنامه را انتخاب نمایید</string>
     <string name="sign_in_google">اتصال توسط اکانت جیمیل</string>
     <string name="sign_biometric_password">اتصال توسط بیومتریک و یا رمز ورود</string>
-
+    <string name="defenition_account">تعریف حساب</string>
+    <string name="account_name">نام حساب</string>
+    <string name="account_number">شماره حساب</string>
+    <string name="account_password">رمز حساب</string>
+    <string name="cvv2">CVV2</string>
+    <string name="date">تاریخ</string>
+    <string name="bank_name">نام بانک</string>
+    <string name="card_number">شماره کارت</string>
+    <string name="summery">توضیحات</string>
+    <string name="register_account">ثبت حساب</string>
+    <string name="definition_account">تعریف حساب</string>
 
 </resources>

@@ -58,6 +58,17 @@
     <string name="select_correct_email">You must select registered email in this application</string>
     <string name="sign_in_google">Sign in with google Account</string>
     <string name="sign_biometric_password">Sign with biometric or password</string>
+    <string name="defenition_account">Defenition Account</string>
+    <string name="account_name">Account Name</string>
+    <string name="account_number">Account Number</string>
+    <string name="account_password">Account Password</string>
+    <string name="cvv2">CVV2</string>
+    <string name="date">Date</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="card_number">Card Number</string>
+    <string name="summery">Summery</string>
+    <string name="register_account">Register Account</string>
+    <string name="definition_account">Definition Account</string>
 
 
     //endregion
