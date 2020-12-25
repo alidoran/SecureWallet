@@ -1,71 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/md_grey_300">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        tools:context="views.SignInActivity">
+        android:layout_gravity="center">
 
-        <com.google.android.material.textview.MaterialTextView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginEnd="@dimen/normal_margin"
-            android:text="1.Sign in whith google Account"/>
+            android:layout_margin="@dimen/low_margin">
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_google_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_margin"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/search_margin"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginEnd="@dimen/normal_margin"
-            android:text="2.pass finger print or password"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signup_firs_name_lay"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginEnd="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:hint="Password">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/sign_in_pass_edt"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:context="views.SignInActivity">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/sign_in_google_lin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/normal_margin"
+                        android:layout_marginEnd="@dimen/normal_margin"
+                        android:text="@string/sign_in_google"
+                        android:layout_marginTop="@dimen/normal_margin"/>
+
+                    <com.google.android.gms.common.SignInButton
+                        android:id="@+id/sign_in_google_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/normal_margin"
+                        android:layout_marginBottom="@dimen/normal_margin"
+                        android:layout_gravity="center_horizontal"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/sign_in_bio_lin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:text="@string/sign_biometric_password" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:hint="@string/password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_in_pass_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sign_in_ok_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:text="@string/enter"
+        android:layout_gravity="center_horizontal"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/sign_in_bio_connect_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bio_secure_login"
+        android:textColor="@color/md_blue_800"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginBottom="@dimen/normal_margin"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
 
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/sign_in_ok_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:text="@string/enter" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/sign_in_sign_up_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:text="@string/sign_up"
+                    android:textColor="@color/md_blue_700"
+                    android:layout_marginBottom="@dimen/normal_margin"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/sign_in_sign_up_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:text="@string/sign_up"
-            android:textColor="@color/md_blue_700" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </LinearLayout>
-</ScrollView>
+        </androidx.cardview.widget.CardView>
+
+    </ScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

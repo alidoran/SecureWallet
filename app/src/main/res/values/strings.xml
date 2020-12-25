@@ -50,11 +50,14 @@
     <string name="english">english</string>
     <string name="persian">فارسی</string>
     <string name="hi">Hi</string>
-    <string name="space">\" \"</string>
+    <string name="space">\ \</string>
     <string name="cancel">cancel</string>
     <string name="log_in_biometric">Log in using your biometric credential</string>
     <string name="bio_secure_login">Biometric login for SecureWallet</string>
     <string name="need_gmail">You need gmail account for use this program</string>
+    <string name="select_correct_email">You must select registered email in this application</string>
+    <string name="sign_in_google">Sign in with google Account</string>
+    <string name="sign_biometric_password">Sign with biometric or password</string>
 
 
     //endregion

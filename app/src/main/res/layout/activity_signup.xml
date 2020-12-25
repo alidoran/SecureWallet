@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
     tools:context="views.SignUpActivity"
@@ -82,7 +83,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/signup_firs_name_edt"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -141,12 +142,14 @@
                 android:layout_marginStart="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/normal_margin"
                 android:layout_marginTop="16dp"
+                app:endIconMode="password_toggle"
                 android:hint="@string/password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sign_up_password_edt"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -158,12 +161,14 @@
                 android:layout_marginEnd="@dimen/normal_margin"
                 android:layout_marginTop="16dp"
                 android:hint="@string/password"
+                app:endIconMode="password_toggle"
                 android:layout_marginBottom="@dimen/normal_margin">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sign_up_two_password_edt"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.checkbox.MaterialCheckBox

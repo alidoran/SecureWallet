@@ -3,6 +3,7 @@ package views;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
@@ -15,9 +16,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import constants.StaticManager;
-import io.github.inflationx.calligraphy3.CalligraphyConfig;
-import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
-import io.github.inflationx.viewpump.ViewPump;
 import ir.doran_program.SecureWallet.R;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,14 +28,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.concurrent.Executor;
 
 import base.BaseActivity;
+import models.SignUpModel;
 import tools.Common;
-import tools.MySettings;
+import tools.PrefManager;
 
-import static constants.IntentKeys.USER_NAME;
+import static android.view.View.*;
 
 public class SignInActivity extends BaseActivity {
 
@@ -46,7 +46,10 @@ public class SignInActivity extends BaseActivity {
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
     private GoogleSignInClient mGoogleSignInClient;
-    private TextInputEditText edtSignIn;
+    private TextInputEditText edtPass;
+    private LinearLayoutCompat linBio;
+    private LinearLayoutCompat linGoogle;
+    private MaterialTextView txtBioConnect;
 
     private static final int REQ_GOOGLE_SIGN_IN = 9001;
     private static final int REQ_SIGN_UP = 696;
@@ -56,27 +59,36 @@ public class SignInActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-
-
-        googleSignIn();
         initView();
         initBiometricSensor();
         initEvent();
+        loadDefault();
+    }
+
+    private void loadDefault() {
+        SignUpModel signUpModel = new PrefManager().getSignDetails();
+        if (signUpModel != null) {
+            googleSignIn();
+        } else {
+            linGoogle.setVisibility(GONE);
+            linBio.setVisibility(GONE);
+        }
     }
 
     private void initView() {
-
         viewSignUp = findViewById(R.id.sign_in_sign_up_view);
         btnOk = findViewById(R.id.sign_in_ok_btn);
-        edtSignIn = findViewById(R.id.sign_in_pass_edt);
+        edtPass = findViewById(R.id.sign_in_pass_edt);
+        linBio = findViewById(R.id.sign_in_bio_lin);
+        linGoogle = findViewById(R.id.sign_in_google_lin);
+        txtBioConnect = findViewById(R.id.sign_in_bio_connect_txt);
     }
 
     private void initEvent() {
         btnOk.setOnClickListener(v -> {
-//            acceptPass();
             biometricPrompt.authenticate(promptInfo);
         });
-        edtSignIn.addTextChangedListener(new TextWatcher() {
+        edtPass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -89,7 +101,8 @@ public class SignInActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (PrefManager.getInstance().getSignDetails().getPassword().equals(s.toString()))
+                    acceptPass();
             }
         });
         viewSignUp.setOnClickListener(v -> {
@@ -105,7 +118,6 @@ public class SignInActivity extends BaseActivity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
         SignInButton signInButton = findViewById(R.id.sign_in_google_btn);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setOnClickListener(v -> {
@@ -121,10 +133,25 @@ public class SignInActivity extends BaseActivity {
     }
 
     private void updateUI(GoogleSignInAccount signInAccount) {
-        if (signInAccount != null) {
-            StaticManager.gMailAddress = Common.getInstance().stringToSha256(signInAccount.getEmail());
-            StaticManager.GoogleId = Common.getInstance().stringToSha256(signInAccount.getId());
-
+        SignUpModel signUpModel = new PrefManager().getSignDetails();
+        if (signInAccount != null && signUpModel != null) {
+            if (signUpModel.getEmail().equals(signInAccount.getEmail())) {
+                StaticManager.gMailAddress = signInAccount.getEmail();
+                StaticManager.GoogleId = signInAccount.getId();
+                viewSignUp.setVisibility(GONE);
+                linGoogle.setVisibility(GONE);
+                if (signUpModel.isBiometric()) {
+                    txtBioConnect.setVisibility(VISIBLE);
+                    biometricPrompt.authenticate(promptInfo);
+                } else {
+                    edtPass.setVisibility(VISIBLE);
+                    txtBioConnect.setVisibility(GONE);
+                }
+            } else {
+                linGoogle.setVisibility(VISIBLE);
+                mGoogleSignInClient.signOut();
+                Toast.makeText(this, getString(R.string.select_correct_email), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -155,9 +182,7 @@ public class SignInActivity extends BaseActivity {
             public void onAuthenticationError(int errorCode,
                                               @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(getApplicationContext(),
-                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(SignInActivity.this, Common.getInstance().BiometricHandleError(errorCode), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -170,17 +195,15 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-                Toast.makeText(getApplicationContext(), "Authentication failed",
-                        Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(SignInActivity.this, getString(R.string.biometric_authentication_failed), Toast.LENGTH_SHORT).show();
             }
 
 
         });
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric login for SecureWallet")
-                .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
+                .setTitle(getString(R.string.bio_secure_login))
+                .setSubtitle(getString(R.string.log_in_biometric))
+                .setNegativeButtonText(getString(R.string.cancel))
                 .build();
     }
 
@@ -199,7 +222,7 @@ public class SignInActivity extends BaseActivity {
                     handleSignInResult(task);
                     break;
                 case REQ_SIGN_UP:
-                    ((TextInputLayout) edtSignIn.getParent().getParent()).setVisibility(View.GONE);
+                    ((TextInputLayout) edtPass.getParent().getParent()).setVisibility(GONE);
                     break;
             }
     }

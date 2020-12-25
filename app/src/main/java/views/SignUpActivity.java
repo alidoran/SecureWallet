@@ -67,7 +67,6 @@ public class SignUpActivity extends BaseActivity {
         initView();
         initEvent();
         seTag();
-        showHelp();
         googleSignIn();
         initBiometricSensor();
         linSectionTwo.setVisibility(GONE);
@@ -112,8 +111,6 @@ public class SignUpActivity extends BaseActivity {
             if (isChecked)
                 biometricPrompt.authenticate(promptInfo);
         });
-
-
     }
 
     private void seTag() {
@@ -177,7 +174,8 @@ public class SignUpActivity extends BaseActivity {
             ((TextInputLayout) edtEmail.getParent().getParent()).setEnabled(false);
             String title = getString(R.string.hi)  + getString(R.string.space)+ signInAccount.getDisplayName() +getString(R.string.space) +  getString(R.string.fill_field);
             txtSectionTwoTitle.setText(title);
-        }
+        } else
+            showHelp();
     }
 
     private void signIn() {

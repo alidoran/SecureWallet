@@ -52,11 +52,14 @@
     <string name="english">english</string>
     <string name="persian">فارسی</string>
     <string name="hi">سلام</string>
-    <string name="space">\" \"</string>
+    <string name="space">\ \</string>
     <string name="cancel">انصراف</string>
     <string name="log_in_biometric">ورود بیومتریک</string>
     <string name="bio_secure_login">اتصال بیومتریک کیف پول امن</string>
     <string name="need_gmail">جهت استفاده برنامه به جیمیل نیاز دارید</string>
+    <string name="select_correct_email">ایمیل ثبت شده در برنامه را انتخاب نمایید</string>
+    <string name="sign_in_google">اتصال توسط اکانت جیمیل</string>
+    <string name="sign_biometric_password">اتصال توسط بیومتریک و یا رمز ورود</string>
 
 
 </resources>

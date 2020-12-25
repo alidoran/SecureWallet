@@ -2,7 +2,10 @@ package tools;
 
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
 import base.BaseApplication;
+import models.SignUpModel;
 
 public class PrefManager {
     private SharedPreferences pref;
@@ -58,15 +61,18 @@ public class PrefManager {
         editor.commit();
     }
 
-    public String getSignDetails() {
-        return pref.getString(this.signDetails, "");
+    public SignUpModel getSignDetails() {
+        String signUpDetailString = pref.getString(this.signDetails, "");
+        if (!signUpDetailString.isEmpty())
+            return new Gson().fromJson(signUpDetailString, SignUpModel.class);
+        else
+            return null;
     }
 
     public void setSignDetails(String signDetails) {
-        editor.putString(this.signDetails, "");
+        editor.putString(this.signDetails, signDetails);
         editor.commit();
     }
-
 
 
 }
