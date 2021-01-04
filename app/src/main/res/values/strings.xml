@@ -69,6 +69,8 @@
     <string name="summery">Summery</string>
     <string name="register_account">Register Account</string>
     <string name="definition_account">Definition Account</string>
+    <string name="show">Show</string>
+    <string name="delete">Delete</string>
 
 
     //endregion

@@ -1,6 +1,7 @@
 package database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.Insert;
@@ -21,5 +22,8 @@ import models.AccountDetails;
 
         @Update
         int update(AccountDetails accountDetails);
+
+        @Delete
+        boolean delete(AccountDetails... accountDetails);
     }
 

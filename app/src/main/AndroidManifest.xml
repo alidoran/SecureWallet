@@ -26,7 +26,7 @@
         tools:replace="android:theme">
         <activity android:name="views.SignInActivity" />
         <activity android:name="views.SignUpActivity" />
-        <activity android:name="views.ShowAccountsActivity" />
+        <activity android:name="views.MainActivity" />
         <activity android:name="views.RegisterAccountActivity" />
         <activity android:name="views.ChooseLanguageActivity">
             <intent-filter>

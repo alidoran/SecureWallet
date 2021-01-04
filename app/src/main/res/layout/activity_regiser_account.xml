@@ -43,7 +43,9 @@
         android:id="@+id/register_main_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/register_toolbar">
+        android:layout_above="@+id/register_account_btn"
+        android:layout_below="@+id/register_toolbar"
+        >
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"

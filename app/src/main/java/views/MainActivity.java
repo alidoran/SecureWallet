@@ -2,12 +2,10 @@
  package views;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -15,37 +13,34 @@ import ir.doran_program.SecureWallet.R;
 
 import com.example.fullmodulelist.FullModuleFragment;
 import com.example.fullmodulelist.FullModuleItemListModel;
-import com.example.fullmodulelist.OnItemListClickListenerFullModule;
-import com.google.android.material.button.MaterialButton;
+import com.example.fullmodulelist.OnClickListenerNoObjectFullModule;
+import com.example.fullmodulelist.OnPopUpClickListenerFullModule;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import base.BaseActivity;
 import database.AppDatabase;
 import models.AccountDetails;
-import models.ItemListModel;
-import tools.EnumManager;
 
 import static constants.IntentKeys.SELECTED_ACCOUNT;
 import static constants.SettingManager.DATABASE_NAME;
 
- public class ShowAccountsActivity extends BaseActivity {
+ public class MainActivity extends BaseActivity {
 
-    private RecyclerView recyclerAccount;
-    private MaterialButton btnDefineAccount;
-    private RelativeLayout relList;
-    private ImageView imgSync;
+    private RelativeLayout relMain;
     private static final int REQ_ADD_ACCOUNT = 626;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_accounts);
+        setContentView(R.layout.activity_main);
 
         initView();
         readAccountList();
@@ -54,40 +49,56 @@ import static constants.SettingManager.DATABASE_NAME;
     }
 
     private void initEvent() {
-        btnDefineAccount.setOnClickListener(v -> {
-            Intent intent = new Intent(this, RegisterAccountActivity.class);
-            startActivityForResult(intent, REQ_ADD_ACCOUNT);
-        });
-        imgSync.setOnClickListener(v->{
-
-        });
     }
 
     private void readAccountList() {
+        ArrayList<String> moreItem = new ArrayList<String>(Arrays.asList(getString(R.string.show) , getString(R.string.delete)));
         List<AccountDetails> accountDetailsList = AppDatabase.getInstance(this).accountDetailsDao().getAll();
-        if (accountDetailsList.isEmpty()) {
-            showError(EnumManager.ErrorType.NotFound, relList, null);
-        } else {
-            hideError(relList);
             new FullModuleFragment(accountDetailsList)
+                    .setFabListener(() -> {
+                        Intent intent = new Intent(MainActivity.this, RegisterAccountActivity.class);
+                        startActivityForResult(intent, REQ_ADD_ACCOUNT);
+                    })
                     .setOnMainItemListClickListener(fullModuleItemListModel -> {
-                        for (AccountDetails accountDetails : accountDetailsList) {
-                            if (String.valueOf(accountDetails.getCode()).equals(fullModuleItemListModel.getCode())) {
-                                Intent intent = new Intent(this, RegisterAccountActivity.class);
-                                intent.putExtra(SELECTED_ACCOUNT, accountDetails);
-                                startActivityForResult(intent, REQ_ADD_ACCOUNT);
-                            }
+                        showAccount(accountDetailsList , fullModuleItemListModel);
+                    })
+                    .setOnPopUpClickListenerFullModule(moreItem, (i, fullModuleItemListModel) -> {
+                        switch (i){
+                            case 0 :
+                            default:
+                                showAccount(accountDetailsList , fullModuleItemListModel);
+                                break;
+                            case 1:
+                                deleteAccount(accountDetailsList , fullModuleItemListModel);
+                                break;
+
                         }
                     })
                     .show(getSupportFragmentManager() , this.getLocalClassName());
+    }
+
+    private void showAccount(List<AccountDetails> accountDetailsList , FullModuleItemListModel fullModuleItemListModel){
+        for (AccountDetails accountDetails : accountDetailsList) {
+            if (String.valueOf(accountDetails.getCode()).equals(fullModuleItemListModel.getCode())) {
+                Intent intent = new Intent(this, RegisterAccountActivity.class);
+                intent.putExtra(SELECTED_ACCOUNT, accountDetails);
+                startActivityForResult(intent, REQ_ADD_ACCOUNT);
+            }
+        }
+    }
+
+    private void deleteAccount(List<AccountDetails> accountDetailsList , FullModuleItemListModel fullModuleItemListModel){
+        for (AccountDetails accountDetails : accountDetailsList) {
+            if (String.valueOf(accountDetails.getCode()).equals(fullModuleItemListModel.getCode())) {
+                AppDatabase.getInstance(this).accountDetailsDao().delete(accountDetails);
+                readAccountList();
+            }
         }
     }
 
     private void initView() {
-        recyclerAccount = findViewById(R.id.show_account_recycler);
-        btnDefineAccount = findViewById(R.id.show_account_define_btn);
-        relList = findViewById(R.id.show_account_list_rel);
-        imgSync = findViewById(R.id.show_account_sync_img);
+
+        relMain = findViewById(R.id.main_rel);
     }
 
     private void saveData() {
@@ -102,18 +113,17 @@ import static constants.SettingManager.DATABASE_NAME;
             saveFile.createNewFile();
             int bufferSize = 8 * 1024;
             byte[] buffer = new byte[bufferSize];
-            int bytesRead = bufferSize;
             OutputStream saveDb = new FileOutputStream(sfPath);
             InputStream indb = new FileInputStream(dbFile);
-            while ((bytesRead = indb.read(buffer, 0, bufferSize)) > 0) {
-                saveDb.write(buffer, 0, bytesRead);
+            while ((bufferSize = indb.read(buffer, 0, bufferSize)) > 0) {
+                saveDb.write(buffer, 0, bufferSize);
             }
             saveDb.flush();
             indb.close();
             saveDb.close();
             Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            Toast.makeText(ShowAccountsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 

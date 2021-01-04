@@ -71,5 +71,7 @@
     <string name="summery">توضیحات</string>
     <string name="register_account">ثبت حساب</string>
     <string name="definition_account">تعریف حساب</string>
+    <string name="show">نمایش</string>
+    <string name="delete">حذف</string>
 
 </resources>

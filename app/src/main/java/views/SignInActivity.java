@@ -207,7 +207,7 @@ public class SignInActivity extends BaseActivity {
     }
 
     private void acceptPass() {
-        Intent intent = new Intent(this, ShowAccountsActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
