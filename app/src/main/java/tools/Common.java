@@ -196,7 +196,7 @@ public class Common {
         return (int) (dp * scale + 0.5f);
     }
 
-    public String BiometricHandleError(int code) {
+    public String biometricHandleError(int code) {
         Resources resource = BaseApplication.getContext().getResources();
         String result;
         if (code == Disabled.getValue())

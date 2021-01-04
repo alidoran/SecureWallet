@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import ir.doran_program.SecureWallet.R;
 
+import com.example.fullmodulelist.FullModuleFragment;
+import com.example.fullmodulelist.FullModuleItemListModel;
+import com.example.fullmodulelist.OnItemListClickListenerFullModule;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
@@ -66,16 +69,17 @@ import static constants.SettingManager.DATABASE_NAME;
             showError(EnumManager.ErrorType.NotFound, relList, null);
         } else {
             hideError(relList);
-            createTwoLineListRecycler(accountDetailsList, null, recyclerAccount, true, null, null, object -> {
-                ItemListModel selectedItem = (ItemListModel) object;
-                for (AccountDetails accountDetails : accountDetailsList) {
-                    if (accountDetails.getCode() == selectedItem.getCode()) {
-                        Intent intent = new Intent(this, RegisterAccountActivity.class);
-                        intent.putExtra(SELECTED_ACCOUNT, accountDetails);
-                        startActivityForResult(intent, REQ_ADD_ACCOUNT);
-                    }
-                }
-            });
+            new FullModuleFragment(accountDetailsList)
+                    .setOnMainItemListClickListener(fullModuleItemListModel -> {
+                        for (AccountDetails accountDetails : accountDetailsList) {
+                            if (String.valueOf(accountDetails.getCode()).equals(fullModuleItemListModel.getCode())) {
+                                Intent intent = new Intent(this, RegisterAccountActivity.class);
+                                intent.putExtra(SELECTED_ACCOUNT, accountDetails);
+                                startActivityForResult(intent, REQ_ADD_ACCOUNT);
+                            }
+                        }
+                    })
+                    .show(getSupportFragmentManager() , this.getLocalClassName());
         }
     }
 

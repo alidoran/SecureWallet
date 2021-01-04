@@ -153,7 +153,6 @@ public class SignUpActivity extends BaseActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-
         googleBtnSign.setSize(SignInButton.SIZE_STANDARD);
         googleBtnSign.setOnClickListener(v -> signIn());
     }
@@ -204,7 +203,7 @@ public class SignUpActivity extends BaseActivity {
                                               @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
                 chkFingerPrint.setChecked(false);
-                Toast.makeText(SignUpActivity.this, Common.getInstance().BiometricHandleError(errorCode), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, Common.getInstance().biometricHandleError(errorCode), Toast.LENGTH_SHORT).show();
             }
 
             @Override

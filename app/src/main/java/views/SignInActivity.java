@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import constants.StaticManager;
@@ -182,7 +181,7 @@ public class SignInActivity extends BaseActivity {
             public void onAuthenticationError(int errorCode,
                                               @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(SignInActivity.this, Common.getInstance().BiometricHandleError(errorCode), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignInActivity.this, Common.getInstance().biometricHandleError(errorCode), Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -60,7 +60,6 @@ import models.ModelViewModel;
 import tools.Common;
 import tools.EnumManager;
 import tools.MySettings;
-import tools.SearchToolbar;
 
 import static tools.Common.getCustomTitle;
 
@@ -69,28 +68,13 @@ public class BaseActivity extends AppCompatActivity {
     private List<ModelViewModel> modelViewModels = new ArrayList<>();
     private LinearLayout layout;
 
+    public Activity getActivity() {
+        return this;
+    }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
-    }
-
-    public static void slideShowViewPagerAutoShow(final RtlViewPager viewPager, int delay, int period ) {
-        final Handler mHandler = new Handler();
-        final Runnable mUpdateResults = new Runnable() {
-            int page = 0;
-
-            public void run() {
-                int numPages = viewPager.getAdapter().getCount();
-                page = (page + 1) % numPages;
-                viewPager.setCurrentItem(page);
-            }
-        };
-        Timer timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
-                public void run() {
-                    mHandler.post(mUpdateResults);
-                }
-            }, delay, period);
     }
 
     //region SetView
@@ -417,110 +401,6 @@ public class BaseActivity extends AppCompatActivity {
     }
     //endregion
 
-    //region OpenDialog
-    private void fullModuleList(String title, List codeNameModels, Drawable defaultIcon, View clickedView,
-                                List<String> moreStringList, OnPopUpClickListener onPopUpClickListener, OnObjectClickListener mainObjectClickListener) {
-        LinearLayoutCompat linearLayoutCompat = new LinearLayoutCompat(this);
-        SearchToolbar searchToolbar = new SearchToolbar(this);
-        RecyclerView recyclerView = new RecyclerView(this);
-        LinearLayoutCompat.LayoutParams linearParam = new LinearLayoutCompat.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        LinearLayout.LayoutParams searchParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        RecyclerView.LayoutParams recyclerParam = new RecyclerView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        linearLayoutCompat.setOrientation(LinearLayoutCompat.VERTICAL);
-        linearLayoutCompat.setBackgroundColor(Color.WHITE);
-        linearLayoutCompat.addView(searchToolbar, searchParam);
-        linearLayoutCompat.addView(recyclerView, recyclerParam);
-        this.addContentView(linearLayoutCompat, linearParam);
-        searchToolbar.initSearchToolbar(codeNameModels, moreStringList, recyclerView, title, true, defaultIcon, true, onPopUpClickListener, object -> {
-            ((ViewGroup) linearLayoutCompat.getParent()).removeView(linearLayoutCompat);
-            if (clickedView != null) {
-                if (clickedView instanceof TextView) {
-                    ItemListModel itemListModel = ((ItemListModel) object);
-                    ((TextView) clickedView).setText(itemListModel.getName());
-                    clickedView.setTag(itemListModel.getCode());
-                }
-            }
-            if (mainObjectClickListener != null)
-                mainObjectClickListener.onClick(object);
-        });
-
-    }
-
-    public void openDialog(String title, List itemListModelList, View clickedView) {
-        openDialog(title, itemListModelList, null, clickedView, null, null, null);
-    }
-
-    public void openDialog(String title, List itemListModelList, View clickedView, OnObjectClickListener mainObjectClickListener) {
-        openDialog(title, itemListModelList, null, clickedView, null, null, mainObjectClickListener);
-    }
-
-    public void openDialog(String title, List itemListModelList, Drawable defaultIcon, View clickedView, List<String> moreStringList,
-                           OnPopUpClickListener onPopUpClickListener, OnObjectClickListener mainObjectClickListener) {
-        if (itemListModelList.size() == 0) {
-            new MaterialAlertDialogBuilder(this)
-                    .setTitle(R.string.error)
-                    .setMessage(R.string.not_found_item)
-                    .show();
-        } else if (itemListModelList.size() > 10)
-            fullModuleList(title, itemListModelList, defaultIcon, clickedView, moreStringList, onPopUpClickListener, mainObjectClickListener);
-        else
-            openSelectDialog(itemListModelList, clickedView, title, mainObjectClickListener);
-    }
-    //endregion
-
-    //region OpenSelectDialog
-    public void openSelectDialog(List dialogList, EditText editText, String title) {
-        openSelectDialog(dialogList, editText, title, null);
-    }
-
-    public void openSelectDialog(List dialogList, View textView, String title, OnObjectClickListener onObjectClickListener) {
-        List<ItemListModel> itemListModelList;
-        if (!dialogList.isEmpty()) {
-            itemListModelList = Common.getInstance().listModelMapper(dialogList, ItemListModel.class);
-            if (!itemListModelList.isEmpty() &&
-                    (textView == null || textView instanceof MaterialTextView || textView instanceof TextInputEditText)) {
-                int listSize = itemListModelList.size();
-                CharSequence[] list = new String[listSize];
-                for (Integer i = 0; i < listSize; i++)
-                    list[i] = itemListModelList.get(i).getName();
-
-                new MaterialAlertDialogBuilder(this)
-                        .setTitle(title)
-                        .setItems(list, (dialog, which) -> {
-                            if (textView != null) {
-                                if (textView instanceof MaterialTextView)
-                                    ((MaterialTextView) textView).setText(itemListModelList.get(which).getName());
-                                if (textView instanceof TextInputEditText)
-                                    ((TextInputEditText) textView).setText(itemListModelList.get(which).getName());
-                                Object tag = null;
-                                if (itemListModelList.get(which).getCode() == null) {
-                                    if (itemListModelList.get(which).getId() != null)
-                                        tag = itemListModelList.get(which).getId();
-                                } else
-                                    tag = itemListModelList.get(which).getCode();
-                                textView.setTag(tag);
-                            }
-                            if (onObjectClickListener != null)
-                                onObjectClickListener.onClick(dialogList.get(which));
-                        }).show();
-            }
-        }
-    }
-    //endregion
-
-    public void createTwoLineListRecycler(List itemListModelList, RecyclerView recyclerView, boolean clickable) {
-        createTwoLineListRecycler(itemListModelList, null, recyclerView, clickable, null, null, null);
-    }
-
-    public void createTwoLineListRecycler(List itemListModelList, List<String> moreStringList, RecyclerView recyclerView, boolean clickable, Drawable defaultIcon,
-                                          OnPopUpClickListener onPopUpClickListener, OnObjectClickListener objectMainClickListener) {
-        Common.getInstance().listModelMapper(itemListModelList, ItemListModel.class);
-        AdapterTwoLineSimple twoLineListAdapter = new AdapterTwoLineSimple(itemListModelList, moreStringList, defaultIcon, clickable, onPopUpClickListener, objectMainClickListener);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        recyclerView.setNestedScrollingEnabled(true);
-        recyclerView.setAdapter(twoLineListAdapter);
-        twoLineListAdapter.notifyDataSetChanged();
-    }
     public void popUpItemCreate(View view, List<String> stringList, OnObjectClickListener onObjectClickListener) {
         PopupMenu popup = new PopupMenu(this, view);
         popup.setOnMenuItemClickListener(item -> {
@@ -532,38 +412,5 @@ public class BaseActivity extends AppCompatActivity {
             popup.getMenu().add(1, i, i, getCustomTitle(stringList.get(i)));
         }
         popup.show();
-    }
-
-    public Activity getActivity() {
-        return this;
-    }
-
-    public void focusView(TextInputEditText editText) {
-        editText.setFocusableInTouchMode(true);
-        editText.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-    }
-
-    public void verifyStoragePermissions(Activity activity) {
-
-        final int REQUEST_EXTERNAL_STORAGE = 1;
-        String[] PERMISSIONS_STORAGE = {
-
-                //Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        };
-
-        int permission = ActivityCompat.checkSelfPermission(
-                activity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
-        }
     }
 }
