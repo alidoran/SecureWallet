@@ -24,6 +24,6 @@ import models.AccountDetails;
         int update(AccountDetails accountDetails);
 
         @Delete
-        boolean delete(AccountDetails... accountDetails);
+        int delete(AccountDetails... accountDetails);
     }
 
