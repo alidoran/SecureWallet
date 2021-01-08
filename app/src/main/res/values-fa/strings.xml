@@ -73,5 +73,10 @@
     <string name="definition_account">تعریف حساب</string>
     <string name="show">نمایش</string>
     <string name="delete">حذف</string>
+    <string name="operation_failed">عملیات با خطا مواجه شد</string>
+    <string name="header">سر تیتر</string>
+    <string name="body">بدنه</string>
+    <string name="delete_successful">پاک کردن با موفقیت انجام شد</string>
+    <string name="account_list">لیست حساب ها</string>
 
 </resources>

@@ -71,6 +71,11 @@
     <string name="definition_account">Definition Account</string>
     <string name="show">Show</string>
     <string name="delete">Delete</string>
+    <string name="operation_failed">Operation failed</string>
+    <string name="header">header</string>
+    <string name="body">body</string>
+    <string name="delete_successful">Delete successful</string>
+    <string name="account_list">Account list</string>
 
 
     //endregion

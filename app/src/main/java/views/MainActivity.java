@@ -1,20 +1,22 @@
 
- package views;
+
+
+package views;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import adapter.AdapterMainList;
+import interfaces.OnObjectClickListener;
 import ir.doran_program.SecureWallet.R;
-
-import com.example.fullmodulelist.FullModuleFragment;
-import com.example.fullmodulelist.FullModuleItemListModel;
-import com.example.fullmodulelist.OnClickListenerNoObjectFullModule;
-import com.example.fullmodulelist.OnPopUpClickListenerFullModule;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,9 +34,9 @@ import models.AccountDetails;
 import static constants.IntentKeys.SELECTED_ACCOUNT;
 import static constants.SettingManager.DATABASE_NAME;
 
- public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
-    private RelativeLayout relMain;
+    private RecyclerView recyclerMain;
     private static final int REQ_ADD_ACCOUNT = 626;
 
     @Override
@@ -43,62 +45,68 @@ import static constants.SettingManager.DATABASE_NAME;
         setContentView(R.layout.activity_main);
 
         initView();
-        readAccountList();
-        initEvent();
         saveData();
-    }
-
-    private void initEvent() {
-    }
-
-    private void readAccountList() {
-        ArrayList<String> moreItem = new ArrayList<String>(Arrays.asList(getString(R.string.show) , getString(R.string.delete)));
-        List<AccountDetails> accountDetailsList = AppDatabase.getInstance(this).accountDetailsDao().getAll();
-            new FullModuleFragment(accountDetailsList)
-                    .setFabListener(() -> {
-                        Intent intent = new Intent(MainActivity.this, RegisterAccountActivity.class);
-                        startActivityForResult(intent, REQ_ADD_ACCOUNT);
-                    })
-                    .setOnMainItemListClickListener(fullModuleItemListModel -> {
-                        showAccount(accountDetailsList , fullModuleItemListModel);
-                    })
-                    .setOnPopUpClickListenerFullModule(moreItem, (i, fullModuleItemListModel) -> {
-                        switch (i){
-                            case 0 :
-                            default:
-                                showAccount(accountDetailsList , fullModuleItemListModel);
-                                break;
-                            case 1:
-                                deleteAccount(accountDetailsList , fullModuleItemListModel);
-                                break;
-
-                        }
-                    })
-                    .show(getSupportFragmentManager() , this.getLocalClassName());
-    }
-
-    private void showAccount(List<AccountDetails> accountDetailsList , FullModuleItemListModel fullModuleItemListModel){
-        for (AccountDetails accountDetails : accountDetailsList) {
-            if (String.valueOf(accountDetails.getCode()).equals(fullModuleItemListModel.getCode())) {
-                Intent intent = new Intent(this, RegisterAccountActivity.class);
-                intent.putExtra(SELECTED_ACCOUNT, accountDetails);
-                startActivityForResult(intent, REQ_ADD_ACCOUNT);
-            }
-        }
-    }
-
-    private void deleteAccount(List<AccountDetails> accountDetailsList , FullModuleItemListModel fullModuleItemListModel){
-        for (AccountDetails accountDetails : accountDetailsList) {
-            if (String.valueOf(accountDetails.getCode()).equals(fullModuleItemListModel.getCode())) {
-                AppDatabase.getInstance(this).accountDetailsDao().delete(accountDetails);
-                readAccountList();
-            }
-        }
+        createMainRecycler();
     }
 
     private void initView() {
+        recyclerMain = findViewById(R.id.main_list_recycler);
+    }
 
-        relMain = findViewById(R.id.main_rel);
+    //region initEvent
+    public void main_list_more_click(View view) {
+        ArrayList<String> moreList = new ArrayList<>(Arrays.asList(getString(R.string.show), getString(R.string.delete)));
+        popUpItemCreate(view, moreList, object -> {
+            int selectedPopup = ((int) object);
+            moreClicked(view, selectedPopup);
+        });
+    }
+
+    private void moreClicked(View view, int selectedPopUp) {
+        int id = Integer.parseInt(view.getTag().toString());
+        switch (selectedPopUp) {
+            case 0:
+            default:
+                showAccount(id);
+                break;
+            case 1:
+                deleteAccount(id);
+                break;
+        }
+    }
+
+    public void define_onclick(View view) {
+        Intent intent = new Intent(MainActivity.this, RegisterAccountActivity.class);
+        startActivityForResult(intent, REQ_ADD_ACCOUNT);
+    }
+
+    private void createMainRecycler() {
+        List<AccountDetails> accountDetailsList = AppDatabase.getInstance(this).accountDetailsDao().getAll();
+        AdapterMainList adapterAlarm = new AdapterMainList(accountDetailsList);
+        recyclerMain.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerMain.setAdapter(adapterAlarm);
+    }
+    //endregion
+
+    public void main_list_item_view_click(View view) {
+        int id = (int) view.getTag();
+        showAccount(id);
+    }
+
+    private void showAccount(int id) {
+        Intent intent = new Intent(this, RegisterAccountActivity.class);
+        intent.putExtra(SELECTED_ACCOUNT, id);
+        startActivityForResult(intent, REQ_ADD_ACCOUNT);
+    }
+
+    private void deleteAccount(long id) {
+        int result = AppDatabase.getInstance(this).accountDetailsDao().deleteSelectedModel(id);
+        if (result != 0) {
+            Toast.makeText(this, getString(R.string.delete_successful), Toast.LENGTH_SHORT).show();
+            createMainRecycler();
+        }else{
+            Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void saveData() {
@@ -127,56 +135,6 @@ import static constants.SettingManager.DATABASE_NAME;
         }
     }
 
-    private void saveData2(){
-
-    }
-
-//    public boolean restoreBackup(String fileName, Bll bll, Context context) {
-//        File sDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "SecureWalletDataBases");
-//        String sfPath = sDir.getPath() + File.separator + "SecureWalletDataBase" ;
-//        File folder = new File(sfPath);
-//        if (!folder.exists())
-//            return false;
-//        try {
-//            InputStream myInput = new FileInputStream(sfPath + fileName);
-//            OutputStream myOutput = new FileOutputStream(Bll.DATABASE_PATH() + "DBFile.db");
-//            CipherInputStream cis = null;
-//            if (!debugMode) {
-//                SecretKeySpec sks = new SecretKeySpec(Settings.passwordFile.getBytes(), "AES");
-//                Cipher cipher = Cipher.getInstance("AES");
-//                cipher.init(Cipher.DECRYPT_MODE, sks);
-//                cis = new CipherInputStream(myInput, cipher);
-//            }
-//
-//
-//            byte[] buffer = new byte[1024];
-//            int length;
-//            if (debugMode) {
-//                while ((length = myInput.read(buffer)) != -1) {
-//                    myOutput.write(buffer, 0, length);
-//                }
-//            } else {
-//                while ((length = cis.read(buffer)) !=-1) {
-//                    myOutput.write(buffer, 0, length);
-//                }
-//            }
-//            if (debugMode) {
-//                myOutput.flush();
-//            } else {
-//                cis.close();
-//            }
-//            myOutput.close();
-//            myInput.close();
-//
-//            bll.updateDataBase(bll.getWritableDatabase(), 1, Events.getVersionCode(context));
-//            Bll.sInstance = null;
-//            return true;
-//        } catch (Exception e) {
-//            MessageBox.Show(context,"خطا",e.getMessage());
-//            return false;
-//        }
-//    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -184,7 +142,7 @@ import static constants.SettingManager.DATABASE_NAME;
         if (resultCode == RESULT_OK)
             switch (requestCode) {
                 case REQ_ADD_ACCOUNT:
-                    readAccountList();
+                    createMainRecycler();
             }
     }
 }

@@ -43,21 +43,13 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import adapter.AdapterTwoLineSimple;
 import interfaces.OnClickListenerNoObject;
 import interfaces.OnObjectClickListener;
-import interfaces.OnPopUpClickListener;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
-import models.ItemListModel;
 import models.ModelViewModel;
-import tools.Common;
 import tools.EnumManager;
 import tools.MySettings;
 

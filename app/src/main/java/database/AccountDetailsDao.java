@@ -17,13 +17,17 @@ import models.AccountDetails;
         @Query("SELECT * FROM AccountDetails")
         List<AccountDetails> getAll();
 
+        @Query("SELECT * FROM AccountDetails WHERE Id = :id")
+        AccountDetails getSelectedModel(long id);
+
+        @Query("Delete FROM AccountDetails WHERE Id = :id")
+        int deleteSelectedModel(long id);
+
         @Insert
         void insertAll(AccountDetails... accountDetails);
 
         @Update
         int update(AccountDetails accountDetails);
 
-        @Delete
-        int delete(AccountDetails... accountDetails);
     }
 

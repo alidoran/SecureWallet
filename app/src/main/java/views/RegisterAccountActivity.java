@@ -1,6 +1,5 @@
 package views;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -18,6 +17,8 @@ import com.seyagh.persiandatepicker.DatePickerMethod;
 import base.BaseActivity;
 import constants.IntentKeys;
 import models.AccountDetails;
+
+import static constants.IntentKeys.*;
 
 public class RegisterAccountActivity extends BaseActivity {
 
@@ -48,7 +49,8 @@ public class RegisterAccountActivity extends BaseActivity {
 
     private void readIntent() {
         if (getIntent().getExtras() != null) {
-            selectedAccount = (AccountDetails) getIntent().getExtras().getSerializable(IntentKeys.SELECTED_ACCOUNT);
+            int selectedId = getIntent().getExtras().getInt(SELECTED_ACCOUNT);
+            AccountDetails selectedAccount = AppDatabase.getInstance(this).accountDetailsDao().getSelectedModel(selectedId);
             setModelToView(selectedAccount);
         }
     }
@@ -87,8 +89,11 @@ public class RegisterAccountActivity extends BaseActivity {
                     setResult(RESULT_OK);
                     finish();
                 } else {
-                    AppDatabase.getInstance(this).accountDetailsDao().update(accountDetails);
+                    int result = AppDatabase.getInstance(this).accountDetailsDao().update(accountDetails);
+                    if (result==1)
                     setResult(RESULT_OK);
+                    else
+                        Toast.makeText(this, getString(R.string.operation_failed), Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }

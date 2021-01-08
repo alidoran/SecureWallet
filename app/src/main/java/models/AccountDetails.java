@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Entity
 public class AccountDetails implements Serializable {
     @PrimaryKey(autoGenerate = true)
+    private long Id;
+    @ColumnInfo()
     private long Code;
     @ColumnInfo(name = "Name")
     public String Name;
@@ -29,6 +31,14 @@ public class AccountDetails implements Serializable {
     private String CardNumber;
     @ColumnInfo(name = "Summery")
     private String Summery;
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
 
     public long getCode() {
         return Code;

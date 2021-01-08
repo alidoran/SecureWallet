@@ -7,6 +7,7 @@
     android:clickable="true"
     android:focusable="true"
     android:gravity="start"
+    android:onClick="main_list_item_view_click"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -16,22 +17,17 @@
         android:orientation="horizontal"
         android:background="#FFFFFFFF"
         >
-        <!--
-                <include
-                    android:id="@+id/circle_icon_view"
-                    layout="@layout/circle_icon"
-                    android:duplicateParentState="true" />-->
 
         <LinearLayout
-            android:id="@+id/txt_line_circle_lin"
+            android:id="@+id/item_main_list_circle_lin"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
-            android:background="@drawable/full_module_shape_circle"
+            android:background="@drawable/shape_circle"
             android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/txt_line_circle_img"
+                android:id="@+id/item_main_list_circle_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -45,38 +41,39 @@
             android:orientation="vertical">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/txt_line_one_view"
+                android:id="@+id/item_main_list_one_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="start"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="header"
+                android:text="@string/header"
                 android:textColor="@android:color/black" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/txt_line_two_view"
+                android:id="@+id/item_main_list_two_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="start"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="body"
+                android:text="@string/body"
                 android:textSize="11sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_more"
+            android:id="@+id/item_main_list_more_img"
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:padding="12dp"
-            android:src="@drawable/full_module_more_vertical" />
+            android:src="@drawable/more_vertical"
+            android:onClick="main_list_more_click"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/item_two_line_divider_img"
+        android:id="@+id/item_main_list_divider_img"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#dfdfdf" />
