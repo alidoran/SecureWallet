@@ -237,6 +237,4 @@ public class SignUpActivity extends BaseActivity {
                 handleSignInResult(task);
             }
     }
-
-
 }

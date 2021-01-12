@@ -22,13 +22,17 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import base.BaseApplication;
+import constants.StaticManager;
 import ir.doran_program.SecureWallet.R;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
@@ -36,6 +40,9 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 import javax.crypto.Cipher;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 
 import base.BaseActivity;
 import interfaces.OnClickListenerNoObject;
@@ -47,10 +54,8 @@ import static tools.EnumManager.BiometricError.*;
 
 public class Common {
 
-    boolean fingerResult;
-
     private static Common common;
-
+    private String cipherMode= "AES/ECB/PKCS5Padding";
 
     public static Common getInstance() {
         if (common == null)
@@ -97,43 +102,6 @@ public class Common {
         return decrypted;
     }
 
-    public boolean fingerPrintAction(Context context) {
-        fingerResult = false;
-        Executor executor = ContextCompat.getMainExecutor(context);
-        BiometricPrompt biometricPrompt = new BiometricPrompt(((BaseActivity) context),
-                executor, new BiometricPrompt.AuthenticationCallback() {
-            @Override
-            public void onAuthenticationError(int errorCode,
-                                              @NonNull CharSequence errString) {
-                super.onAuthenticationError(errorCode, errString);
-
-            }
-
-            @Override
-            public void onAuthenticationSucceeded(
-                    @NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                fingerResult = true;
-
-            }
-
-            @Override
-            public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
-
-            }
-        });
-
-        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric login for my app")
-                .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
-                .build();
-
-        biometricPrompt.authenticate(promptInfo);
-        return fingerResult;
-    }
-
     public <T> List listModelMapper(List list, Class<T> class1) {
         ArrayList destList = new ArrayList();
         try {
@@ -168,7 +136,7 @@ public class Common {
         return newInstance;
     }
 
-    public static String toNumberLatin(String text) {
+    public String toNumberLatin(String text) {
         char[][] nums = new char[][]{"۰۱۲۳۴۵۶۷۸۹".toCharArray(), "0123456789".toCharArray()};
         for (int x = 0; x <= 9; x++) {
             text = text.replace(nums[0][x], nums[1][x]);
@@ -176,22 +144,22 @@ public class Common {
         return text.replace("٬", ",");
     }
 
-    public static SpannableString getCustomTitle(String title) {
+    public SpannableString getCustomTitle(String title) {
         return getCustomTitle(title, 0);
     }
 
-    public static SpannableString getCustomTitle(String title, int size) {
+    public SpannableString getCustomTitle(String title, int size) {
         return getCustomTitle(title, size, 0);
     }
 
-    public static SpannableString getCustomTitle(String title, int size, int color) {
+    public SpannableString getCustomTitle(String title, int size, int color) {
         CustomSpan span = new CustomSpan(size, color);
         SpannableString spannableString = new SpannableString(title);
         spannableString.setSpan(span, 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
 
-    public static int dpToPx(int dp) {
+    public int dpToPx(int dp) {
         float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
     }
@@ -222,5 +190,36 @@ public class Common {
         else
             result = resource.getString(R.string.biometric_not_found);
         return result;
+    }
+
+    public String encryptString(String s) {
+        SecretKeySpec sks = new SecretKeySpec(StaticManager.gMailAddress.getBytes(), "AES");
+        try {
+            Cipher cipher = null;
+            cipher = Cipher.getInstance(cipherMode);
+            cipher.init(Cipher.ENCRYPT_MODE, sks);
+            byte[] cipherText = cipher.doFinal(s.getBytes(StandardCharsets.UTF_8));
+            return byteArrayToString(cipherText);
+        } catch (Exception ignore) {
+            return null;
+        }
+    }
+
+    public String decryptString(String s) {
+        SecretKeySpec sks = new SecretKeySpec(StaticManager.gMailAddress.getBytes(), "AES");
+        try {
+            Cipher cipher = Cipher.getInstance(cipherMode);
+            cipher.init(Cipher.DECRYPT_MODE, sks);
+            return new String(cipher.doFinal(s.getBytes()), StandardCharsets.UTF_8);
+        } catch (Exception ignore) {
+            return null;
+        }
+    }
+
+
+    public String byteArrayToString(byte[] bytes) {
+        String text = null;
+        text = new String(bytes, StandardCharsets.UTF_8);
+        return text;
     }
 }

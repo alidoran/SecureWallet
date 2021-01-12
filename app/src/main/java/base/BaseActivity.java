@@ -2,11 +2,15 @@ package base;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
@@ -25,6 +29,7 @@ import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -50,15 +55,19 @@ import interfaces.OnClickListenerNoObject;
 import interfaces.OnObjectClickListener;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import models.ModelViewModel;
+import tools.Common;
 import tools.EnumManager;
 import tools.MySettings;
-
-import static tools.Common.getCustomTitle;
 
 public class BaseActivity extends AppCompatActivity {
 
     private List<ModelViewModel> modelViewModels = new ArrayList<>();
     private LinearLayout layout;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     public Activity getActivity() {
         return this;
@@ -401,7 +410,7 @@ public class BaseActivity extends AppCompatActivity {
         });
 
         for (int i = 0; i < stringList.size(); i++) {
-            popup.getMenu().add(1, i, i, getCustomTitle(stringList.get(i)));
+            popup.getMenu().add(1, i, i, Common.getInstance().getCustomTitle(stringList.get(i)));
         }
         popup.show();
     }

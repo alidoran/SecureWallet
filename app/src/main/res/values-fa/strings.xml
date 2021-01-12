@@ -78,5 +78,7 @@
     <string name="body">بدنه</string>
     <string name="delete_successful">پاک کردن با موفقیت انجام شد</string>
     <string name="account_list">لیست حساب ها</string>
+    <string name="signup_force_message">برای استفاده از نرم افزار ثبت نام ضروری می باشد</string>
+    <string name="signup_force_title">الزام ثبت نام</string>
 
 </resources>

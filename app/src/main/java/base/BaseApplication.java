@@ -6,42 +6,35 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-
 import java.util.Locale;
-
-import io.github.inflationx.calligraphy3.CalligraphyConfig;
-import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
-import io.github.inflationx.viewpump.ViewPump;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
-import ir.doran_program.SecureWallet.R;
-import tools.LangSet;
-import tools.MySettings;
+import tools.PrefManager;
+
 
 public class BaseApplication extends Application {
 
-    private static BaseApplication context;
+    private static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        context = this;
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        Context newContext = updateBaseContextLocale(newBase);
-        super.attachBaseContext(ViewPumpContextWrapper.wrap(newContext));
+    public void attachBaseContext(Context newBase) {
+        context = newBase;
+        updateBaseContextLocale();
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(context));
     }
 
-    private Context updateBaseContextLocale(Context context) {
-        String lang = "fa";
+    private void updateBaseContextLocale() {
+        String lang = PrefManager.getInstance().isPersianLanguage() ? "fa" : "en";;
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             context = updateResourcesLocale(context, locale);
         else
             context = updateResourcesLocaleLegacy(context, locale);
-        return context;
     }
 
     @TargetApi(Build.VERSION_CODES.N)
@@ -59,13 +52,7 @@ public class BaseApplication extends Application {
         return context;
     }
 
-
-
-    public static BaseApplication getContext() {
+    public static Context getContext() {
         return context;
     }
-
-
-
-
 }

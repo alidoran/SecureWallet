@@ -76,6 +76,8 @@
     <string name="body">body</string>
     <string name="delete_successful">Delete successful</string>
     <string name="account_list">Account list</string>
+    <string name="signup_force_message">For use this program you must register in app</string>
+    <string name="signup_force_title">Need to register</string>
 
 
     //endregion

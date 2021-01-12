@@ -1,37 +1,41 @@
 package tools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
+import android.util.DisplayMetrics;
 
 import java.util.Locale;
+
+import base.BaseApplication;
+
 
 public class LangSet {
     Context context;
 
-    public LangSet(Context context) {
-        this.context = context ;
+    public LangSet(Context context){
+        this.context=context;
         changeLangRecognize();
     }
 
-    public void changeLangRecognize() {
-        String lang = MySettings.isRtl ? "fa" : "en";
-
-        if (lang.equals("fa")) {
-            changeLocate(lang);
-            MySettings.fontFamily = MySettings.persianFont;
-
-        } else if (lang.equals("en")) {
-            changeLocate(lang);
-            MySettings.fontFamily = MySettings.englishFont;
-        }
+    private void changeLangRecognize() {
+        String lang=PrefManager.getInstance().isPersianLanguage() ? "fa" : "en" ;
+        Locale locale;
+        if (lang.equals("fa"))
+            ChangeLocate(lang);
+        else
+            ChangeLocate(lang);
     }
 
-    private void changeLocate(String languageToLoad) {
-        Locale locale = new Locale(languageToLoad);
+    private void ChangeLocate(String localLoad){
+        Locale locale=new Locale(localLoad);
         Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        context.getResources().updateConfiguration(config,
-            context.getResources().getDisplayMetrics());
+        Configuration config= new Configuration();
+        config.locale=locale;
+        context.getResources().updateConfiguration(config,context.getResources().getDisplayMetrics());
     }
+
+
 }

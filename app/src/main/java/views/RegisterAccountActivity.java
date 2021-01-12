@@ -112,6 +112,4 @@ public class RegisterAccountActivity extends BaseActivity {
         boolean chk = checkField(edtAccountName, scrollMain);
         return chk;
     }
-
-
 }

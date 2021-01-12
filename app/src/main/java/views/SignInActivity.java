@@ -2,16 +2,17 @@ package views;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import constants.StaticManager;
@@ -25,6 +26,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -40,7 +42,6 @@ import static android.view.View.*;
 
 public class SignInActivity extends BaseActivity {
 
-    private AppCompatTextView viewSignUp;
     private MaterialButton btnOk;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
@@ -56,26 +57,24 @@ public class SignInActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
 
+        SignUpModel signUpModel = new PrefManager().getSignDetails();
+        if (signUpModel == null)
+            intentSignUp();
+        setContentView(R.layout.activity_sign_in);
         initView();
         initBiometricSensor();
         initEvent();
-        loadDefault();
+        googleSignIn();
     }
 
-    private void loadDefault() {
-        SignUpModel signUpModel = new PrefManager().getSignDetails();
-        if (signUpModel != null) {
-            googleSignIn();
-        } else {
-            linGoogle.setVisibility(GONE);
-            linBio.setVisibility(GONE);
-        }
+
+    private void intentSignUp(){
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivityForResult(intent, REQ_SIGN_UP);
     }
 
     private void initView() {
-        viewSignUp = findViewById(R.id.sign_in_sign_up_view);
         btnOk = findViewById(R.id.sign_in_ok_btn);
         edtPass = findViewById(R.id.sign_in_pass_edt);
         linBio = findViewById(R.id.sign_in_bio_lin);
@@ -103,10 +102,6 @@ public class SignInActivity extends BaseActivity {
                 if (PrefManager.getInstance().getSignDetails().getPassword().equals(s.toString()))
                     acceptPass();
             }
-        });
-        viewSignUp.setOnClickListener(v -> {
-            Intent intent = new Intent(this, SignUpActivity.class);
-            startActivityForResult(intent, REQ_SIGN_UP);
         });
     }
 
@@ -137,7 +132,6 @@ public class SignInActivity extends BaseActivity {
             if (signUpModel.getEmail().equals(signInAccount.getEmail())) {
                 StaticManager.gMailAddress = signInAccount.getEmail();
                 StaticManager.GoogleId = signInAccount.getId();
-                viewSignUp.setVisibility(GONE);
                 linGoogle.setVisibility(GONE);
                 if (signUpModel.isBiometric()) {
                     txtBioConnect.setVisibility(VISIBLE);
@@ -209,6 +203,7 @@ public class SignInActivity extends BaseActivity {
     private void acceptPass() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -223,6 +218,14 @@ public class SignInActivity extends BaseActivity {
                 case REQ_SIGN_UP:
                     ((TextInputLayout) edtPass.getParent().getParent()).setVisibility(GONE);
                     break;
+            }else{
+            if (requestCode == REQ_SIGN_UP){
+                new MaterialAlertDialogBuilder(this)
+                        .setTitle(R.string.signup_force_title)
+                        .setMessage(R.string.signup_force_message)
+                        .setPositiveButton(getString(R.string.accept), (dialog, which) -> intentSignUp())
+                .show();
             }
+        }
     }
 }
