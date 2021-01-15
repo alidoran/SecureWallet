@@ -35,7 +35,7 @@ public class AdapterMainList extends RecyclerView.Adapter<AdapterMainListHolder>
         holder.imgMore.setTag(accountDetails.getId());
         holder.itemView.setTag(accountDetails.getId());
         holder.viewLineOne.setText(accountDetails.getName());
-        holder.viewLineTwo.setText(String.valueOf(accountDetails.getCode()));
+        holder.viewLineTwo.setText(String.valueOf(accountDetails.getNumber()));
     }
 
     @Override

@@ -89,8 +89,9 @@ public class MainActivity extends BaseActivity {
     //endregion
 
     public void main_list_item_view_click(View view) {
-        int id = (int) view.getTag();
+        int id = Integer.parseInt(view.getTag().toString());
         showAccount(id);
+
     }
 
     private void showAccount(int id) {

@@ -55,7 +55,7 @@ import static tools.EnumManager.BiometricError.*;
 public class Common {
 
     private static Common common;
-    private String cipherMode= "AES/ECB/PKCS5Padding";
+    private final String cipherMode= "AES/ECB/PKCS5Padding";
 
     public static Common getInstance() {
         if (common == null)
@@ -64,19 +64,19 @@ public class Common {
     }
 
     public String stringToSha256(String inputString) {
-        String stringHashCode = "";
+        StringBuilder stringHashCode = new StringBuilder();
         try {
             MessageDigest objSHA = MessageDigest.getInstance("SHA-256");
             byte[] bytSHA = objSHA.digest(inputString.getBytes());
             BigInteger intNumber = new BigInteger(1, bytSHA);
-            stringHashCode = intNumber.toString(16);
+            stringHashCode = new StringBuilder(intNumber.toString(16));
             while (stringHashCode.length() < 64) {
-                stringHashCode = "0" + stringHashCode;
+                stringHashCode.insert(0, "0");
             }
         } catch (Exception e) {
             Log.d(TAG, "stringToSha256:" + e.toString());
         }
-        return stringHashCode;
+        return stringHashCode.toString();
     }
 
     public EncryptCipherModel RSAEncrypt(final String plain) throws Exception {
@@ -118,7 +118,7 @@ public class Common {
         T newInstance = null;
         try {
             newInstance = destClass.newInstance();
-        } catch (Exception e) {
+        } catch (Exception ignore) {
         }
         for (Field srcField : srcFields) {
             for (Field destField : destFields) {

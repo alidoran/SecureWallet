@@ -216,7 +216,7 @@ public class SignInActivity extends BaseActivity {
                     handleSignInResult(task);
                     break;
                 case REQ_SIGN_UP:
-                    ((TextInputLayout) edtPass.getParent().getParent()).setVisibility(GONE);
+//                    ((TextInputLayout) edtPass.getParent().getParent()).setVisibility(GONE);
                     break;
             }else{
             if (requestCode == REQ_SIGN_UP){
