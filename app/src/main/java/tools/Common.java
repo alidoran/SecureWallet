@@ -193,7 +193,7 @@ public class Common {
     }
 
     public String encryptString(String s) {
-        SecretKeySpec sks = new SecretKeySpec(StaticManager.gMailAddress.getBytes(), "AES");
+        SecretKeySpec sks = new SecretKeySpec(StaticManager.Companion.getGMailAddress().getBytes(), "AES");
         try {
             Cipher cipher = null;
             cipher = Cipher.getInstance(cipherMode);
@@ -206,7 +206,7 @@ public class Common {
     }
 
     public String decryptString(String s) {
-        SecretKeySpec sks = new SecretKeySpec(StaticManager.gMailAddress.getBytes(), "AES");
+        SecretKeySpec sks = new SecretKeySpec(StaticManager.Companion.getGMailAddress().getBytes(), "AES");
         try {
             Cipher cipher = Cipher.getInstance(cipherMode);
             cipher.init(Cipher.DECRYPT_MODE, sks);

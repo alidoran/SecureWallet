@@ -17,7 +17,7 @@ import com.seyagh.persiandatepicker.DatePickerMethod;
 import base.BaseActivity;
 import models.AccountDetails;
 
-import static constants.IntentKey.SELECTED_ACCOUNT;
+import static constants.IntentKeys.SELECTED_ACCOUNT;
 
 
 public class RegisterAccountActivity extends BaseActivity {

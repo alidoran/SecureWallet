@@ -130,8 +130,8 @@ public class SignInActivity extends BaseActivity {
         SignUpModel signUpModel = new PrefManager().getSignDetails();
         if (signInAccount != null && signUpModel != null) {
             if (signUpModel.getEmail().equals(signInAccount.getEmail())) {
-                StaticManager.gMailAddress = signInAccount.getEmail();
-                StaticManager.GoogleId = signInAccount.getId();
+                StaticManager.Companion.setGMailAddress(signInAccount.getEmail());
+                StaticManager.Companion.setGoogleId(signInAccount.getId());
                 linGoogle.setVisibility(GONE);
                 if (signUpModel.isBiometric()) {
                     txtBioConnect.setVisibility(VISIBLE);

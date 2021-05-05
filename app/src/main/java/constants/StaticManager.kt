@@ -1,6 +1,8 @@
-package constants;
+package constants
 
-public class StaticManager {
-    public static String GoogleId ;
-    public static String gMailAddress;
+class StaticManager {
+    companion object {
+        var GoogleId: String? = null
+        var gMailAddress: String? = null
+    }
 }

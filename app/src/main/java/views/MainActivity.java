@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import adapter.AdapterMainList;
+import constants.SettingManager;
 import ir.doran_program.SecureWallet.R;
 
 import java.io.File;
@@ -28,7 +29,6 @@ import models.AccountDetails;
 
 
 import static constants.IntentKeys.SELECTED_ACCOUNT;
-import static constants.SettingManager.DATABASE_NAME;
 
 public class MainActivity extends BaseActivity {
 
@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void saveData() {
-        File dbFile = this.getDatabasePath(DATABASE_NAME);
+        File dbFile = this.getDatabasePath(SettingManager.Companion.getDATABASE_NAME());
         File sDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "SecureWalletDataBases");
         String sfPath = sDir.getPath() + File.separator + "SecureWalletDataBase" + "DBFile.db";
         if (!sDir.exists()) {
