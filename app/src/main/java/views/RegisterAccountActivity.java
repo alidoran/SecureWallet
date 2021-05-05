@@ -15,10 +15,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.seyagh.persiandatepicker.DatePickerMethod;
 
 import base.BaseActivity;
-import constants.IntentKeys;
 import models.AccountDetails;
 
-import static constants.IntentKeys.*;
+import static constants.IntentKey.SELECTED_ACCOUNT;
+
 
 public class RegisterAccountActivity extends BaseActivity {
 

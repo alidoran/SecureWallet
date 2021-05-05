@@ -1,9 +1,14 @@
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.google.gms.google-services'
+}
+
+
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.0"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "ir.doran_program.SecureWallet"
@@ -25,6 +30,9 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
 }
 
@@ -32,27 +40,28 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":PersianDatePicker")
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.wear:wear:1.1.0'
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'com.duolingo.open:rtl-viewpager:2.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     //region FireBase
-    implementation 'com.google.firebase:firebase-auth:20.0.2'
+    implementation 'com.google.firebase:firebase-auth:20.0.4'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     //endregion
     //region Room
-    def room_version = "2.2.6"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-rxjava2:$room_version"
-    implementation "androidx.room:room-guava:$room_version"
+    implementation "androidx.room:room-runtime:2.3.0"
+    annotationProcessor "androidx.room:room-compiler:2.3.0"
+    implementation "androidx.room:room-rxjava2:2.3.0"
+    implementation "androidx.room:room-guava:2.3.0"
     //endregion
     //region Language
     implementation 'io.github.inflationx:calligraphy3:3.1.1'

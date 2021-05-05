@@ -1,6 +1,3 @@
-
-
-
 package views;
 
 import androidx.annotation.Nullable;
@@ -11,11 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import adapter.AdapterMainList;
-import interfaces.OnObjectClickListener;
 import ir.doran_program.SecureWallet.R;
 
 import java.io.File;
@@ -30,6 +25,7 @@ import java.util.List;
 import base.BaseActivity;
 import database.AppDatabase;
 import models.AccountDetails;
+
 
 import static constants.IntentKeys.SELECTED_ACCOUNT;
 import static constants.SettingManager.DATABASE_NAME;
