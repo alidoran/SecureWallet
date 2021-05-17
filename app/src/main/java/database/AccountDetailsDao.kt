@@ -1,33 +1,25 @@
-package database;
+package database
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.Insert;
-import androidx.room.Query;
-import androidx.room.Update;
-import java.util.List;
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
+import models.AccountDetails
 
-import models.AccountDetails;
+@Dao
+interface AccountDetailsDao {
+    @get:Query("SELECT * FROM AccountDetails")
+    val all: List<AccountDetails?>?
 
-    @Dao
-    public interface AccountDetailsDao {
+    @Query("SELECT * FROM AccountDetails WHERE Id = :id")
+    fun getSelectedModel(id: Long): AccountDetails?
 
-        @Query("SELECT * FROM AccountDetails")
-        List<AccountDetails> getAll();
+    @Query("Delete FROM AccountDetails WHERE Id = :id")
+    fun deleteSelectedModel(id: Long): Int
 
-        @Query("SELECT * FROM AccountDetails WHERE Id = :id")
-        AccountDetails getSelectedModel(long id);
+    @Insert
+    fun insertAll(vararg accountDetails: AccountDetails?)
 
-        @Query("Delete FROM AccountDetails WHERE Id = :id")
-        int deleteSelectedModel(long id);
-
-        @Insert
-        void insertAll(AccountDetails... accountDetails);
-
-        @Update
-        int update(AccountDetails accountDetails);
-
-    }
-
+    @Update
+    fun update(accountDetails: AccountDetails?): Int
+}

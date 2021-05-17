@@ -1,7 +1,8 @@
-package tools;
+package tools
 
-public class MySettings {
-    public static String fontFamily = "persian_font.ttf";
-    public final static String persianFont = "persian_font.ttf";
-    public final static String englishFont = "roboto.ttf";
+object MySettings {
+    @JvmField
+    var fontFamily = "persian_font.ttf"
+    const val persianFont = "persian_font.ttf"
+    const val englishFont = "roboto.ttf"
 }

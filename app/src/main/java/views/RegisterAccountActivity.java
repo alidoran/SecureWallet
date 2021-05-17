@@ -36,6 +36,9 @@ public class RegisterAccountActivity extends BaseActivity {
     private AccountDetails selectedAccount;
     private ScrollView scrollMain;
 
+    public RegisterAccountActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

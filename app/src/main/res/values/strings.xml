@@ -44,7 +44,7 @@
     <string name="biometric_error_vendor">The operation failed due to a vendor-specific error</string>
     <string name="biometric_not_found">Unknown error</string>
     <string name="biometric_authentication_failed">authentication_failed</string>
-    <string name="sign_with_google">First you must Sign in with google Account</string>
+    <string name="sign_with_google">Choose one of the login method</string>
     <string name="fill_field">Please fill all field</string>
     <string name="active_biometric">Active Biometric</string>
     <string name="english">english</string>
@@ -78,6 +78,7 @@
     <string name="account_list">Account list</string>
     <string name="signup_force_message">For use this program you must register in app</string>
     <string name="signup_force_title">Need to register</string>
+    <string name="google_connect_problem">Can not connect with google connection. please try again later</string>
 
 
     //endregion

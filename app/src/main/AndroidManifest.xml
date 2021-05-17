@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         tools:replace="android:theme">
+        <activity android:name="views.ConvertMainActivity"></activity>
         <activity android:name="views.SignInActivity" />
         <activity android:name="views.SignUpActivity" />
         <activity android:name="views.MainActivity" />

@@ -1,41 +1,24 @@
-package tools;
+package tools
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
-import android.util.DisplayMetrics;
+import android.content.Context
+import android.content.res.Configuration
+import java.util.*
 
-import java.util.Locale;
-
-import base.BaseApplication;
-
-
-public class LangSet {
-    Context context;
-
-    public LangSet(Context context){
-        this.context=context;
-        changeLangRecognize();
+class LangSet(var context: Context) {
+    private fun changeLangRecognize() {
+        val lang = if (PrefManager.getInstance().isPersianLanguage) "fa" else "en"
+        ChangeLocate(lang)
     }
 
-    private void changeLangRecognize() {
-        String lang=PrefManager.getInstance().isPersianLanguage() ? "fa" : "en" ;
-        Locale locale;
-        if (lang.equals("fa"))
-            ChangeLocate(lang);
-        else
-            ChangeLocate(lang);
+    private fun ChangeLocate(localLoad: String) {
+        val locale = Locale(localLoad)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        context.resources.updateConfiguration(config, context.resources.displayMetrics)
     }
 
-    private void ChangeLocate(String localLoad){
-        Locale locale=new Locale(localLoad);
-        Locale.setDefault(locale);
-        Configuration config= new Configuration();
-        config.locale=locale;
-        context.getResources().updateConfiguration(config,context.getResources().getDisplayMetrics());
+    init {
+        changeLangRecognize()
     }
-
-
 }

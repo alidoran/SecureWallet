@@ -46,7 +46,7 @@
     <string name="biometric_authentication_failed">خطای شناسایی</string>
     //endregion
 
-    <string name="sign_with_google">ابتدا اکانت گوگل خود را تایید نمایید</string>
+    <string name="sign_with_google">یکی از راه های اتصال به برنامه را تعیین نمایید</string>
     <string name="fill_field">لطفا فیلدها را تکمیل نمایید</string>
     <string name="active_biometric">فعال سازی بیومتریک</string>
     <string name="english">english</string>
@@ -80,5 +80,6 @@
     <string name="account_list">لیست حساب ها</string>
     <string name="signup_force_message">برای استفاده از نرم افزار ثبت نام ضروری می باشد</string>
     <string name="signup_force_title">الزام ثبت نام</string>
+    <string name="google_connect_problem">اعتبار سنجی توسط گوگل انجام نشد. لطفا دوباره تلاش نمایید.</string>
 
 </resources>

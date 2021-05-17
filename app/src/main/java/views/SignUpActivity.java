@@ -6,12 +6,15 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
+
 import ir.doran_program.SecureWallet.R;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,9 +29,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
+
 import base.BaseActivity;
 import models.SignUpModel;
 import tools.Common;
@@ -119,7 +124,7 @@ public class SignUpActivity extends BaseActivity {
         setViewModelText(edtEmail, "email");
         setViewModelText(edtUserName, "userName");
         setViewModelText(edtPassword, "password");
-        setViewModelText(chkFingerPrint , "biometric");
+        setViewModelText(chkFingerPrint, "biometric");
     }
 
     private boolean checkField() {
@@ -171,7 +176,7 @@ public class SignUpActivity extends BaseActivity {
             linSectionTwo.setVisibility(VISIBLE);
             edtEmail.setText(signInAccount.getEmail());
             ((TextInputLayout) edtEmail.getParent().getParent()).setEnabled(false);
-            String title = getString(R.string.hi)  + getString(R.string.space)+ signInAccount.getDisplayName() +getString(R.string.space) +  getString(R.string.fill_field);
+            String title = getString(R.string.hi) + getString(R.string.space) + signInAccount.getDisplayName() + getString(R.string.space) + getString(R.string.fill_field);
             txtSectionTwoTitle.setText(title);
         } else
             showHelp();
@@ -236,5 +241,7 @@ public class SignUpActivity extends BaseActivity {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 handleSignInResult(task);
             }
+
+
     }
 }

@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:631681028702:android:b5c7dd3d3a21bc4e3b1acf",
+        "mobilesdk_app_id": "1:631681028702:android:ae4cb1a692ffac963b1acf",
         "android_client_info": {
           "package_name": "ir.doran_program.SecureWallet"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "631681028702-53e69mi5ake11jvh8m7100ekh8tlaura.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ir.doran_program.SecureWallet",
+            "certificate_hash": "00364a5fc1104b5d39fec70c3b4f257826c03982"
+          }
+        },
         {
           "client_id": "631681028702-9b6vcshl6h7uf2bcg2nf7goervdvhefq.apps.googleusercontent.com",
           "client_type": 3
