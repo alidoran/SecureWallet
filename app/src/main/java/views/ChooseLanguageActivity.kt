@@ -1,86 +1,84 @@
-package views;
+package views
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.os.Bundle;
-import com.google.android.material.button.MaterialButton;
-import base.BaseActivity;
-import base.BaseApplication;
-import io.github.inflationx.calligraphy3.CalligraphyConfig;
-import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
-import io.github.inflationx.viewpump.ViewPump;
-import ir.doran_program.SecureWallet.R;
-import tools.LangSet;
-import tools.PrefManager;
-import static tools.MySettings.englishFont;
-import static tools.MySettings.fontFamily;
-import static tools.MySettings.persianFont;
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import base.BaseActivity
+import base.BaseApplication
+import com.google.android.material.button.MaterialButton
+import io.github.inflationx.calligraphy3.CalligraphyConfig
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor
+import io.github.inflationx.viewpump.ViewPump
+import ir.doran_program.SecureWallet.R
+import tools.LangSet
+import tools.MySettings.englishFont
+import tools.MySettings.fontFamily
+import tools.MySettings.persianFont
+import tools.PrefManager
 
-public class ChooseLanguageActivity extends BaseActivity {
-
-    private MaterialButton btnEnglish;
-    private MaterialButton btnPersian;
-    private MaterialButton btnAccept;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_language);
-
-        initView();
-        initEvent();
-        if (!PrefManager.getInstance().isFirstBoot()) {
-            setLanguage(PrefManager.getInstance().isPersianLanguage());
-            intentToSignInActivity();
+class ChooseLanguageActivity : BaseActivity() {
+    private var btnEnglish: MaterialButton? = null
+    private var btnPersian: MaterialButton? = null
+    private var btnAccept: MaterialButton? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_choose_language)
+        initView()
+        initEvent()
+        if (!PrefManager.getInstance().isFirstBoot) {
+            setLanguage(PrefManager.getInstance().isPersianLanguage)
+            intentToSignInActivity()
         }
     }
 
-
-
-    private void initView() {
-        btnEnglish = findViewById(R.id.choose_language_english_btn);
-        btnPersian = findViewById(R.id.choose_language_persian_btn);
-        btnAccept = findViewById(R.id.choose_lang_ok_btn);
+    private fun initView() {
+        btnEnglish = findViewById(R.id.choose_language_english_btn)
+        btnPersian = findViewById(R.id.choose_language_persian_btn)
+        btnAccept = findViewById(R.id.choose_lang_ok_btn)
     }
 
-    private void initEvent() {
-        btnEnglish.setOnClickListener(v-> setLanguage(false));
-        btnPersian.setOnClickListener(v-> setLanguage(true));
-        btnAccept.setOnClickListener(v-> intentToSignInActivity());
+    private fun initEvent() {
+        btnEnglish!!.setOnClickListener { v: View? -> setLanguage(false) }
+        btnPersian!!.setOnClickListener { v: View? -> setLanguage(true) }
+        btnAccept!!.setOnClickListener { v: View? -> intentToSignInActivity() }
     }
 
-
-    private void intentToSignInActivity(){
-        pumpLang();
-        new LangSet(getActivity());
-        if (PrefManager.getInstance().isFirstBoot()){
-            PrefManager.getInstance().setFirstBoot(false);
-            new BaseApplication().attachBaseContext(BaseApplication.getContext());
+    private fun intentToSignInActivity() {
+        pumpLang()
+        LangSet(activity)
+        if (PrefManager.getInstance().isFirstBoot) {
+            PrefManager.getInstance().isFirstBoot = false
+            BaseApplication().attachBaseContext(BaseApplication.getContext())
         }
-        new LangSet(BaseApplication.getContext());
-        Intent intent = new Intent(this , SignInActivity.class);
-        startActivity(intent);
-        finish();
+        LangSet(BaseApplication.getContext())
+        val intent = Intent(this, SignInActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
-    private void setLanguage(boolean isPersian){
-        btnPersian.setBackgroundColor(getColor(isPersian ? R.color.colorPrimary : R.color.material_on_primary_disabled));
-        btnEnglish.setBackgroundColor(getColor(isPersian ? R.color.material_on_primary_disabled : R.color.colorPrimary));
-        btnEnglish.setTextColor(getColor(isPersian ? R.color.md_black_1000 : R.color.md_white_1000));
-        btnPersian.setTextColor(getColor(isPersian ? R.color.md_white_1000 : R.color.md_black_1000));
-        btnAccept.setText(getString(isPersian ? R.string.accept_fa : R.string.accept_en));
-        fontFamily = isPersian ? persianFont : englishFont;
-        PrefManager.getInstance().setPersianLanguage(isPersian);
-        pumpLang();
+    private fun setLanguage(isPersian: Boolean) {
+        btnPersian!!.setBackgroundColor(getColor(if (isPersian) R.color.colorPrimary else R.color.material_on_primary_disabled))
+        btnEnglish!!.setBackgroundColor(getColor(if (isPersian) R.color.material_on_primary_disabled else R.color.colorPrimary))
+        btnEnglish!!.setTextColor(getColor(if (isPersian) R.color.md_black_1000 else R.color.md_white_1000))
+        btnPersian!!.setTextColor(getColor(if (isPersian) R.color.md_white_1000 else R.color.md_black_1000))
+        btnAccept!!.text = getString(if (isPersian) R.string.accept_fa else R.string.accept_en)
+        fontFamily = if (isPersian) persianFont else englishFont
+        PrefManager.getInstance().isPersianLanguage = isPersian
+        pumpLang()
     }
 
-    private void pumpLang() {
-        ViewPump.init(ViewPump.builder()
-                .addInterceptor(new CalligraphyInterceptor(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath(fontFamily)
-                        .setFontAttrId(R.attr.fontPath)
-                        .build()))
-                .build());
+    private fun pumpLang() {
+        ViewPump.init(
+            ViewPump.builder()
+                .addInterceptor(
+                    CalligraphyInterceptor(
+                        CalligraphyConfig.Builder()
+                            .setDefaultFontPath(fontFamily)
+                            .setFontAttrId(R.attr.fontPath)
+                            .build()
+                    )
+                )
+                .build()
+        )
     }
 }

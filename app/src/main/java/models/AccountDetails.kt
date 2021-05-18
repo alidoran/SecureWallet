@@ -8,32 +8,32 @@ import java.io.Serializable
 @Entity
 class AccountDetails : Serializable {
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    var Id: Long = 0
 
     @ColumnInfo
-    var code: Long = 0
+    var Code: Long = 0
 
     @ColumnInfo(name = "Name")
-    var name: String? = null
+    var Name: String? = null
 
     @ColumnInfo(name = "Number")
-    var number: String? = null
+    var Number: String? = null
 
     @ColumnInfo(name = "Password")
-    var password: String? = null
+    var Password: String? = null
 
     @ColumnInfo(name = "Cvv2")
-    var cvv2: String? = null
+    var Cvv2: String? = null
 
     @ColumnInfo(name = "Date")
-    var date: String? = null
+    var Date: String? = null
 
     @ColumnInfo(name = "BankName")
-    var bankName: String? = null
+    var BankName: String? = null
 
     @ColumnInfo(name = "CardNumber")
-    var cardNumber: String? = null
+    var CardNumber: String? = null
 
     @ColumnInfo(name = "Summery")
-    var summery: String? = null
+    var Summery: String? = null
 }

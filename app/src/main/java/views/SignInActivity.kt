@@ -1,231 +1,212 @@
-package views;
+package views
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.biometric.BiometricPrompt;
-import androidx.core.content.ContextCompat;
+import android.content.DialogInterface
+import android.content.Intent
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.biometric.BiometricPrompt
+import androidx.biometric.BiometricPrompt.PromptInfo
+import androidx.core.content.ContextCompat
+import base.BaseActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textview.MaterialTextView
+import constants.StaticManager.Companion.GoogleId
+import constants.StaticManager.Companion.gMailAddress
+import ir.doran_program.SecureWallet.R
+import tools.Common
+import tools.PrefManager
+import views.MainActivity
+import views.SignInActivity
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-import constants.StaticManager;
-import ir.doran_program.SecureWallet.R;
-
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
-
-import java.util.concurrent.Executor;
-
-import base.BaseActivity;
-import models.SignUpModel;
-import tools.Common;
-import tools.PrefManager;
-
-import static android.view.View.*;
-
-public class SignInActivity extends BaseActivity {
-
-    private MaterialButton btnOk;
-    private BiometricPrompt biometricPrompt;
-    private BiometricPrompt.PromptInfo promptInfo;
-    private GoogleSignInClient mGoogleSignInClient;
-    private TextInputEditText edtPass;
-    private LinearLayoutCompat linBio;
-    private LinearLayoutCompat linGoogle;
-    private MaterialTextView txtBioConnect;
-
-    private static final int REQ_GOOGLE_SIGN_IN = 9001;
-    private static final int REQ_SIGN_UP = 696;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        SignUpModel signUpModel = new PrefManager().getSignDetails();
-        if (signUpModel == null)
-            intentSignUp();
-        setContentView(R.layout.activity_sign_in);
-        initView();
-        initBiometricSensor();
-        initEvent();
-        googleSignIn();
+class SignInActivity : BaseActivity() {
+    private var btnOk: MaterialButton? = null
+    private var biometricPrompt: BiometricPrompt? = null
+    private var promptInfo: PromptInfo? = null
+    private var mGoogleSignInClient: GoogleSignInClient? = null
+    private var edtPass: TextInputEditText? = null
+    private var linBio: LinearLayoutCompat? = null
+    private var linGoogle: LinearLayoutCompat? = null
+    private var txtBioConnect: MaterialTextView? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val signUpModel = PrefManager().signDetails
+        if (signUpModel == null) intentSignUp()
+        setContentView(R.layout.activity_sign_in)
+        initView()
+        initBiometricSensor()
+        initEvent()
+        googleSignIn()
     }
 
-
-    private void intentSignUp(){
-        Intent intent = new Intent(this, SignUpActivity.class);
-        startActivityForResult(intent, REQ_SIGN_UP);
+    private fun intentSignUp() {
+        val intent = Intent(this, SignUpActivity::class.java)
+        startActivityForResult(intent, REQ_SIGN_UP)
     }
 
-    private void initView() {
-        btnOk = findViewById(R.id.sign_in_ok_btn);
-        edtPass = findViewById(R.id.sign_in_pass_edt);
-        linBio = findViewById(R.id.sign_in_bio_lin);
-        linGoogle = findViewById(R.id.sign_in_google_lin);
-        txtBioConnect = findViewById(R.id.sign_in_bio_connect_txt);
+    private fun initView() {
+        btnOk = findViewById(R.id.sign_in_ok_btn)
+        edtPass = findViewById(R.id.sign_in_pass_edt)
+        linBio = findViewById(R.id.sign_in_bio_lin)
+        linGoogle = findViewById(R.id.sign_in_google_lin)
+        txtBioConnect = findViewById(R.id.sign_in_bio_connect_txt)
     }
 
-    private void initEvent() {
-        btnOk.setOnClickListener(v -> {
-            biometricPrompt.authenticate(promptInfo);
-        });
-        edtPass.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+    private fun initEvent() {
+        btnOk!!.setOnClickListener { v: View? ->
+            biometricPrompt!!.authenticate(
+                promptInfo!!
+            )
+        }
+        edtPass!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                if (PrefManager.getInstance().signDetails.password == s.toString()) acceptPass()
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (PrefManager.getInstance().getSignDetails().getPassword().equals(s.toString()))
-                    acceptPass();
-            }
-        });
+        })
     }
 
     //region Google_SignIn
-    private void googleSignIn() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        SignInButton signInButton = findViewById(R.id.sign_in_google_btn);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
-        signInButton.setOnClickListener(v -> {
-            signIn();
-        });
+    private fun googleSignIn() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        val signInButton = findViewById<SignInButton>(R.id.sign_in_google_btn)
+        signInButton.setSize(SignInButton.SIZE_STANDARD)
+        signInButton.setOnClickListener { v: View? -> signIn() }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
+    override fun onStart() {
+        super.onStart()
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+        updateUI(account)
     }
 
-    private void updateUI(GoogleSignInAccount signInAccount) {
-        SignUpModel signUpModel = new PrefManager().getSignDetails();
+    private fun updateUI(signInAccount: GoogleSignInAccount?) {
+        val signUpModel = PrefManager().signDetails
         if (signInAccount != null && signUpModel != null) {
-            if (signUpModel.getEmail().equals(signInAccount.getEmail())) {
-                StaticManager.Companion.setGMailAddress(signInAccount.getEmail());
-                StaticManager.Companion.setGoogleId(signInAccount.getId());
-                linGoogle.setVisibility(GONE);
-                if (signUpModel.isBiometric()) {
-                    txtBioConnect.setVisibility(VISIBLE);
-                    biometricPrompt.authenticate(promptInfo);
+            if (signUpModel.email == signInAccount.email) {
+                gMailAddress = signInAccount.email
+                GoogleId = signInAccount.id
+                linGoogle!!.visibility = View.GONE
+                if (signUpModel.isBiometric) {
+                    txtBioConnect!!.visibility = View.VISIBLE
+                    biometricPrompt!!.authenticate(promptInfo!!)
                 } else {
-                    edtPass.setVisibility(VISIBLE);
-                    txtBioConnect.setVisibility(GONE);
+                    edtPass!!.visibility = View.VISIBLE
+                    txtBioConnect!!.visibility = View.GONE
                 }
             } else {
-                linGoogle.setVisibility(VISIBLE);
-                mGoogleSignInClient.signOut();
-                Toast.makeText(this, getString(R.string.select_correct_email), Toast.LENGTH_SHORT).show();
+                linGoogle!!.visibility = View.VISIBLE
+                mGoogleSignInClient!!.signOut()
+                Toast.makeText(this, getString(R.string.select_correct_email), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, REQ_GOOGLE_SIGN_IN);
+    private fun signIn() {
+        val signInIntent = mGoogleSignInClient!!.signInIntent
+        startActivityForResult(signInIntent, REQ_GOOGLE_SIGN_IN)
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            val account = completedTask.getResult(
+                ApiException::class.java
+            )
 
             // Signed in successfully, show authenticated UI.
-            updateUI(account);
-        } catch (ApiException e) {
-
-            Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
-            updateUI(null);
+            updateUI(account)
+        } catch (e: ApiException) {
+            Log.w("TAG", "signInResult:failed code=" + e.statusCode)
+            updateUI(null)
         }
     }
+
     //endregion
+    private fun initBiometricSensor() {
+        val executor = ContextCompat.getMainExecutor(this)
+        biometricPrompt = BiometricPrompt(this,
+            executor, object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence
+                ) {
+                    super.onAuthenticationError(errorCode, errString)
+                    Toast.makeText(
+                        this@SignInActivity,
+                        Common.getInstance().biometricHandleError(errorCode),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-    private void initBiometricSensor() {
-        Executor executor = ContextCompat.getMainExecutor(this);
-        biometricPrompt = new BiometricPrompt(this,
-                executor, new BiometricPrompt.AuthenticationCallback() {
-            @Override
-            public void onAuthenticationError(int errorCode,
-                                              @NonNull CharSequence errString) {
-                super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(SignInActivity.this, Common.getInstance().biometricHandleError(errorCode), Toast.LENGTH_SHORT).show();
-            }
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    super.onAuthenticationSucceeded(result)
+                    acceptPass()
+                }
 
-            @Override
-            public void onAuthenticationSucceeded(
-                    @NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                acceptPass();
-            }
-
-            @Override
-            public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
-                Toast.makeText(SignInActivity.this, getString(R.string.biometric_authentication_failed), Toast.LENGTH_SHORT).show();
-            }
-
-
-        });
-        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle(getString(R.string.bio_secure_login))
-                .setSubtitle(getString(R.string.log_in_biometric))
-                .setNegativeButtonText(getString(R.string.cancel))
-                .build();
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    Toast.makeText(
+                        this@SignInActivity,
+                        getString(R.string.biometric_authentication_failed),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+        promptInfo = PromptInfo.Builder()
+            .setTitle(getString(R.string.bio_secure_login))
+            .setSubtitle(getString(R.string.log_in_biometric))
+            .setNegativeButtonText(getString(R.string.cancel))
+            .build()
     }
 
-    private void acceptPass() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+    private fun acceptPass() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK)
-            switch (requestCode) {
-                case REQ_GOOGLE_SIGN_IN:
-                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                    handleSignInResult(task);
-                    break;
-                case REQ_SIGN_UP:
-//                    ((TextInputLayout) edtPass.getParent().getParent()).setVisibility(GONE);
-                    break;
-            }else{
-            if (requestCode == REQ_SIGN_UP){
-                new MaterialAlertDialogBuilder(this)
-                        .setTitle(R.string.signup_force_title)
-                        .setMessage(R.string.signup_force_message)
-                        .setPositiveButton(getString(R.string.accept), (dialog, which) -> intentSignUp())
-                .show();
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) when (requestCode) {
+            REQ_GOOGLE_SIGN_IN -> {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+                handleSignInResult(task)
+            }
+            REQ_SIGN_UP -> {
+            }
+        } else {
+            if (requestCode == REQ_SIGN_UP) {
+                MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.signup_force_title)
+                    .setMessage(R.string.signup_force_message)
+                    .setPositiveButton(getString(R.string.accept)) { dialog: DialogInterface?, which: Int -> intentSignUp() }
+                    .show()
             }
         }
+    }
+
+    companion object {
+        private const val REQ_GOOGLE_SIGN_IN = 9001
+        private const val REQ_SIGN_UP = 696
     }
 }

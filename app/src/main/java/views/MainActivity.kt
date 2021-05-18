@@ -1,145 +1,129 @@
-package views;
+package views
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import adapter.AdapterMainList
+import android.content.Intent
+import android.os.Bundle
+import android.os.Environment
+import android.view.View
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import base.BaseActivity
+import constants.IntentKeys.SELECTED_ACCOUNT
+import constants.SettingManager.Companion.DATABASE_NAME
+import database.AppDatabase
+import interfaces.OnObjectClickListener
+import ir.doran_program.SecureWallet.R
+import views.MainActivity
+import java.io.*
+import java.util.*
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.View;
-import android.widget.Toast;
-
-import adapter.AdapterMainList;
-import constants.SettingManager;
-import ir.doran_program.SecureWallet.R;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import base.BaseActivity;
-import database.AppDatabase;
-import models.AccountDetails;
-
-
-import static constants.IntentKeys.SELECTED_ACCOUNT;
-
-public class MainActivity extends BaseActivity {
-
-    private RecyclerView recyclerMain;
-    private static final int REQ_ADD_ACCOUNT = 626;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        initView();
-        saveData();
-        createMainRecycler();
+class MainActivity : BaseActivity() {
+    private var recyclerMain: RecyclerView? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        initView()
+        saveData()
+        createMainRecycler()
     }
 
-    private void initView() {
-        recyclerMain = findViewById(R.id.main_list_recycler);
+    private fun initView() {
+        recyclerMain = findViewById(R.id.main_list_recycler)
     }
 
     //region initEvent
-    public void main_list_more_click(View view) {
-        ArrayList<String> moreList = new ArrayList<>(Arrays.asList(getString(R.string.show), getString(R.string.delete)));
-        popUpItemCreate(view, moreList, object -> {
-            int selectedPopup = ((int) object);
-            moreClicked(view, selectedPopup);
-        });
+    fun main_list_more_click(view: View) {
+        val moreList =
+            ArrayList(Arrays.asList(getString(R.string.show), getString(R.string.delete)))
+        popUpItemCreate(view, moreList, object : OnObjectClickListener {
+            override fun onClick(`object`: Any?) {
+                val selectedPopup = `object` as Int
+                moreClicked(view, selectedPopup)
+            }
+        })
     }
 
-    private void moreClicked(View view, int selectedPopUp) {
-        int id = Integer.parseInt(view.getTag().toString());
-        switch (selectedPopUp) {
-            case 0:
-            default:
-                showAccount(id);
-                break;
-            case 1:
-                deleteAccount(id);
-                break;
+    private fun moreClicked(view: View, selectedPopUp: Int) {
+        val id = view.tag.toString().toInt()
+        when (selectedPopUp) {
+            0 -> showAccount(id)
+            1 -> deleteAccount(id.toLong())
+            else -> showAccount(id)
         }
     }
 
-    public void define_onclick(View view) {
-        Intent intent = new Intent(MainActivity.this, RegisterAccountActivity.class);
-        startActivityForResult(intent, REQ_ADD_ACCOUNT);
+    fun define_onclick(view: View?) {
+        val intent = Intent(this@MainActivity, RegisterAccountActivity::class.java)
+        startActivityForResult(intent, REQ_ADD_ACCOUNT)
     }
 
-    private void createMainRecycler() {
-        List<AccountDetails> accountDetailsList = AppDatabase.getInstance(this).accountDetailsDao().getAll();
-        AdapterMainList adapterAlarm = new AdapterMainList(accountDetailsList);
-        recyclerMain.setLayoutManager(new GridLayoutManager(this, 1));
-        recyclerMain.setAdapter(adapterAlarm);
+    private fun createMainRecycler() {
+        val accountDetailsList = AppDatabase.getInstance(this).accountDetailsDao().all
+        val adapterAlarm = AdapterMainList(accountDetailsList)
+        recyclerMain!!.layoutManager = GridLayoutManager(this, 1)
+        recyclerMain!!.adapter = adapterAlarm
     }
+
     //endregion
-
-    public void main_list_item_view_click(View view) {
-        int id = Integer.parseInt(view.getTag().toString());
-        showAccount(id);
-
+    fun main_list_item_view_click(view: View) {
+        val id = view.tag.toString().toInt()
+        showAccount(id)
     }
 
-    private void showAccount(int id) {
-        Intent intent = new Intent(this, RegisterAccountActivity.class);
-        intent.putExtra(SELECTED_ACCOUNT, id);
-        startActivityForResult(intent, REQ_ADD_ACCOUNT);
+    private fun showAccount(id: Int) {
+        val intent = Intent(this, RegisterAccountActivity::class.java)
+        intent.putExtra(SELECTED_ACCOUNT, id)
+        startActivityForResult(intent, REQ_ADD_ACCOUNT)
     }
 
-    private void deleteAccount(long id) {
-        int result = AppDatabase.getInstance(this).accountDetailsDao().deleteSelectedModel(id);
+    private fun deleteAccount(id: Long) {
+        val result = AppDatabase.getInstance(this).accountDetailsDao().deleteSelectedModel(id)
         if (result != 0) {
-            Toast.makeText(this, getString(R.string.delete_successful), Toast.LENGTH_SHORT).show();
-            createMainRecycler();
-        }else{
-            Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.delete_successful), Toast.LENGTH_SHORT).show()
+            createMainRecycler()
+        } else {
+            Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show()
         }
     }
 
-    private void saveData() {
-        File dbFile = this.getDatabasePath(SettingManager.Companion.getDATABASE_NAME());
-        File sDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "SecureWalletDataBases");
-        String sfPath = sDir.getPath() + File.separator + "SecureWalletDataBase" + "DBFile.db";
+    private fun saveData() {
+        val dbFile = getDatabasePath(DATABASE_NAME)
+        val sDir = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            "SecureWalletDataBases"
+        )
+        val sfPath = sDir.path + File.separator + "SecureWalletDataBase" + "DBFile.db"
         if (!sDir.exists()) {
-            sDir.mkdirs();
+            sDir.mkdirs()
         }
-        File saveFile = new File(sfPath);
+        val saveFile = File(sfPath)
         try {
-            saveFile.createNewFile();
-            int bufferSize = 8 * 1024;
-            byte[] buffer = new byte[bufferSize];
-            OutputStream saveDb = new FileOutputStream(sfPath);
-            InputStream indb = new FileInputStream(dbFile);
-            while ((bufferSize = indb.read(buffer, 0, bufferSize)) > 0) {
-                saveDb.write(buffer, 0, bufferSize);
+            saveFile.createNewFile()
+            var bufferSize = 8 * 1024
+            val buffer = ByteArray(bufferSize)
+            val saveDb: OutputStream = FileOutputStream(sfPath)
+            val indb: InputStream = FileInputStream(dbFile)
+            while (indb.read(buffer, 0, bufferSize).also { bufferSize = it } > 0) {
+                saveDb.write(buffer, 0, bufferSize)
             }
-            saveDb.flush();
-            indb.close();
-            saveDb.close();
-            Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+            saveDb.flush()
+            indb.close()
+            saveDb.close()
+            Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(this@MainActivity, e.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) when (requestCode) {
+            REQ_ADD_ACCOUNT -> createMainRecycler()
+        }
+    }
 
-        if (resultCode == RESULT_OK)
-            switch (requestCode) {
-                case REQ_ADD_ACCOUNT:
-                    createMainRecycler();
-            }
+    companion object {
+        private const val REQ_ADD_ACCOUNT = 626
     }
 }
