@@ -1,0 +1,14 @@
+CREATE TABLE User (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL
+);
+
+selectAllUsers:
+SELECT * FROM User;
+
+insertUser:
+INSERT INTO User (id, name, email) VALUES (?, ?, ?);
+
+selectUserById:
+SELECT * FROM User WHERE id = ? LIMIT 1;
