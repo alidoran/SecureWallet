@@ -7,7 +7,7 @@ import ir.dorantech.ui.screen.App
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "MvvmKmpLargeScale",
+        title = "SecureWallet",
     ) {
         App()
     }

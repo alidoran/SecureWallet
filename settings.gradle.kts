@@ -1,4 +1,6 @@
-rootProject.name = "MvvmKmpLargeScale"
+@file:Suppress("UnstableApiUsage")
+
+rootProject.name = "SecureWallet"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
