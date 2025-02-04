@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ir.dorantech.feature1.viewmodel.UserViewModel
 import ir.dorantech.feature1.ui.Feature1Screen
+import ir.dorantech.ui.SignInScreen
 import ir.dorantech.ui.model.FirstScreenButtons
 import ir.dorantech.ui.screen.MainScreen
 import org.kodein.di.compose.localDI
@@ -25,7 +26,7 @@ fun NavigationScreen(
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = RouteApp.MainRoute
+            startDestination = RouteApp.SignInRoute
         ) {
             composable<RouteApp.MainRoute> {
                 MainScreen(
@@ -43,6 +44,15 @@ fun NavigationScreen(
                 Feature1Screen(
                     onGetUserByIdClick = {userId ->
                         viewModel.fetchUser(userId)
+                    },
+                    modifier = modifier.fillMaxSize()
+                )
+            }
+
+            composable<RouteApp.SignInRoute> {
+                SignInScreen(
+                    onSignInSuccess = {
+                        navController.navigate(RouteApp.Feature1Route)
                     },
                     modifier = modifier.fillMaxSize()
                 )

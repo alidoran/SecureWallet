@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":features:auth")
+
+
 rootProject.name = "SecureWallet"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
@@ -27,6 +30,7 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        mavenLocal()
     }
 }
 
@@ -36,12 +40,11 @@ include(":core:data")
 include(":core:data:local")
 include(":core:data:remote")
 include(":core:data:repository")
-include(":core:data:mapper")
 include(":core:domain")
 include(":core:baseui")
-include(":core:component")
 include(":di")
 include(":foundation")
 include(":features")
 include(":features:feature1")
 include(":features:feature2")
+include(":features:auth")

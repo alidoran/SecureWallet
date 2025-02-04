@@ -1,14 +1,11 @@
-CREATE TABLE User (
-    id TEXT NOT NULL PRIMARY KEY,
+CREATE TABLE UserEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT NOT NULL
 );
 
-selectAllUsers:
-SELECT * FROM User;
-
 insertUser:
-INSERT INTO User (id, name, email) VALUES (?, ?, ?);
+INSERT INTO UserEntity (id, name, email) VALUES (?, ?, ?);
 
 selectUserById:
-SELECT * FROM User WHERE id = ? LIMIT 1;
+SELECT * FROM UserEntity WHERE id = ? LIMIT 1;

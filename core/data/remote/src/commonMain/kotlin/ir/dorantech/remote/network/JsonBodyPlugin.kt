@@ -10,7 +10,7 @@ import io.ktor.http.*
 import io.ktor.http.content.OutgoingContent
 import io.ktor.utils.io.InternalAPI
 
-class JsonBodyPlugin private constructor() {
+internal class JsonBodyPlugin private constructor() {
 
     class Config
 
@@ -32,7 +32,7 @@ class JsonBodyPlugin private constructor() {
 }
 
 @OptIn(InternalAPI::class)
-inline fun <reified T> HttpRequestBuilder.setJsonBody(data: T) {
+internal inline fun <reified T> HttpRequestBuilder.setJsonBody(data: T) {
     this.body = Json.encodeToString(data)
     this.contentType(ContentType.Application.Json)
 }

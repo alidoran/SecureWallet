@@ -1,0 +1,11 @@
+CREATE TABLE Auth (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    password TEXT NOT NULL
+);
+
+insertAuth:
+INSERT INTO Auth (name, password) VALUES ( ?, ?);
+
+isValidUser:
+SELECT EXISTS(SELECT 1 FROM Auth WHERE name = ? AND password = ?) AS status;
