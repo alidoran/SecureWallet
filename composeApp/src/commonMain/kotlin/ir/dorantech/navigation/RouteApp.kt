@@ -7,5 +7,8 @@ sealed interface RouteApp {
     data object MainRoute : RouteApp
 
     @Serializable
+    data object SignInRoute : RouteApp
+
+    @Serializable
     data object Feature1Route : RouteApp
 }

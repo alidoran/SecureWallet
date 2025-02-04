@@ -59,7 +59,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(project(":core"))
-            api(libs.sqldelight.runtime)
+            implementation(libs.sqldelight.runtime)
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native)
@@ -72,7 +72,7 @@ kotlin {
 
 sqldelight {
     databases {
-        create("AppDatabase") {
+        create("SecureWalletDatabase") {
             packageName.set("ir.dorantech")
         }
     }
