@@ -1,9 +1,8 @@
 package ir.dorantech.feature1.viewmodel
 
-import ir.dorantech.domain.model.UserModel
-import ir.dorantech.domain.usecase.UserByIdUseCase
-import ir.dorantech.domain.result.DomainError
-import ir.dorantech.domain.result.DomainResult
+import ir.dorantech.domain.model.UseCaseResult
+import ir.dorantech.domain.model.User
+import ir.dorantech.domain.usecase.impl.UserByIdUseCase
 import ir.dorantech.ui.state.UIState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,8 +14,8 @@ import kotlinx.coroutines.launch
 class UserViewModel(
     val userByIdUseCase: UserByIdUseCase
 ) {
-    private val _userState = MutableStateFlow<UIState<UserModel>>(UIState.Idle)
-    val userState: StateFlow<UIState<UserModel>> get() = _userState
+    private val _userState = MutableStateFlow<UIState<User>>(UIState.Idle)
+    val userState: StateFlow<UIState<User>> get() = _userState
 
     fun fetchUser(
         userId: String,
@@ -25,20 +24,12 @@ class UserViewModel(
         if (isDigitOnly) {
             _userState.value = UIState.Loading
             CoroutineScope(Dispatchers.IO).launch {
-                val result = userByIdUseCase(userId)
+                val result = userByIdUseCase(userId.toInt())
                 _userState.value = when (result) {
-                    is DomainResult.Failure -> UIState.Error(errorHandler(result))
-                    is DomainResult.Success -> UIState.Success(result.data)
+                    is UseCaseResult.Success -> UIState.Success(result.data)
+                    is UseCaseResult.Failure -> UIState.Error(result.errorMessage)
                 }
             }
         } else _userState.value = UIState.Error("Invalid Input")
     }
-
-    private fun errorHandler(dataError: DomainResult.Failure) =
-        when (dataError.error) {
-            is DomainError.InvalidInput -> "Invalid Input"
-            is DomainError.Unauthorized -> "Unauthorized"
-            is DomainError.TryLater -> "Try Later"
-            is DomainError.Unknown -> "Unknown Error"
-        }
 }
