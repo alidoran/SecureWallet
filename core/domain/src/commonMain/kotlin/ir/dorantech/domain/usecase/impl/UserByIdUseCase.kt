@@ -1,11 +1,11 @@
 package ir.dorantech.domain.usecase.impl
 
+import ir.dorantech.basedomain.model.RepoResult
+import ir.dorantech.basedomain.model.UseCaseResult
 import ir.dorantech.domain.mapper.toUseCaseResult
-import ir.dorantech.domain.model.UseCaseResult
 import ir.dorantech.domain.model.User
-import ir.dorantech.domain.util.RepoFailureWrapper.toErrorMessage
-import ir.dorantech.model.RepoResult
-import ir.dorantech.repository.UserRepository
+import ir.dorantech.domain.repository.UserRepository
+import ir.dorantech.basedomain.mapper.RepoFailureWrapper.toErrorMessage
 
 class UserByIdUseCase(
     private val userRepository: UserRepository

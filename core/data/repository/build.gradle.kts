@@ -59,6 +59,9 @@ kotlin {
             implementation(project(":core"))
             implementation(project(":core:data:local"))
             implementation(project(":core:data:remote"))
+            implementation(project(":core:basedomain"))
+            implementation(project(":core:domain"))
+            implementation(project(":features:auth:domain"))
         }
     }
 }

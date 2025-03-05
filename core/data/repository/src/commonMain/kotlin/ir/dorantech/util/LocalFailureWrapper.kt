@@ -2,8 +2,8 @@ package ir.dorantech.util
 
 import ir.dorantech.local.model.DataErrorLocal
 import ir.dorantech.local.model.LocalResult
-import ir.dorantech.model.RepoError
-import ir.dorantech.model.RepoResult
+import ir.dorantech.basedomain.model.RepoError
+import ir.dorantech.basedomain.model.RepoResult
 
 internal fun LocalResult.Failure.toRepoResult(): RepoResult.Failure {
     return when (this.error) {

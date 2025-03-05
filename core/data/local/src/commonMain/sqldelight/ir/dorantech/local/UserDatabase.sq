@@ -1,11 +1,11 @@
 CREATE TABLE UserEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
+    username TEXT NOT NULL,
     email TEXT NOT NULL
 );
 
 insertUser:
-INSERT INTO UserEntity (id, name, email) VALUES (?, ?, ?);
+INSERT INTO UserEntity (id, username, email) VALUES (?, ?, ?);
 
 selectUserById:
 SELECT * FROM UserEntity WHERE id = ? LIMIT 1;

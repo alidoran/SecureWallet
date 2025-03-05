@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ir.dorantech.feature1.viewmodel.UserViewModel
 import ir.dorantech.feature1.ui.Feature1Screen
-import ir.dorantech.ui.SignInScreen
+import ir.dorantech.ui.screen.SignInScreen
 import ir.dorantech.ui.model.FirstScreenButtons
 import ir.dorantech.ui.screen.MainScreen
 import org.kodein.di.compose.localDI

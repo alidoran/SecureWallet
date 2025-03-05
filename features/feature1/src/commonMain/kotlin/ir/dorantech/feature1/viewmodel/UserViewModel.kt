@@ -1,6 +1,6 @@
 package ir.dorantech.feature1.viewmodel
 
-import ir.dorantech.domain.model.UseCaseResult
+import ir.dorantech.basedomain.model.UseCaseResult
 import ir.dorantech.domain.model.User
 import ir.dorantech.domain.usecase.impl.UserByIdUseCase
 import ir.dorantech.ui.state.UIState

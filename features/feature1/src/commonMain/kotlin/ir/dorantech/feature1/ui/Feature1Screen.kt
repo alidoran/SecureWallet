@@ -39,7 +39,7 @@ fun Feature1Screen(
             is UIState.Success -> {
                 val user = state.data
                 Column {
-                    Text("Welcome, ${user.name}!")
+                    Text("Welcome, ${user.username}!")
                     Text("Email: ${user.email}")
                 }
             }
