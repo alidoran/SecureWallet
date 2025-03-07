@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "ir.dorantech.signin"
+    namespace = "ir.dorantech.auth"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
@@ -62,8 +62,9 @@ kotlin {
             implementation(project(":core"))
             implementation(project(":di"))
             implementation(project(":core:baseui"))
-            implementation(project(":core:domain"))
             implementation(project(":foundation"))
+            api(project(":features:auth:ui"))
+            implementation(project(":features:auth:domain"))
         }
     }
 }

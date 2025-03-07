@@ -4,21 +4,21 @@ import ir.dorantech.model.SecurityLevel
 
 object Validation {
     fun nameValidation(
-        name: String,
+        username: String,
         securityLevel: SecurityLevel,
     ): String {
-        if (name.isEmpty()) return ""
+        if (username.isEmpty()) return ""
         var error = ""
-        val isLengthPass = name.length > 2
+        val isLengthPass = username.length > 2
         if (!isLengthPass) error = "Username must be at least 3 characters"
-        val isAllowedCharacter = name.matches("^[a-zA-Z0-9_]+$".toRegex())
+        val isAllowedCharacter = username.matches("^[a-zA-Z0-9_]+$".toRegex())
         if (!isAllowedCharacter && error.isEmpty())
             error = "Username can only contain letters, numbers, and underscores"
         val consecutiveSymbols =
-            name.matches("^[a-zA-Z0-9](?!.*[_.]{2})[a-zA-Z0-9._]*[a-zA-Z0-9]$".toRegex())
+            username.matches("^[a-zA-Z0-9](?!.*[_.]{2})[a-zA-Z0-9._]*[a-zA-Z0-9]$".toRegex())
         if (!consecutiveSymbols && error.isEmpty())
             error = "Username can't have consecutive symbols"
-        val startEndValidation = name.matches("^[a-zA-Z0-9][a-zA-Z0-9_]*[a-zA-Z0-9]$".toRegex())
+        val startEndValidation = username.matches("^[a-zA-Z0-9][a-zA-Z0-9_]*[a-zA-Z0-9]$".toRegex())
         if (!startEndValidation && error.isEmpty())
             error = "Username can't start or end with a symbol"
         return when (securityLevel) {

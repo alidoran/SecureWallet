@@ -60,6 +60,7 @@ kotlin {
             implementation(project(":core"))
             implementation(project(":di"))
             implementation(project(":core:baseui"))
+            implementation(project(":core:basedomain"))
             implementation(project(":core:domain"))
         }
     }

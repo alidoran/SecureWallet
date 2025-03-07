@@ -41,9 +41,8 @@ kotlin {
             implementation(project(":core"))
             implementation(project(":core:baseui"))
             implementation(project(":core:domain"))
-            implementation(project(":features:feature1"))
-            implementation(project(":features:feature2"))
             implementation(project(":features:auth"))
+            implementation(project(":features:feature1"))
             implementation(project(":di"))
         }
         iosMain.dependencies {

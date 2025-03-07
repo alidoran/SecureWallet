@@ -2,8 +2,8 @@ package ir.dorantech.util
 
 import ir.dorantech.remote.model.DataErrorRemote
 import ir.dorantech.remote.model.RemoteResult
-import ir.dorantech.model.RepoError
-import ir.dorantech.model.RepoResult
+import ir.dorantech.basedomain.model.RepoError
+import ir.dorantech.basedomain.model.RepoResult
 
 internal fun RemoteResult.Failure.toRepoResult(): RepoResult.Failure {
     return when (this.error) {

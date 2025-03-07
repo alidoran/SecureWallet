@@ -1,11 +1,11 @@
 package ir.dorantech.mapper
 
 import ir.dorantech.local.UserEntity
-import ir.dorantech.model.UserModel
+import ir.dorantech.domain.model.UserModel
 
 internal fun UserEntity.toUserModel(): UserModel = UserModel(
     id = this.id.toInt(),
-    name = this.name,
+    username = this.username,
     email = this.email
 )
 

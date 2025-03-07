@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":features:auth")
-
+include(":core:basedomain")
 
 rootProject.name = "SecureWallet"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -46,5 +45,6 @@ include(":di")
 include(":foundation")
 include(":features")
 include(":features:feature1")
-include(":features:feature2")
 include(":features:auth")
+include(":features:auth:ui")
+include(":features:auth:domain")

@@ -9,10 +9,10 @@ import ir.dorantech.local.model.LocalResult
 internal class AuthDataSourceLocalImpl(
     private val database: SecureWalletDatabase
 ) : AuthDataSourceLocal {
-    override suspend fun checkSignIn(signInRequest: SignInRequestLocal): LocalResult<Unit> {
+    override suspend fun checkSignIn(signInRequestLocal: SignInRequestLocal): LocalResult<Unit> {
         kotlin.runCatching {
             val isValidUser = database.authDatabaseQueries
-                .isValidUser(signInRequest.name, signInRequest.password).executeAsOneOrNull()
+                .isValidUser(signInRequestLocal.username, signInRequestLocal.password).executeAsOneOrNull()
             return if (isValidUser == true) LocalResult.Success(Unit)
             else LocalResult.Failure(DataErrorLocal.Unauthorized)
 
