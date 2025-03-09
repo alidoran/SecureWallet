@@ -1,25 +1,35 @@
 [versions]
-agp = "8.8.2"
+agp = "8.9.0"
 android-compileSdk = "35"
 android-minSdk = "29"
 android-targetSdk = "34"
 androidx-activityCompose = "1.10.1"
 androidx-lifecycle = "2.8.4"
+coilCompose = "3.1.0"
 composablecomponentkmm = "1.0.4"
 compose-multiplatform = "1.7.1"
 kodein = "7.23.1"
-kotlin = "2.1.0"
-kotlinx-coroutines = "1.9.0"
-kotlinxSerializationJson = "1.7.3"
-ktorClient = "3.0.2"
+kotlin = "2.1.10"
+kotlinx-coroutines = "1.10.1"
+kotlinxSerializationJson = "1.8.0"
+ktorClient = "3.0.3"
 navigationCompose = "2.8.0-alpha10"
 serialization = "2.0.21"
 sqldelight = "2.0.2"
+coreKtx = "1.15.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 composablecomponentkmm = { module = "ir.dorantech:composable-component-kmm", version.ref = "composablecomponentkmm" }
 kodein-di-framework-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
@@ -35,6 +45,12 @@ sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.re
 sqldelight-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

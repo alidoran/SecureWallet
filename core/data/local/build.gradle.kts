@@ -59,6 +59,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(project(":core"))
+            implementation(project(":core:data"))
             implementation(libs.sqldelight.runtime)
         }
         iosMain.dependencies {

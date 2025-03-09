@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -36,6 +37,7 @@ android {
 
 kotlin {
     androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -62,6 +64,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(project(":core"))
+            implementation(project(":core:data"))
             implementation(libs.ktor.client.content.negotiation)
             api(libs.ktor.client.core)
             implementation(libs.ktor.client.logging)

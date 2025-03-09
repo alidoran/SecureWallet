@@ -6,7 +6,13 @@ import kotlinx.serialization.Serializable
 data class UserDto(
     val id: Int,
     val username: String,
-    val email: String
+    val password: String,
+    val firstName: String,
+    val lastName: String,
+    val email: String,
+    val phoneNumber: String,
+    val gender: String,
+    val image: String,
 )
 
 @Serializable

@@ -2,18 +2,19 @@ package ir.dorantech.remote.di
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngineFactory
-import ir.dorantech.remote.api.SignInDataSourceRemote
+import ir.dorantech.config.AppConfig
+import ir.dorantech.model.WebHostSource
+import ir.dorantech.remote.api.SignInRemoteDataSource
+import ir.dorantech.remote.api.SignUpRemoteDataSource
 import ir.dorantech.remote.api.UserRemoteDataSource
-import ir.dorantech.remote.api.impl.SignInDataSourceRemoteImpl
+import ir.dorantech.remote.api.impl.SignInRemoteDataSourceImpl
+import ir.dorantech.remote.api.impl.SignUpRemoteDataSourceImpl
 import ir.dorantech.remote.api.impl.UserRemoteDataSourceImpl
 import ir.dorantech.remote.network.HttpClientProvider
 import ir.dorantech.remote.network.provideHttpClientEngineFactory
 import ir.dorantech.remote.util.BaseAddress.BASE_URL_LOCAL
 import ir.dorantech.remote.util.BaseAddress.BASE_URL_REMOTE
 import ir.dorantech.remote.util.GetEndPoint
-import ir.dorantech.util.AppConfig
-import ir.dorantech.util.WebHostSource.Local
-import ir.dorantech.util.WebHostSource.Remote
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
@@ -24,8 +25,12 @@ object RemoteModules {
         bindSingleton<UserRemoteDataSource> { UserRemoteDataSourceImpl(instance(), instance()) }
     }
 
-    private val signInDataSourceRemoteModule = DI.Module("signInDataSourceModule") {
-        bindSingleton<SignInDataSourceRemote> { SignInDataSourceRemoteImpl(instance(), instance()) }
+    private val signInRemoteSourceRemoteDataModule = DI.Module("signInDataSourceModule") {
+        bindSingleton<SignInRemoteDataSource> { SignInRemoteDataSourceImpl(instance(), instance()) }
+    }
+
+    private val signUpRemoteSourceRemoteDataModule = DI.Module("signUpDataSourceModule") {
+        bindSingleton<SignUpRemoteDataSource> { SignUpRemoteDataSourceImpl(instance(), instance()) }
     }
 
     private val clientEngineModule = DI.Module("clientEngineModule") {
@@ -37,9 +42,9 @@ object RemoteModules {
     }
 
     private val webHostModule = DI.Module("webHostModule") {
-        when (AppConfig.webHostSource) {
-            Remote -> bindSingleton { BASE_URL_REMOTE }
-            Local -> bindSingleton { BASE_URL_LOCAL }
+        when (AppConfig.WEB_HOST_SOURCE) {
+            WebHostSource.Remote -> bindSingleton { BASE_URL_REMOTE }
+            WebHostSource.Local -> bindSingleton { BASE_URL_LOCAL }
         }
     }
 
@@ -51,7 +56,8 @@ object RemoteModules {
         import(clientEngineModule)
         import(httpClientModule)
         import(userRemoteDataSourceModule)
-        import(signInDataSourceRemoteModule)
+        import(signInRemoteSourceRemoteDataModule)
+        import(signUpRemoteSourceRemoteDataModule)
         import(getEndPointModule)
         import(webHostModule)
     }

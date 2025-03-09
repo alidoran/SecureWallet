@@ -3,6 +3,8 @@ package ir.dorantech.di
 import ir.dorantech.domain.repository.UserRepository
 import ir.dorantech.repository.SignInRepository
 import ir.dorantech.repository.SignInRepositoryImpl
+import ir.dorantech.repository.SignUpRepository
+import ir.dorantech.repository.SignUpRepositoryImpl
 import ir.dorantech.repository.UserRepositoryImpl
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
@@ -17,8 +19,13 @@ object RepositoryModules {
         bindSingleton<SignInRepository> { SignInRepositoryImpl(instance(), instance()) }
     }
 
+    private val signUpRepositoryModule = DI.Module("signUpRepositoryModule") {
+        bindSingleton<SignUpRepository> { SignUpRepositoryImpl(instance(), instance()) }
+    }
+
     val repositoryModules = DI.Module("repositoryModules") {
         import(userRepositoryModule)
         import(signInRepositoryModule)
+        import(signUpRepositoryModule)
     }
 }

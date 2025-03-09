@@ -3,31 +3,31 @@ package ir.dorantech.local.db.impl
 import ir.dorantech.SecureWalletDatabase
 import ir.dorantech.local.UserEntity
 import ir.dorantech.local.db.UserDataSourceLocal
-import ir.dorantech.local.model.DataErrorLocal
-import ir.dorantech.local.model.LocalResult
+import model.DataError
+import model.DataResult
 
 class UserDataSourceImplLocal(
     private val database: SecureWalletDatabase
 ) : UserDataSourceLocal {
-    override suspend fun getUser(id: Int): LocalResult<UserEntity> {
+    override suspend fun getUser(id: Int): DataResult<UserEntity> {
         runCatching {
             val userEntity = database.userDatabaseQueries
                 .selectUserById(id.toLong()).executeAsOneOrNull()
-            return if (userEntity != null) LocalResult.Success(userEntity)
-            else LocalResult.Failure(DataErrorLocal.NotFound)
-        }.getOrElse { return LocalResult.Failure(DataErrorLocal.Unknown(it)) }
+            return if (userEntity != null) DataResult.Success(userEntity)
+            else DataResult.Failure(DataError.NotFound)
+        }.getOrElse { return DataResult.Failure(DataError.Unknown(it)) }
     }
 
-    override suspend fun insertUser(userEntity: UserEntity): LocalResult<Boolean> {
+    override suspend fun insertUser(userEntity: UserEntity): DataResult<Boolean> {
         runCatching {
             database.userDatabaseQueries.insertUser(
                 userEntity.id,
                 userEntity.username,
                 userEntity.email
             )
-            return LocalResult.Success(true)
+            return DataResult.Success(true)
         }.getOrElse {
-            return LocalResult.Failure(DataErrorLocal.Unknown(it))
+            return DataResult.Failure(DataError.Unknown(it))
         }
     }
 }

@@ -8,10 +8,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ir.dorantech.feature1.viewmodel.UserViewModel
-import ir.dorantech.feature1.ui.Feature1Screen
 import ir.dorantech.ui.screen.SignInScreen
 import ir.dorantech.ui.model.FirstScreenButtons
 import ir.dorantech.ui.screen.MainScreen
+import ir.dorantech.ui.screen.SignUpScreen
 import org.kodein.di.compose.localDI
 import org.kodein.di.instance
 
@@ -26,12 +26,12 @@ fun NavigationScreen(
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = RouteApp.SignInRoute
+            startDestination = RouteAuth.SignUpRoute,
         ) {
             composable<RouteApp.MainRoute> {
                 MainScreen(
-                    onButtonClick = {clickedButton ->
-                        when (clickedButton){
+                    onButtonClick = { clickedButton ->
+                        when (clickedButton) {
                             FirstScreenButtons.Retrofit ->
                                 navController.navigate(RouteApp.Feature1Route)
                         }
@@ -40,20 +40,16 @@ fun NavigationScreen(
                 )
             }
 
-            composable<RouteApp.Feature1Route> {
-                Feature1Screen(
-                    onGetUserByIdClick = {userId ->
-                        viewModel.fetchUser(userId)
-                    },
+            composable<RouteApp.SignInRoute> {
+                SignInScreen(
+                    onSignInSuccess = { navController.navigate(RouteApp.Feature1Route) },
                     modifier = modifier.fillMaxSize()
                 )
             }
 
-            composable<RouteApp.SignInRoute> {
-                SignInScreen(
-                    onSignInSuccess = {
-                        navController.navigate(RouteApp.Feature1Route)
-                    },
+            composable<RouteAuth.SignUpRoute> {
+                SignUpScreen(
+                    onSignUpSuccess = { navController.navigate(RouteApp.Feature1Route) },
                     modifier = modifier.fillMaxSize()
                 )
             }

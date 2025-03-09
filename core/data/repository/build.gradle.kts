@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -36,6 +37,7 @@ android {
 
 kotlin {
     androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -57,6 +59,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":core"))
+            implementation(project(":core:data"))
             implementation(project(":core:data:local"))
             implementation(project(":core:data:remote"))
             implementation(project(":core:basedomain"))

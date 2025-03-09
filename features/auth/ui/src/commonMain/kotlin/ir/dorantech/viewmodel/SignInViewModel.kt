@@ -1,9 +1,9 @@
 package ir.dorantech.viewmodel
 
-import ir.dorantech.Validation.nameValidation
-import ir.dorantech.Validation.passwordValidation
+import ir.dorantech.util.Validation.validateUserName
+import ir.dorantech.util.Validation.validatePass
 import ir.dorantech.basedomain.model.UseCaseResult
-import ir.dorantech.model.SecurityLevel
+import ir.dorantech.config.AppConfig.SECURITY_LEVEL
 import ir.dorantech.model.SignInRequest
 import ir.dorantech.ui.state.UIState
 import ir.dorantech.usecase.SignInUseCase
@@ -25,18 +25,18 @@ class SignInViewModel(
 
     fun onNameFocusChanged(username: String) {
         _name.value = username
-        val error = nameValidation(
+        val error = validateUserName(
             username = username,
-            securityLevel = SecurityLevel.Strong
+            securityLevel = SECURITY_LEVEL
         )
         _nameError.value = error
     }
 
     fun onPasswordFocusChanged(password: String) {
         _password.value = password
-        val error = passwordValidation(
+        val error = validatePass(
             password = password,
-            securityLevel = SecurityLevel.Strong
+            securityLevel = SECURITY_LEVEL
         )
         _passwordError.value = error
     }

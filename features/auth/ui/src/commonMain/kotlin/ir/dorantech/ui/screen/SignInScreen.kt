@@ -3,7 +3,9 @@ package ir.dorantech.ui.screen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,15 +35,18 @@ fun SignInScreen(
     val vm by localDI().instance<SignInViewModel>()
     val userState = vm.signInState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
+    val nameError = vm.nameError
+    val passwordError = vm.passwordError
+    val isLoading = userState.value is UIState.Loading
+
     Column(
-        modifier = modifier
-            .padding(start = 16.dp, end = 16.dp, top = 64.dp),
+        modifier = modifier.padding(start = 16.dp, end = 16.dp, top = 64.dp),
     ) {
         TextFieldWithError(
             onFocusChanged = { name, isFocused ->
                 if (!isFocused) vm.onNameFocusChanged(name)
             },
-            errorListener = vm.nameError,
+            errorListener = nameError,
             label = "User Name",
         )
 
@@ -49,7 +54,7 @@ fun SignInScreen(
             onFocusChanged = { password, isFocused ->
                 if (!isFocused) vm.onPasswordFocusChanged(password)
             },
-            errorListener = vm.passwordError,
+            errorListener = passwordError,
             label = "Password",
             modifier = Modifier.padding(top = 8.dp)
         )
@@ -60,6 +65,8 @@ fun SignInScreen(
             },
             modifier = Modifier.align(CenterHorizontally),
         ) {
+            if (isLoading)
+                CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color.White)
             Text(text = "SignIn")
         }
 
@@ -77,15 +84,13 @@ fun SignInScreen(
             )
         }
 
-
         when (val state = userState.value) {
-            is UIState.Error -> {
-                getToastHandler(ToastDuration.Short).showToast(state.message)
-            }
-
             UIState.Idle -> {}
             UIState.Loading -> getToastHandler(ToastDuration.Short).showToast("Loading")
             is UIState.Success -> onSignInSuccess.invoke()
+            is UIState.Error -> {
+                getToastHandler(ToastDuration.Short).showToast(state.message)
+            }
         }
     }
 }

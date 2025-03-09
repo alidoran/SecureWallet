@@ -6,7 +6,6 @@ import ir.dorantech.local.di.LocalModules.localDataModules
 import ir.dorantech.remote.di.RemoteModules.remoteDataModules
 import org.kodein.di.DI
 
-
 val CoreModules = DI.Module("appModule") {
     import(localDataModules)
     import(remoteDataModules)

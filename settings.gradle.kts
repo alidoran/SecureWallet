@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":core:basedomain")
+
 
 rootProject.name = "SecureWallet"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -35,16 +35,17 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":core")
+include(":core:basedomain")
+include(":core:baseui")
 include(":core:data")
 include(":core:data:local")
 include(":core:data:remote")
 include(":core:data:repository")
 include(":core:domain")
-include(":core:baseui")
 include(":di")
-include(":foundation")
 include(":features")
-include(":features:feature1")
 include(":features:auth")
-include(":features:auth:ui")
 include(":features:auth:domain")
+include(":features:auth:ui")
+include(":features:feature1")
+include(":foundation:media")

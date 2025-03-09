@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -37,6 +38,7 @@ android {
 
 kotlin {
     androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -62,7 +64,6 @@ kotlin {
             implementation(project(":core"))
             implementation(project(":di"))
             implementation(project(":core:baseui"))
-            implementation(project(":foundation"))
             api(project(":features:auth:ui"))
             implementation(project(":features:auth:domain"))
         }

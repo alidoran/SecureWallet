@@ -1,11 +1,20 @@
 CREATE TABLE Auth (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    password TEXT NOT NULL
+    userName TEXT NOT NULL,
+    password TEXT NOT NULL,
+    firstName TEXT,
+    lastName Text,
+    email Text,
+    phoneNumber Text,
+    gender Text,
+    image Text,
+    birthDate Text
 );
 
-insertAuth:
-INSERT INTO Auth (name, password) VALUES ( ?, ?);
+signup:
+INSERT INTO Auth (userName , password, firstName, lastName, email, phoneNumber, gender, image, birthDate)
+VALUES (?,?,?,?,?,?,?,?, ?);
 
 isValidUser:
-SELECT EXISTS(SELECT 1 FROM Auth WHERE name = ? AND password = ?) AS status;
+SELECT EXISTS(SELECT 1 FROM Auth WHERE userName = ? AND password = ?) AS status;
+

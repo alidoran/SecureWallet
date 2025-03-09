@@ -2,9 +2,11 @@ package ir.dorantech.local.di
 
 import app.cash.sqldelight.db.SqlDriver
 import ir.dorantech.SecureWalletDatabase
-import ir.dorantech.local.db.AuthDataSourceLocal
+import ir.dorantech.local.db.SignInLocalDataSource
+import ir.dorantech.local.db.SignUpLocalDataSource
 import ir.dorantech.local.db.UserDataSourceLocal
-import ir.dorantech.local.db.impl.AuthDataSourceLocalImpl
+import ir.dorantech.local.db.impl.SignInLocalDataSourceImpl
+import ir.dorantech.local.db.impl.SignUpLocalDataSourceImpl
 import ir.dorantech.local.db.impl.UserDataSourceImplLocal
 import ir.dorantech.local.driver.databaseDriverFactory
 import org.kodein.di.DI
@@ -20,8 +22,11 @@ object LocalModules {
         bindSingleton { SecureWalletDatabase(instance()) }
     }
 
-    private val signInLocalDataSourceModule = DI.Module("signinLocalDataSourceModule") {
-        bindSingleton<AuthDataSourceLocal> { AuthDataSourceLocalImpl(instance()) }
+    private val signInLocalDataSourceModule = DI.Module("signInLocalDataSourceModule") {
+        bindSingleton<SignInLocalDataSource> { SignInLocalDataSourceImpl(instance()) }
+    }
+    private val signUpLocalDataSourceModule = DI.Module("signUpLocalDataSourceModule") {
+        bindSingleton<SignUpLocalDataSource> { SignUpLocalDataSourceImpl(instance()) }
     }
 
     private val userLocalDataSourceModule = DI.Module("userLocalDataSourceModule") {
@@ -32,6 +37,7 @@ object LocalModules {
         import(sqlDriverModule)
         import(secureWalletDatabaseModule)
         import(signInLocalDataSourceModule)
+        import(signUpLocalDataSourceModule)
         import(userLocalDataSourceModule)
     }
 }
